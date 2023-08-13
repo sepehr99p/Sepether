@@ -25,7 +25,4 @@ jobs:
     - name: Build with Gradle
       run: ./gradlew build
 
-    - name: Gradle Dependency Submission
-      uses: mikepenz/gradle-dependency-submission@v0.9.0
-
       
