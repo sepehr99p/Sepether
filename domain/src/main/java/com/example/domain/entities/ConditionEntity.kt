@@ -1,6 +1,6 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Condition(
+data class ConditionEntity(
     val code: Int,
     val icon: String,
     val text: String

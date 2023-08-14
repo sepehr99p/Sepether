@@ -1,8 +1,8 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Current(
+data class CurrentEntity(
     val cloud: Int,
-    val condition: Condition,
+    val condition: ConditionEntity,
     val feelslike_c: Double,
     val feelslike_f: Double,
     val gust_kph: Double,

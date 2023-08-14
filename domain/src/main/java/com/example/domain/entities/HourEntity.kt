@@ -1,10 +1,10 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Hour(
+data class HourEntity(
     val chance_of_rain: Int,
     val chance_of_snow: Int,
     val cloud: Int,
-    val condition: Condition,
+    val condition: ConditionEntity,
     val dewpoint_c: Double,
     val dewpoint_f: Double,
     val feelslike_c: Double,

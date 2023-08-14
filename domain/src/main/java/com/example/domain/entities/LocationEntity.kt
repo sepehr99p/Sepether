@@ -1,6 +1,6 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Location(
+data class LocationEntity(
     val country: String,
     val lat: Double,
     val localtime: String,

@@ -1,7 +1,7 @@
 package com.example.data.api
 
-import com.example.data.entities.response.CurrentResponse
-import com.example.data.entities.response.ForecastResponse
+import com.example.domain.entities.responses.CurrentServerEntity
+import com.example.domain.entities.responses.ForecastServerEntity
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,13 +12,13 @@ interface WeatherApi {
     fun getCurrentWeather(
         @Query("key") apiKey : String,
         @Query("q") query : String
-    ) : Response<CurrentResponse>
+    ) : Response<CurrentServerEntity>
 
     @GET("/forecast.json")
     fun getForecast(
         @Query("key") apiKey : String,
         @Query("q") query : String,
         @Query("days") days : Int
-    ) : Response<ForecastResponse>
+    ) : Response<ForecastServerEntity>
 
 }

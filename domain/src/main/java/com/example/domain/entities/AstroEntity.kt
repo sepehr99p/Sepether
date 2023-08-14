@@ -1,6 +1,6 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Astro(
+data class AstroEntity(
     val is_moon_up: Int,
     val is_sun_up: Int,
     val moon_illumination: String,

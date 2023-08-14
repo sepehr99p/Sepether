@@ -1,12 +1,12 @@
-package com.example.data.entities
+package com.example.domain.entities
 
-data class Day(
+data class DayEntity(
     val avghumidity: Double,
     val avgtemp_c: Double,
     val avgtemp_f: Double,
     val avgvis_km: Double,
     val avgvis_miles: Double,
-    val condition: Condition,
+    val condition: ConditionEntity,
     val daily_chance_of_rain: Int,
     val daily_chance_of_snow: Int,
     val daily_will_it_rain: Int,
