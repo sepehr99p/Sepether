@@ -6,4 +6,9 @@ this is the alpha phase of the project so application is going to present the wh
 
 https://www.weatherapi.com is used to fetch required data.
 
+todo:
+  -add new webService : https://open-meteo.com/en/docs
+  -fix Read timed out
+  -add theme & ui components
+  -
 
