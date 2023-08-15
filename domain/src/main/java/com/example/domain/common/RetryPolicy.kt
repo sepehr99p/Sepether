@@ -12,7 +12,7 @@ interface RetryPolicy {
 }
 
 data class DefaultRetryPolicy(
-    override val numRetries: Long = 5,
+    override val numRetries: Long = 3,
     override val delayMillis: Long = 400,
     override val delayFactor: Long = 2
 ) : RetryPolicy

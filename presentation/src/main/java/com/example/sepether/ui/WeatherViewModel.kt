@@ -43,6 +43,12 @@ class WeatherViewModel @Inject constructor(
 
                         is Resource.Error -> {
                             Log.i(TAG, "getCurrentWeather: error ${it.message}")
+                            //todo : find a better solution for this problem later
+                            it.message?.let {
+                                if (it.contains("Read timed out")) {
+                                    getCurrentWeather()
+                                }
+                            }
                         }
                     }
                 }
