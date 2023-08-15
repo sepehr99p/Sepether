@@ -1,5 +1,6 @@
 package com.example.sepether.di.core
 
+import com.example.data.api.RetryInterceptor
 import com.example.data.api.WeatherApi
 import com.example.data.common.Constants
 import dagger.Module
@@ -48,7 +49,6 @@ object NetworkModule {
     ): OkHttpClient.Builder {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .protocols(listOf(Protocol.HTTP_1_1))
             .retryOnConnectionFailure(true)
     }
 
