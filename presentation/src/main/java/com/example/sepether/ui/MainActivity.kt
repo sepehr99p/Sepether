@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -14,7 +15,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.domain.entities.responses.CurrentServerEntity
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -34,15 +34,36 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     private fun HomeScreen() {
-        val newData by viewModel.newData
+        val currentWeather by viewModel.currentWeather
 
-        LaunchedEffect(newData) {
-            newData.current?.temp_c
+        LaunchedEffect(currentWeather) {
+            currentWeather.current
         }
 
-        Box(modifier = Modifier.fillMaxWidth()) {
-            TextC(value = newData.current?.temp_c.toString())
+        Column(modifier = Modifier.fillMaxWidth()) {
+            TextC(value = "temp : "+currentWeather.current?.temp_c.toString())
+            TextC(value = "feels like : "+currentWeather.current?.feelslike_c.toString())
+            TextC(value = "wind : " +currentWeather.current?.wind_kph.toString() + " km/h")
+            ForecastScreen()
         }
+    }
+
+    @Composable
+    private fun ForecastScreen() {
+        val forecastWeather by viewModel.forecast
+
+        LaunchedEffect(forecastWeather) {
+            forecastWeather.forecast
+        }
+
+        Row(modifier = Modifier.fillMaxWidth()) {
+            forecastWeather.forecast?.forecastday?.let {
+                it.forEach {
+                    TextC("sunset : "+it.astro.sunset)
+                }
+            }
+        }
+
     }
 
     @Composable
@@ -57,6 +78,7 @@ class MainActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.getCurrentWeather()
+        viewModel.getForecast()
     }
 
 

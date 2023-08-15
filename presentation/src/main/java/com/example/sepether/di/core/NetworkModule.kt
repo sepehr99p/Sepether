@@ -12,14 +12,12 @@ import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
-
-
-
 
     @Provides
     @Singleton
@@ -48,7 +46,9 @@ object NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient.Builder {
         return OkHttpClient.Builder()
-            .addInterceptor(httpLoggingInterceptor)
+//            .addInterceptor(httpLoggingInterceptor)
+            .connectTimeout(30, TimeUnit.SECONDS) // Adjust as needed
+            .readTimeout(30, TimeUnit.SECONDS)    // Adjust as needed
             .retryOnConnectionFailure(true)
     }
 

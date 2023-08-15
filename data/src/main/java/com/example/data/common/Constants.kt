@@ -2,7 +2,7 @@ package com.example.data.common
 
 object Constants {
     const val BASE_URL = "https://api.weatherapi.com/v1/"
-    const val API_KEY = "6dccd5156e6b454a8a182009231308"
+    const val API_KEY = "f0d0daa754044c46bee141931231508"
 }
 
 

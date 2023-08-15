@@ -3,8 +3,6 @@ package com.example.sepether.ui
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Resource
@@ -15,7 +13,6 @@ import com.example.domain.usecases.ForecastWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -35,11 +32,12 @@ class WeatherViewModel @Inject constructor(
 
 
 
-    private val _newData = mutableStateOf(CurrentServerEntity(null,null))
-    val newData: State<CurrentServerEntity> = _newData
+    private val _currentWeather = mutableStateOf(CurrentServerEntity(null,null))
+    val currentWeather: State<CurrentServerEntity> = _currentWeather
 
-    private val _forecast = MutableLiveData<ForecastServerEntity>()
-    val forecast: LiveData<ForecastServerEntity> get() = _forecast
+    private val _forecast = mutableStateOf(ForecastServerEntity(null,null,null))
+    val forecast: State<ForecastServerEntity> = _forecast
+
 
     fun getCurrentWeather() {
         scope.launch {
@@ -50,7 +48,7 @@ class WeatherViewModel @Inject constructor(
                     when (it) {
                         is Resource.Success -> {
                             Log.i(TAG, "getCurrentWeather: success")
-                            _newData.value = it.data!!
+                            _currentWeather.value = it.data!!
                         }
 
                         is Resource.Loading -> {
@@ -68,7 +66,7 @@ class WeatherViewModel @Inject constructor(
 
     fun getForecast() {
         scope.launch {
-            forecastWeatherUseCase.invoke("Tehran", 4)
+            forecastWeatherUseCase.invoke("Tehran", 3)
                 .catch {
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
                 }
