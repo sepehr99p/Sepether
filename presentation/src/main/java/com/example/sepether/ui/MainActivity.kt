@@ -5,10 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -19,7 +20,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.domain.entities.Forecastday
 import dagger.hilt.android.AndroidEntryPoint
 
 
@@ -66,47 +66,20 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun ForecastScreen() {
         val forecastWeather by viewModel.forecast
-
+        val scrollState = rememberLazyListState()
         LaunchedEffect(forecastWeather) {
             forecastWeather.forecast
         }
-
-        Column(modifier = Modifier.fillMaxWidth()) {
+        LazyColumn(modifier = Modifier
+            .fillMaxWidth(), state = scrollState ) {
             forecastWeather.forecast?.forecastday?.let { list ->
                 list.forEach {
-                    Day(forecastday = it)
+                    item {
+                        ForecastView(forecastday = it)
+                    }
                 }
             }
         }
-    }
-
-    @Composable
-    private fun Day(forecastday: Forecastday) {
-        Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                text = forecastday.date,
-                color = Color.Black,
-                fontSize = 18.sp
-            )
-            Spacer(
-                modifier = Modifier.height(4.dp)
-            )
-            SimpleText(value = " sunset : ${forecastday.astro.sunset}")
-            SimpleText(value = " sunrise : ${forecastday.astro.sunrise}")
-            SimpleText(value = " average temp : ${forecastday.day.avgtemp_c}")
-        }
-    }
-
-    @Composable
-    private fun SimpleText(value: String) {
-        Text(
-            modifier = Modifier.padding(16.dp),
-            text = value,
-            color = Color.Gray
-        )
     }
 
     override fun onResume() {
