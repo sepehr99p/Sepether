@@ -1,4 +1,6 @@
 # Sepether<br>
+![Weather](https://github.com/sepehr99p/sepether/blob/master/presentation/src/main/ic_launcher-playstore.png?raw=true)
+<br>
 Weather Android Application (Clean Architecture + MVVM)
 
 this is an android project for weather.<br>
