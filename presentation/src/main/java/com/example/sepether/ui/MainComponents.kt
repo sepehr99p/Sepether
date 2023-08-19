@@ -1,22 +1,24 @@
 package com.example.sepether.ui
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.Forecastday
+import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.sepether.ui.theme.Color.LightColorScheme
 
 @Composable
 fun ForecastView(forecastday: Forecastday) {
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.width(IntrinsicSize.Max)) {
         Text(
             modifier = Modifier
                 .fillMaxWidth()
@@ -28,11 +30,16 @@ fun ForecastView(forecastday: Forecastday) {
         Spacer(
             modifier = Modifier.height(4.dp)
         )
-        SimpleText(value = " sunset : ${forecastday.astro.sunset}")
+        SimpleText(value = " condition : ${forecastday.day.condition.text}")
         SimpleText(value = " sunrise : ${forecastday.astro.sunrise}")
+        SimpleText(value = " sunset : ${forecastday.astro.sunset}")
         SimpleText(value = " average temp : ${forecastday.day.avgtemp_c}")
+        SimpleText(value = " max temp : ${forecastday.day.maxtemp_c}")
+        SimpleText(value = " min temp : ${forecastday.day.mintemp_c}")
+
     }
 }
+
 
 @Composable
 fun SimpleText(value: String) {
