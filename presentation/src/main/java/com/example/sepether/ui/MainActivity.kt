@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -19,7 +20,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sepether.ui.theme.Color.LightColorScheme
@@ -50,14 +55,19 @@ class MainActivity : ComponentActivity() {
             currentWeather.current
         }
 
-        Box(modifier = Modifier.fillMaxWidth().fillMaxHeight().background(LightColorScheme.primary)){
-            Column(modifier = Modifier.fillMaxWidth()) {
+        Box(modifier = Modifier
+            .fillMaxWidth()
+            .background(LightColorScheme.primary)){
+            Column(modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterStart)) {
                 Text(
                     modifier = Modifier.padding(16.dp),
                     text = "Today",
                     color = LightColorScheme.onPrimary,
                     fontSize = 18.sp
                 )
+//                ImageWithCoil(currentWeather.current?.condition?.icon ?: "")
                 SimpleText(value = " condition : ${currentWeather.current?.condition?.text}")
                 SimpleText(value = " temp : ${currentWeather.current?.temp_c}")
                 SimpleText(value = " feels like : ${currentWeather.current?.feelslike_c}")

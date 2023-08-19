@@ -1,5 +1,6 @@
 package com.example.sepether.ui
 
+
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.Forecastday
-import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.sepether.ui.theme.Color.LightColorScheme
+
 
 @Composable
 fun ForecastView(forecastday: Forecastday) {
@@ -49,3 +50,27 @@ fun SimpleText(value: String) {
         color = LightColorScheme.onPrimary
     )
 }
+
+
+//@Composable
+//fun ImageWithCoil(url: String) {
+//    // Create an ImageRequest with required options
+//    Log.i("SEPI", "ImageWithCoil: url $url")
+//    val imageRequest = ImageRequest.Builder(LocalContext.current)
+//        .data(url)
+//        .scale(Scale.FILL)
+//        .precision(Precision.INEXACT)
+//        .build()
+//
+//    // Use rememberImagePainter with the custom ImageRequest
+//    val imagePainter = rememberImagePainter(request = imageRequest)
+//
+//    Image(
+//        painter = imagePainter,
+//        contentDescription = null, // Set a proper content description
+//        modifier = Modifier
+//            .width(40.dp)
+//            .height(40.dp)
+//            .padding(16.dp)
+//    )
+//}
