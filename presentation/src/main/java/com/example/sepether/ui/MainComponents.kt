@@ -12,6 +12,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.Forecastday
+import com.example.sepether.ui.theme.Color.LightColorScheme
 
 @Composable
 fun ForecastView(forecastday: Forecastday) {
@@ -21,7 +22,7 @@ fun ForecastView(forecastday: Forecastday) {
                 .fillMaxWidth()
                 .padding(16.dp),
             text = forecastday.date,
-            color = Color.Black,
+            color = LightColorScheme.onPrimary,
             fontSize = 18.sp
         )
         Spacer(
@@ -38,6 +39,6 @@ fun SimpleText(value: String) {
     Text(
         modifier = Modifier.padding(16.dp),
         text = value,
-        color = Color.Gray
+        color = LightColorScheme.onPrimary
     )
 }
