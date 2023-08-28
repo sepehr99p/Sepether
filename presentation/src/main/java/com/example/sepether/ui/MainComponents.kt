@@ -1,6 +1,8 @@
 package com.example.sepether.ui
 
 
+import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
@@ -11,10 +13,17 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
+import coil.size.Precision
+import coil.size.Scale
 import com.example.domain.entities.Forecastday
 import com.example.sepether.ui.theme.Color.LightColorScheme
+
 
 
 @Composable
@@ -52,25 +61,25 @@ fun SimpleText(value: String) {
 }
 
 
-//@Composable
-//fun ImageWithCoil(url: String) {
-//    // Create an ImageRequest with required options
-//    Log.i("SEPI", "ImageWithCoil: url $url")
-//    val imageRequest = ImageRequest.Builder(LocalContext.current)
-//        .data(url)
-//        .scale(Scale.FILL)
-//        .precision(Precision.INEXACT)
-//        .build()
-//
-//    // Use rememberImagePainter with the custom ImageRequest
-//    val imagePainter = rememberImagePainter(request = imageRequest)
-//
-//    Image(
-//        painter = imagePainter,
-//        contentDescription = null, // Set a proper content description
-//        modifier = Modifier
-//            .width(40.dp)
-//            .height(40.dp)
-//            .padding(16.dp)
-//    )
-//}
+@Composable
+fun ImageWithCoil(url: String) {
+    // Create an ImageRequest with required options
+    Log.i("SEPI", "ImageWithCoil: url $url")
+    val imageRequest = ImageRequest.Builder(LocalContext.current)
+        .data(url)
+        .scale(Scale.FILL)
+        .precision(Precision.INEXACT)
+        .build()
+
+    // Use rememberImagePainter with the custom ImageRequest
+    val imagePainter = rememberImagePainter(request = imageRequest)
+
+    Image(
+        painter = imagePainter,
+        contentDescription = null, // Set a proper content description
+        modifier = Modifier
+            .width(40.dp)
+            .height(40.dp)
+            .padding(16.dp)
+    )
+}

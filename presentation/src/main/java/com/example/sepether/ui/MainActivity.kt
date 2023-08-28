@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
@@ -25,8 +27,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
+import coil.compose.rememberImagePainter
+import coil.request.ImageRequest
 import com.example.sepether.ui.theme.Color.LightColorScheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,10 +57,12 @@ class MainActivity : ComponentActivity() {
     @Composable
     private fun HomeScreen() {
         val currentWeather by viewModel.currentWeather
+        val painter = rememberImagePainter(data = currentWeather.current?.condition?.icon)
 
         LaunchedEffect(currentWeather) {
             currentWeather.current
         }
+
 
         Box(modifier = Modifier
             .fillMaxWidth()
@@ -67,6 +76,12 @@ class MainActivity : ComponentActivity() {
                     color = LightColorScheme.onPrimary,
                     fontSize = 18.sp
                 )
+                Box (modifier = Modifier
+                    .height(30.dp)
+                    .width(50.dp)){
+//                    ImageWithCoil(url = (currentWeather.current?.condition?.icon)?.substring(2) ?: "cdn.weatherapi.com/weather/64x64/day/116.png")
+                    ImageWithCoil(url = "cdn.weatherapi.com/weather/64x64/day/116.png" )
+                }
 //                ImageWithCoil(currentWeather.current?.condition?.icon ?: "")
                 SimpleText(value = " condition : ${currentWeather.current?.condition?.text}")
                 SimpleText(value = " temp : ${currentWeather.current?.temp_c}")

@@ -46,7 +46,7 @@ object NetworkModule {
         httpLoggingInterceptor: HttpLoggingInterceptor
     ): OkHttpClient.Builder {
         return OkHttpClient.Builder()
-//            .addInterceptor(httpLoggingInterceptor)
+            .addInterceptor(httpLoggingInterceptor)
             .connectTimeout(30, TimeUnit.SECONDS) // Adjust as needed
             .readTimeout(30, TimeUnit.SECONDS)    // Adjust as needed
             .retryOnConnectionFailure(true)
