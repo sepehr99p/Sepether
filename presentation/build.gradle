@@ -41,7 +41,7 @@ android {
         }
     }
 
-    flavorDimensions "Version"
+    flavorDimensions "Version", "api"
     productFlavors {
         demo {
             dimension "Version"
@@ -53,6 +53,21 @@ android {
             applicationIdSuffix ".prem"
             versionNameSuffix "-prem"
         }
+
+        minApi32 {
+            dimension "api"
+            minSdkVersion 32
+            versionCode 30000 + android.defaultConfig.versionCode
+            versionNameSuffix "-minApi32"
+        }
+
+        minApi28 {
+            dimension "api"
+            minSdkVersion 28
+            versionCode 30000 + android.defaultConfig.versionCode
+            versionNameSuffix "-minApi28"
+        }
+
     }
 
     compileOptions {
