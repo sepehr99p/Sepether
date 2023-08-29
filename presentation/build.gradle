@@ -67,7 +67,15 @@ android {
             versionCode 30000 + android.defaultConfig.versionCode
             versionNameSuffix "-minApi28"
         }
+    }
 
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        // To check for a certain build type, use variant.buildType.name == "<buildType>"
+        if (names.contains("minApi28") && names.contains("demo")) {
+            // Gradle ignores any variants that satisfy the conditions above.
+            setIgnore(true)
+        }
     }
 
     compileOptions {
