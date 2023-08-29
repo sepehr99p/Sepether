@@ -11,7 +11,7 @@ android {
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.sepether"
+//        applicationId "com.example.sepether"
         minSdk 26
         targetSdk 34
         versionCode 1
@@ -25,8 +25,19 @@ android {
 
     buildTypes {
         release {
+            applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
+        }
+
+        staging {
+            initWith debug
+            applicationIdSuffix ".debugStaging"
         }
     }
 

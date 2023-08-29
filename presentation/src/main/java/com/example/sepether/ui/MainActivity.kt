@@ -80,6 +80,12 @@ class MainActivity : ComponentActivity() {
                     .height(30.dp)
                     .width(50.dp)){
 //                    ImageWithCoil(url = (currentWeather.current?.condition?.icon)?.substring(2) ?: "cdn.weatherapi.com/weather/64x64/day/116.png")
+                    LoadImageFromUrl("https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png")
+//                    ImageWithCoil(url = "https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png" )
+                }
+                Box (modifier = Modifier
+                    .height(30.dp)
+                    .width(50.dp)){
                     ImageWithCoil(url = "cdn.weatherapi.com/weather/64x64/day/116.png" )
                 }
 //                ImageWithCoil(currentWeather.current?.condition?.icon ?: "")
@@ -94,6 +100,16 @@ class MainActivity : ComponentActivity() {
                 ForecastScreen()
             }
         }
+    }
+
+
+    @Composable
+    fun LoadImageFromUrl(imageUrl: String) {
+        Image(
+            painter = rememberImagePainter(imageUrl),
+            contentDescription = null, // Provide a description if needed
+            modifier = Modifier.size(200.dp) // Adjust size as needed
+        )
     }
 
     @Composable
