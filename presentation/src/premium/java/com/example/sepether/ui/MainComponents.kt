@@ -55,7 +55,7 @@ fun ForecastView(forecastday: Forecastday) {
 fun SimpleText(value: String) {
     Text(
         modifier = Modifier.padding(16.dp),
-        text = value,
+        text = "premium",
         color = LightColorScheme.onPrimary
     )
 }
