@@ -38,6 +38,7 @@ android {
         staging {
             initWith debug
             applicationIdSuffix ".debugStaging"
+            matchingFallbacks = ['debug', 'release']
         }
     }
 
@@ -47,6 +48,7 @@ android {
             dimension "Version"
             applicationIdSuffix ".demo"
             versionNameSuffix "-demo"
+            isDefault true
         }
         premium {
             dimension "Version"
@@ -59,12 +61,13 @@ android {
             minSdkVersion 32
             versionCode 30000 + android.defaultConfig.versionCode
             versionNameSuffix "-minApi32"
+            matchingFallbacks = ['minApi28']
         }
 
         minApi28 {
             dimension "api"
             minSdkVersion 28
-            versionCode 30000 + android.defaultConfig.versionCode
+            versionCode 20000 + android.defaultConfig.versionCode
             versionNameSuffix "-minApi28"
         }
     }
@@ -177,6 +180,7 @@ dependencies {
 
     implementation 'io.coil-kt:coil:2.4.0'
     implementation 'io.coil-kt:coil-compose:2.4.0'
+//    premiumImplementation 'test'
 
 
     debugImplementation 'androidx.compose.ui:ui-tooling'
