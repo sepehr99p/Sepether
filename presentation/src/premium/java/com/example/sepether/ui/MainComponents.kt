@@ -46,6 +46,7 @@ fun ForecastView(forecastday: Forecastday) {
         SimpleText(value = " average temp : ${forecastday.day.avgtemp_c}")
         SimpleText(value = " max temp : ${forecastday.day.maxtemp_c}")
         SimpleText(value = " min temp : ${forecastday.day.mintemp_c}")
+        SimpleText(value = " will it rain : ${forecastday.day.daily_will_it_rain}")
 
     }
 }
@@ -55,7 +56,7 @@ fun ForecastView(forecastday: Forecastday) {
 fun SimpleText(value: String) {
     Text(
         modifier = Modifier.padding(16.dp),
-        text = "premium",
+        text = value,
         color = LightColorScheme.onPrimary
     )
 }

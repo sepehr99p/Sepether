@@ -76,18 +76,18 @@ class MainActivity : ComponentActivity() {
                     color = LightColorScheme.onPrimary,
                     fontSize = 18.sp
                 )
-                Box (modifier = Modifier
-                    .height(30.dp)
-                    .width(50.dp)){
+//                Box (modifier = Modifier
+//                    .height(30.dp)
+//                    .width(50.dp)){
 //                    ImageWithCoil(url = (currentWeather.current?.condition?.icon)?.substring(2) ?: "cdn.weatherapi.com/weather/64x64/day/116.png")
-                    LoadImageFromUrl("https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png")
+//                    LoadImageFromUrl("https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png")
 //                    ImageWithCoil(url = "https://lelolobi.com/wp-content/uploads/2021/11/Test-Logo-Small-Black-transparent-1-1.png" )
-                }
-                Box (modifier = Modifier
-                    .height(30.dp)
-                    .width(50.dp)){
-                    ImageWithCoil(url = "cdn.weatherapi.com/weather/64x64/day/116.png" )
-                }
+//                }
+//                Box (modifier = Modifier
+//                    .height(30.dp)
+//                    .width(50.dp)){
+//                    ImageWithCoil(url = "cdn.weatherapi.com/weather/64x64/day/116.png" )
+//                }
 //                ImageWithCoil(currentWeather.current?.condition?.icon ?: "")
                 SimpleText(value = " condition : ${currentWeather.current?.condition?.text}")
                 SimpleText(value = " temp : ${currentWeather.current?.temp_c}")
