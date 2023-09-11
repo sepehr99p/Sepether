@@ -4,6 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -25,20 +26,20 @@ android {
 
     buildTypes {
         release {
-            applicationIdSuffix ".release"
+//            applicationIdSuffix ".release"
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
 
         debug {
-            applicationIdSuffix ".debug"
+//            applicationIdSuffix ".debug"
             debuggable true
             isDefault true
         }
 
         staging {
             initWith debug
-            applicationIdSuffix ".debugStaging"
+//            applicationIdSuffix ".debugStaging"
             matchingFallbacks = ['debug', 'release']
         }
     }
@@ -47,12 +48,12 @@ android {
     productFlavors {
         demo {
             dimension "Version"
-            applicationIdSuffix ".demo"
+//            applicationIdSuffix ".demo"
             versionNameSuffix "-demo"
         }
         premium {
             dimension "Version"
-            applicationIdSuffix ".prem"
+//            applicationIdSuffix ".prem"
             versionNameSuffix "-prem"
             isDefault true
         }
@@ -138,6 +139,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
