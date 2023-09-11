@@ -33,6 +33,7 @@ android {
         debug {
             applicationIdSuffix ".debug"
             debuggable true
+            isDefault true
         }
 
         staging {
@@ -48,12 +49,12 @@ android {
             dimension "Version"
             applicationIdSuffix ".demo"
             versionNameSuffix "-demo"
-            isDefault true
         }
         premium {
             dimension "Version"
             applicationIdSuffix ".prem"
             versionNameSuffix "-prem"
+            isDefault true
         }
 
         minApi32 {
@@ -99,7 +100,7 @@ android {
             java.srcDirs += ['debug/java']
         }
         premiumMinApi32 {
-            java.srcDirs += ['premiumMinApi32']
+            java.srcDirs += ['premiumMinApi32/java']
         }
     }
 
