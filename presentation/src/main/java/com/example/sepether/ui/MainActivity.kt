@@ -13,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Divider
@@ -23,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
@@ -153,6 +155,8 @@ class MainActivity : ComponentActivity() {
         }
         LazyRow(modifier = Modifier
             .fillMaxWidth()
+            .height(500.dp)
+            .width(LocalConfiguration.current.screenWidthDp.dp)
             .background(LightColorScheme.primary), state = scrollState ) {
             forecastWeather.forecast?.forecastday?.let { list ->
                 list.forEach {

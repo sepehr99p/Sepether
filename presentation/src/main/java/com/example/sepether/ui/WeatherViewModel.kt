@@ -29,7 +29,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
-
+    val rainyBackgroundUrl = "https://e0.pxfuel.com/wallpapers/619/737/desktop-wallpaper-rain-rain-weather-beautiful-background-raining-aesthetic.jpg"
 
 
     private val _currentWeather = mutableStateOf(CurrentServerEntity(null,null))
