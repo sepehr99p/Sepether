@@ -44,7 +44,7 @@ android {
         }
     }
 
-    flavorDimensions "Version", "api"
+    flavorDimensions  "Version"
     productFlavors {
         demo {
             dimension "Version"
@@ -56,21 +56,6 @@ android {
 //            applicationIdSuffix ".prem"
             versionNameSuffix "-prem"
             isDefault true
-        }
-
-        minApi32 {
-            dimension "api"
-            minSdkVersion 32
-            versionCode 30000 + android.defaultConfig.versionCode
-            versionNameSuffix "-minApi32"
-            matchingFallbacks = ['minApi28']
-        }
-
-        minApi28 {
-            dimension "api"
-            minSdkVersion 28
-            versionCode 20000 + android.defaultConfig.versionCode
-            versionNameSuffix "-minApi28"
         }
     }
 
@@ -91,17 +76,11 @@ android {
 
     sourceSets {
 
-        demo {
-            java.srcDirs += ['demo/java']
-        }
         premium {
             java.srcDirs += ['premium/java']
         }
         debug {
             java.srcDirs += ['debug/java']
-        }
-        premiumMinApi32 {
-            java.srcDirs += ['premiumMinApi32/java']
         }
     }
 

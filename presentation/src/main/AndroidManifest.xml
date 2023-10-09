@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" tools:node="remove"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
 
 
     <application
@@ -28,6 +31,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.music.MusicActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Sepether">
+        </activity>
+
         <service
             android:name=".services.MyFireBaseService"
             android:exported="false">
