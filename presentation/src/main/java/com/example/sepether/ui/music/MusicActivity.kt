@@ -19,7 +19,7 @@ class MusicActivity : ComponentActivity() {
             MaterialTheme(
                 colorScheme = Color.LightColorScheme
             ) {
-                MusicScreen()
+                MusicScreen(viewModel.getAllMusicFiles(this))
             }
         }
     }

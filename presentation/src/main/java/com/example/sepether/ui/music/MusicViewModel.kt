@@ -4,11 +4,14 @@ import androidx.lifecycle.ViewModel
 import android.content.ContentResolver
 import android.content.Context
 import android.provider.MediaStore
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.example.sepether.ui.music.model.MusicFile
 
 class MusicViewModel : ViewModel() {
 
-
+    private val _playList = MutableLiveData<MusicFile>()
+    val playList : LiveData<MusicFile> get() = _playList
 
     fun getAllMusicFiles(context: Context): List<MusicFile> {
         val musicFiles = mutableListOf<MusicFile>()
