@@ -26,6 +26,7 @@ class MusicPlayerService : Service() {
     private var exoPlayer : SimpleExoPlayer? = null
 
     private val binder = LocalBinder()
+    private var currentMusicIndex = 0
 
     fun setPlaylist(newList : ArrayList<MusicFile>) {
         playList.clear()
@@ -39,28 +40,32 @@ class MusicPlayerService : Service() {
     }
 
     private fun play() {
-        val dataSourceFactory = DefaultDataSourceFactory(
-            this,
-            Util.getUserAgent(this, "exoplayer2example"),
-            null
-        )
-        val source: MediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
-            MediaItem.fromUri(Uri.parse(playList[0].path)))
+        exoPlayer?.let { exo ->
+            val dataSourceFactory = DefaultDataSourceFactory(
+                this,
+                Util.getUserAgent(this, "exoplayer2example"),
+                null
+            )
+            val source: MediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
+                MediaItem.fromUri(Uri.parse(playList[currentMusicIndex].path)))
+            exo.prepare(source)
+            exo.playWhenReady
+        }
 
-        exoPlayer?.prepare(source)
-        exoPlayer?.playWhenReady
     }
 
     private fun pause() {
-
+        exoPlayer?.pause()
     }
 
     private fun playNext() {
-
+        currentMusicIndex++
+        play()
     }
 
     private fun playPrevious() {
-
+        currentMusicIndex--
+        play()
     }
 
     private fun showNotification() {

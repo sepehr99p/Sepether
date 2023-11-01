@@ -6,11 +6,16 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.view.ViewTreeObserver
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import com.example.sepether.ui.music.model.MusicFile
 import com.example.sepether.ui.theme.Color
+import okhttp3.internal.toImmutableList
 
 class MusicActivity : ComponentActivity() {
 
@@ -37,6 +42,11 @@ class MusicActivity : ComponentActivity() {
     override fun onResume() {
         super.onResume()
         viewModel.getAllMusicFiles(this)
+        viewModel.playList.observe(this as LifecycleOwner) {
+            val list = arrayListOf<MusicFile>()
+            list.addAll(it)
+            mService.setPlaylist(list)
+        }
     }
 
     override fun onStart() {
