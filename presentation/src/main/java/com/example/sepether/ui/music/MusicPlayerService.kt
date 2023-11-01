@@ -2,19 +2,19 @@ package com.example.sepether.ui.music
 
 import android.app.Notification
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.media.AudioManager
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Binder
-import android.os.Handler
 import android.os.IBinder
-import android.os.Message
-import android.os.Messenger
-import android.widget.Toast
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.sepether.ui.music.model.MusicFile
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.SimpleExoPlayer
+import com.google.android.exoplayer2.source.MediaSource
+import com.google.android.exoplayer2.source.hls.HlsMediaSource
+import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory
+import com.google.android.exoplayer2.util.Util
 
 
 class MusicPlayerService : Service() {
@@ -23,6 +23,7 @@ class MusicPlayerService : Service() {
     private var audioManager: AudioManager? = null
     private var mediaPlayer : MediaPlayer? = null
     private var playList : ArrayList<MusicFile> = arrayListOf()
+    private var exoPlayer : SimpleExoPlayer? = null
 
     private val binder = LocalBinder()
 
@@ -34,12 +35,20 @@ class MusicPlayerService : Service() {
     override fun onCreate() {
         super.onCreate()
         audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
-
+        exoPlayer = SimpleExoPlayer.Builder(applicationContext).build()
     }
 
     private fun play() {
-        mediaPlayer = MediaPlayer.create(applicationContext,Uri.parse(playList[0].path))
-        (mediaPlayer as MediaPlayer).start()
+        val dataSourceFactory = DefaultDataSourceFactory(
+            this,
+            Util.getUserAgent(this, "exoplayer2example"),
+            null
+        )
+        val source: MediaSource = HlsMediaSource.Factory(dataSourceFactory).createMediaSource(
+            MediaItem.fromUri(Uri.parse(playList[0].path)))
+
+        exoPlayer?.prepare(source)
+        exoPlayer?.playWhenReady
     }
 
     private fun pause() {
