@@ -1,6 +1,11 @@
 package com.example.sepether.ui.music
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -9,7 +14,12 @@ import com.example.sepether.ui.theme.Color
 
 class MusicActivity : ComponentActivity() {
 
+    //todo : ask for permission later to access musics at runtime
+
     private val viewModel by viewModels<MusicViewModel>()
+    private var mBound: Boolean = false
+    private lateinit var mService: MusicPlayerService
+
     private val TAG = "MusicActivity"
     private val STORAGE_PERMISSION_CODE = 101
 
@@ -29,48 +39,34 @@ class MusicActivity : ComponentActivity() {
         viewModel.getAllMusicFiles(this)
     }
 
+    override fun onStart() {
+        super.onStart()
+        // Bind to LocalService.
+        Intent(this, MusicPlayerService::class.java).also { intent ->
+            bindService(intent, connection, Context.BIND_AUTO_CREATE)
+        }
+    }
 
-//    @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-//    private fun isStoragePermissionGranted(): Boolean {
-//        return ContextCompat.checkSelfPermission(
-//            this,
-//            Manifest.permission.READ_MEDIA_AUDIO
-//        ) == PackageManager.PERMISSION_GRANTED
-//    }
-//
-//    private fun requestStoragePermission() {
-//        requestPermissions(
-//            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-//            STORAGE_PERMISSION_CODE
-//        )
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            requestPermissions(
-//                arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
-//                STORAGE_PERMISSION_CODE
-//            )
-//            ActivityCompat.requestPermissions(
-//                this,
-//                arrayOf(Manifest.permission.READ_MEDIA_AUDIO),
-//                STORAGE_PERMISSION_CODE
-//            )
-//        }
-//    }
-//
-//    override fun onRequestPermissionsResult(
-//        requestCode: Int,
-//        permissions: Array<out String>,
-//        grantResults: IntArray
-//    ) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-//
-//        if (requestCode == STORAGE_PERMISSION_CODE) {
-//            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                // Permission granted by the user, you can proceed with your logic
-//            } else {
-//                // Permission denied by the user, handle this case (e.g., show a message)
-//            }
-//        }
-//    }
+    override fun onStop() {
+        super.onStop()
+        unbindService(connection)
+        mBound = false
+    }
+
+    /** Defines callbacks for service binding, passed to bindService().  */
+    private val connection = object : ServiceConnection {
+
+        override fun onServiceConnected(className: ComponentName, service: IBinder) {
+            // We've bound to LocalService, cast the IBinder and get LocalService instance.
+            val binder = service as MusicPlayerService.LocalBinder
+            mService = binder.getService()
+            mBound = true
+        }
+
+        override fun onServiceDisconnected(arg0: ComponentName) {
+            mBound = false
+        }
+    }
 
 
 }

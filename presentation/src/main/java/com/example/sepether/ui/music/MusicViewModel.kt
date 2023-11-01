@@ -10,8 +10,8 @@ import com.example.sepether.ui.music.model.MusicFile
 
 class MusicViewModel : ViewModel() {
 
-    private val _playList = MutableLiveData<MusicFile>()
-    val playList : LiveData<MusicFile> get() = _playList
+    private val _playList = MutableLiveData<MutableList<MusicFile>>()
+    val playList : LiveData<MutableList<MusicFile>> get() = _playList
 
     fun getAllMusicFiles(context: Context): List<MusicFile> {
         val musicFiles = mutableListOf<MusicFile>()
@@ -46,8 +46,10 @@ class MusicViewModel : ViewModel() {
                 musicFiles.add(musicFile)
             }
         }
-
+        _playList.value = musicFiles
         return musicFiles
     }
+
+
 
 }
