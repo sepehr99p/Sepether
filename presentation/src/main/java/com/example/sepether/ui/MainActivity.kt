@@ -145,7 +145,7 @@ class MainActivity : ComponentActivity(), LocationListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION),120)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),120)
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -155,7 +155,7 @@ class MainActivity : ComponentActivity(), LocationListener {
             // for ActivityCompat#requestPermissions for more details.
             return
         }
-
+        getCurrentLocationCity()
 //        if (provider.isNullOrEmpty()) {
 //            provider = ""
 //        }
@@ -164,21 +164,22 @@ class MainActivity : ComponentActivity(), LocationListener {
 
     private fun getCurrentLocationCity() {
         val geoCoder = Geocoder(this, Locale.getDefault()) //it is Geocoder
-
+        Log.i(TAG, "getCurrentLocationCity: calling getCurrentocationcity")
         val builder = StringBuilder()
         try {
             val address: List<Address>? = geoCoder.getFromLocation(latitude, longitude, 1)
             val maxLines: Int = address!![0].getMaxAddressLineIndex()
             for (i in 0 until maxLines) {
-                val addressStr: String = address!![0].getAddressLine(i)
+                val addressStr: String = address[0].getAddressLine(i)
                 builder.append(addressStr)
                 builder.append(" ")
             }
             val fnialAddress = builder.toString() //This is the complete address.
+            Log.i(TAG, "getCurrentLocationCity: $fnialAddress")
         } catch (e: IOException) {
-            Log.e(TAG, "getCurrentLocationCity: ")
+            Log.e(TAG, "getCurrentLocationCity: ",e)
         } catch (e: NullPointerException) {
-            Log.e(TAG, "getCurrentLocationCity: ")
+            Log.e(TAG, "getCurrentLocationCity: ",e)
         }
     }
 
