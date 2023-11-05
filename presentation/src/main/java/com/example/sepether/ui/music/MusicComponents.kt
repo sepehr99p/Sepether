@@ -23,7 +23,7 @@ import com.example.sepether.ui.theme.Color
 
 
 @Composable
-fun MusicScreen(allMusicFiles: List<MusicFile>) {
+fun MusicScreen(allMusicFiles: List<MusicFile>, viewModel: MusicViewModel) {
     Box(
         modifier = Modifier
             .fillMaxHeight()
