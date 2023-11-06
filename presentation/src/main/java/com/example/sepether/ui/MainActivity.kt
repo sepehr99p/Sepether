@@ -1,21 +1,16 @@
 package com.example.sepether.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Criteria
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -37,6 +32,7 @@ import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
 import com.example.sepether.ui.music.MusicActivity
 import com.example.sepether.ui.theme.Color.LightColorScheme
+import com.example.sepether.utils.GPSHelper
 import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.ktx.Firebase
@@ -56,43 +52,11 @@ class MainActivity : ComponentActivity(), LocationListener {
     private lateinit var analytics: FirebaseAnalytics
     private var latitude = 0.0
     private var longitude = 0.0
-    private lateinit var locationManager: LocationManager
-    private var provider : String? = ""
-
-    // Declare the launcher at the top of your Activity/Fragment:
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission(),
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            // FCM SDK (and your app) can post notifications.
-        } else {
-            // TODO: Inform user that that your app will not show notifications.
-        }
-    }
-
-//    private fun askNotificationPermission() {
-//        // This is only necessary for API level >= 33 (TIRAMISU)
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
-//                PackageManager.PERMISSION_GRANTED
-//            ) {
-//                // FCM SDK (and your app) can post notifications.
-//            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
-//                // TODO: display an educational UI explaining to the user the features that will be enabled
-//                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
-//                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
-//                //       If the user selects "No thanks," allow the user to continue without notifications.
-//            } else {
-//                // Directly ask for the permission
-//                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-//            }
-//        }
-//    }
+    private val gpsHelper by lazy { GPSHelper(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // Obtain the FirebaseAnalytics instance.
-        locationManager = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         analytics = Firebase.analytics
         setContent {
             MaterialTheme(
@@ -101,42 +65,11 @@ class MainActivity : ComponentActivity(), LocationListener {
                 HomeScreen()
             }
         }
+        getLocationPermission()
 
-        val criteria = Criteria()
-        provider = locationManager.getBestProvider(criteria, false)
-        val location = if (ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),110)
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return
-        } else {
-        }
-        provider?.let {
-            locationManager.getLastKnownLocation(it)
-        } ?: kotlin.run {
-            locationManager.getLastKnownLocation("")
-        }
-
-        System.out.println("Provider $provider has been selected.")
-//        onLocationChanged(location)
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getCurrentWeather()
-        viewModel.getForecast()
+    private fun getLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -145,44 +78,41 @@ class MainActivity : ComponentActivity(), LocationListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),120)
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), 102
+            )
             return
         }
-        getCurrentLocationCity()
-//        if (provider.isNullOrEmpty()) {
-//            provider = ""
-//        }
-//        locationManager.requestLocationUpdates(provider!!,400L,1f,this)
     }
 
-    private fun getCurrentLocationCity() {
-        val geoCoder = Geocoder(this, Locale.getDefault()) //it is Geocoder
-        Log.i(TAG, "getCurrentLocationCity: calling getCurrentocationcity")
-        val builder = StringBuilder()
-        try {
-            val address: List<Address>? = geoCoder.getFromLocation(latitude, longitude, 1)
-            val maxLines: Int = address!![0].getMaxAddressLineIndex()
-            for (i in 0 until maxLines) {
-                val addressStr: String = address[0].getAddressLine(i)
-                builder.append(addressStr)
-                builder.append(" ")
-            }
-            val fnialAddress = builder.toString() //This is the complete address.
-            Log.i(TAG, "getCurrentLocationCity: $fnialAddress")
-        } catch (e: IOException) {
-            Log.e(TAG, "getCurrentLocationCity: ",e)
-        } catch (e: NullPointerException) {
-            Log.e(TAG, "getCurrentLocationCity: ",e)
+    fun updateLocation() {
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_COARSE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+        } else {
+            gpsHelper.getMyLocation()
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateLocation()
+        val query: String = if (gpsHelper.latitude != 0.0 && gpsHelper.longitude != 0.0) {
+            "${gpsHelper.latitude.toString().substring(0,6)},${gpsHelper.longitude.toString().substring(0,6)}"
+        } else {
+            "Tehran"
+        }
+        viewModel.getCurrentWeather(query)
+        viewModel.getForecast()
+    }
 
     @Composable
     private fun HomeScreen() {
@@ -269,7 +199,6 @@ class MainActivity : ComponentActivity(), LocationListener {
 
     override fun onPause() {
         super.onPause()
-        locationManager.removeUpdates(this);
     }
 
 

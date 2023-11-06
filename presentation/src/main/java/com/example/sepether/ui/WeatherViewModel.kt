@@ -39,9 +39,10 @@ class WeatherViewModel @Inject constructor(
     val forecast: State<ForecastServerEntity> = _forecast
 
 
-    fun getCurrentWeather() {
+    fun getCurrentWeather(query: String) {
+        Log.i("SEPI", "getCurrentWeather: $query")
         scope.launch {
-            currentWeatherUseCase.invoke("Tehran")
+            currentWeatherUseCase.invoke(query)
                 .catch {
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
                 }.collect {
