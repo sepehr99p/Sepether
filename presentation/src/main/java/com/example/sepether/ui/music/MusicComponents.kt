@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sepether.ui.SimpleText
+import com.example.sepether.ui.weather.SimpleText
 import com.example.sepether.ui.music.model.MusicFile
 import com.example.sepether.ui.theme.Color
 

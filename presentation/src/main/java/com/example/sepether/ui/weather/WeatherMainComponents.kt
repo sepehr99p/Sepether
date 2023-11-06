@@ -1,4 +1,4 @@
-package com.example.sepether.ui
+package com.example.sepether.ui.weather
 
 
 import android.graphics.Rect

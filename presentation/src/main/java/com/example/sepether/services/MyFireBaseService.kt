@@ -2,7 +2,7 @@ package com.example.sepether.services
 
 import android.util.Log
 import android.widget.Toast
-import com.example.sepether.ui.MainActivity
+import com.example.sepether.ui.weather.MainActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.firebase.messaging.FirebaseMessagingService

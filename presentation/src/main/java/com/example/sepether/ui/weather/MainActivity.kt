@@ -1,4 +1,4 @@
-package com.example.sepether.ui
+package com.example.sepether.ui.weather
 
 import android.Manifest
 import android.content.Intent
@@ -88,7 +88,7 @@ class MainActivity : ComponentActivity(), LocationListener {
         }
     }
 
-    fun updateLocation() {
+    private fun updateLocation() {
         if (ActivityCompat.checkSelfPermission(
                 this,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -117,7 +117,6 @@ class MainActivity : ComponentActivity(), LocationListener {
     @Composable
     private fun HomeScreen() {
         val currentWeather by viewModel.currentWeather
-
 
         Box(
             modifier = Modifier
