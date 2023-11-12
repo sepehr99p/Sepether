@@ -17,10 +17,17 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -45,6 +52,32 @@ import com.example.sepether.R
 import com.example.sepether.ui.theme.Color.LightColorScheme
 
 
+@Composable
+fun HomeScreen(viewModel: WeatherViewModel, clickListener: ClickListener) {
+
+    var isLoading by remember {
+        mutableStateOf(false)
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(LightColorScheme.primary)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .align(Alignment.CenterStart)
+        ) {
+            TodayWeather(viewModel.currentWeather.value, clickListener)
+            Divider(
+                modifier = Modifier.height(12.dp),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
+            )
+            ForecastScreen(viewModel.forecast)
+        }
+    }
+}
 
 @Composable
 fun ForecastScreen(forecastWeather: State<ForecastServerEntity>) {
@@ -52,7 +85,6 @@ fun ForecastScreen(forecastWeather: State<ForecastServerEntity>) {
     LaunchedEffect(forecastWeather) {
         forecastWeather.value.forecast
     }
-
     LazyRow(
         modifier = Modifier
             .fillMaxWidth()
@@ -119,12 +151,9 @@ fun ForecastView(forecastday: Forecastday) {
             SimpleText(value = " max temp : ${forecastday.day.maxtemp_c}")
             SimpleText(value = " min temp : ${forecastday.day.mintemp_c}")
             SimpleText(value = " will it rain : ${forecastday.day.daily_will_it_rain}")
-
         }
     }
-
 }
-
 
 @Composable
 fun SimpleText(value: String) {
@@ -198,10 +227,7 @@ interface ClickListener{
 
         }
     }
-
 }
-
-
 
 @Composable
 fun ImageWithCoil(url: String) {

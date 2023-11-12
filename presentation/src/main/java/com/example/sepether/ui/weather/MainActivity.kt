@@ -10,20 +10,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.core.app.ActivityCompat
-import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.sepether.ui.music.MusicActivity
 import com.example.sepether.ui.theme.Color.LightColorScheme
 import com.example.sepether.utils.GPSHelper
@@ -54,7 +42,11 @@ class MainActivity : ComponentActivity(), LocationListener {
             MaterialTheme(
                 colorScheme = LightColorScheme
             ) {
-                HomeScreen(viewModel.currentWeather)
+                HomeScreen(viewModel, object : ClickListener{
+                    override fun onClick() {
+                        startActivity(Intent(this@MainActivity, MusicActivity::class.java))
+                    }
+                })
             }
         }
         getLocationPermission()
@@ -72,33 +64,6 @@ class MainActivity : ComponentActivity(), LocationListener {
         viewModel.getForecast()
     }
 
-    @Composable
-    private fun HomeScreen(currentWeather: State<CurrentServerEntity>) {
-
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .background(LightColorScheme.primary)
-        ) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.CenterStart)
-            ) {
-                TodayWeather(currentWeather.value, object : ClickListener {
-                    override fun onClick() {
-                        startActivity(Intent(this@MainActivity, MusicActivity::class.java))
-                    }
-
-                })
-                Divider(
-                    modifier = Modifier.height(12.dp),
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
-                )
-                ForecastScreen(viewModel.forecast)
-            }
-        }
-    }
 
     private fun getLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
@@ -128,6 +93,7 @@ class MainActivity : ComponentActivity(), LocationListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            //
         } else {
             gpsHelper.getMyLocation()
         }
