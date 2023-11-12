@@ -5,6 +5,7 @@ import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import javax.net.ssl.SSLHandshakeException
 
+
 fun <T> checkError(throwable: Throwable): Resource.Error<T> {
     return when (throwable) {
         is UnknownHostException -> {
