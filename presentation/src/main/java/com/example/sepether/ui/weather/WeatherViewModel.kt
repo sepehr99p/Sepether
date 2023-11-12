@@ -1,5 +1,6 @@
 package com.example.sepether.ui.weather
 
+import android.location.Geocoder
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -15,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import java.io.IOException
 import javax.inject.Inject
 
 
@@ -74,7 +76,6 @@ class WeatherViewModel @Inject constructor(
                 .collect {
                     when (it) {
                         is Resource.Success -> {
-                            Log.i(TAG, "getForecast: success")
                             _forecast.value = it.data!!
                         }
 
@@ -88,6 +89,26 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
         }
+    }
+
+    fun getFinalAddress(geoCoder: Geocoder, latitude: Double, longitude: Double): String {
+        val builder = java.lang.StringBuilder()
+        var finalAddress = ""
+        try {
+            val address = geoCoder.getFromLocation(latitude, longitude, 1)
+            val maxLines = address!![0].maxAddressLineIndex
+            for (i in 0 until maxLines) {
+                val addressStr = address[0].getAddressLine(i)
+                builder.append(addressStr)
+                builder.append(" ")
+            }
+            finalAddress = builder.toString()
+        } catch (e: IOException) {
+            Log.e(TAG, "IOException: ")
+        } catch (e: java.lang.NullPointerException) {
+            Log.e(TAG, "NullPointerException: ")
+        }
+        return finalAddress
     }
 
 }

@@ -6,6 +6,6 @@ import com.example.domain.entities.LocationEntity
 
 data class ForecastServerEntity(
     val current: CurrentEntity?,
-    val forecast: ForecastEntity?,
+    public val forecast: ForecastEntity?,
     val location: LocationEntity?
 )

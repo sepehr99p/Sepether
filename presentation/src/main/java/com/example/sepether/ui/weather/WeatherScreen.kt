@@ -4,6 +4,7 @@ package com.example.sepether.ui.weather
 import android.graphics.Rect
 import android.util.Log
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,9 +15,12 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.State
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
@@ -36,9 +40,35 @@ import coil.size.Precision
 import coil.size.Scale
 import com.example.domain.entities.Forecastday
 import com.example.domain.entities.responses.CurrentServerEntity
+import com.example.domain.entities.responses.ForecastServerEntity
 import com.example.sepether.R
 import com.example.sepether.ui.theme.Color.LightColorScheme
 
+
+
+@Composable
+fun ForecastScreen(forecastWeather: State<ForecastServerEntity>) {
+    val scrollState = rememberLazyListState()
+    LaunchedEffect(forecastWeather) {
+        forecastWeather.value.forecast
+    }
+
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(500.dp)
+            .width(LocalConfiguration.current.screenWidthDp.dp)
+            .background(LightColorScheme.primary), state = scrollState
+    ) {
+        forecastWeather.value.forecast?.forecastday?.let { list ->
+            list.forEach {
+                item {
+                    ForecastView(forecastday = it)
+                }
+            }
+        }
+    }
+}
 
 @Composable
 fun ForecastView(forecastday: Forecastday) {
