@@ -3,6 +3,7 @@ package com.example.sepether.di.core
 import com.example.data.api.RetryInterceptor
 import com.example.data.api.WeatherApi
 import com.example.data.common.Constants
+import com.example.data.common.Constants.TIME_OUT
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,8 +48,8 @@ object NetworkModule {
     ): OkHttpClient.Builder {
         return OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
-            .connectTimeout(30, TimeUnit.SECONDS) // Adjust as needed
-            .readTimeout(30, TimeUnit.SECONDS)    // Adjust as needed
+            .connectTimeout(TIME_OUT, TimeUnit.SECONDS) // Adjust as needed
+            .readTimeout(TIME_OUT, TimeUnit.SECONDS)    // Adjust as needed
             .retryOnConnectionFailure(true)
     }
 
