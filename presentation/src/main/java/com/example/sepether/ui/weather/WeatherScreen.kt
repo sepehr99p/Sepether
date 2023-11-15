@@ -52,6 +52,7 @@ import com.example.sepether.R
 import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.theme.*
+import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.utils.extensions.toCelcius
 
 
@@ -63,7 +64,13 @@ fun TodayWeatherScreen(viewModel: WeatherViewModel) {
         currentWeather.current
         currentWeather.location
     }
-    
+
+    currentWeather.current?.is_day?.let {
+        // set light background
+    } ?: run {
+        // set dark background
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -80,11 +87,8 @@ fun TodayWeatherScreen(viewModel: WeatherViewModel) {
         CustomText(value = currentWeather.current?.condition?.text,24, FontWeight.Medium, onPrimaryContainer)
         Spacer(modifier = Modifier.height(4.dp))
         SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f?.toCelcius()} C"))
-        currentWeather.current?.is_day?.let {
-            // set dark background
-        } ?: kotlin.run {
-            // set light background
-        }
+        Spacer(modifier = Modifier.height(4.dp))
+        DailyForecast(viewModel)
     }
 }
 
