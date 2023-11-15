@@ -35,7 +35,7 @@ class MainActivity : ComponentActivity(), LocationListener {
         super.onCreate(savedInstanceState)
         analytics = Firebase.analytics
         setContent {
-            SingleWeatherScreen(viewModel)
+            TodayWeatherScreen(viewModel)
         }
         getLocationPermission()
     }

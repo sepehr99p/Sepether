@@ -37,7 +37,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -53,10 +52,11 @@ import com.example.sepether.R
 import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.theme.*
+import com.example.sepether.utils.extensions.toCelcius
 
 
 @Composable
-fun SingleWeatherScreen(viewModel: WeatherViewModel) {
+fun TodayWeatherScreen(viewModel: WeatherViewModel) {
     
     val currentWeather = viewModel.currentWeather.value
     LaunchedEffect(currentWeather) {
@@ -72,14 +72,14 @@ fun SingleWeatherScreen(viewModel: WeatherViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Spacer(modifier = Modifier.height(4.dp))
-        SimpleText(value = currentWeather.location?.name)
+        Spacer(modifier = Modifier.height(16.dp))
+        CustomText(value = currentWeather.location?.name,36, FontWeight.ExtraBold, onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
         CustomText(value = ("${currentWeather.current?.temp_c} C"),44, FontWeight.Light, onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
-        SimpleText(value = currentWeather.current?.condition?.text)
+        CustomText(value = currentWeather.current?.condition?.text,24, FontWeight.Medium, onPrimaryContainer)
         Spacer(modifier = Modifier.height(4.dp))
-        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f}"))
+        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f?.toCelcius()} C"))
         currentWeather.current?.is_day?.let {
             // set dark background
         } ?: kotlin.run {
