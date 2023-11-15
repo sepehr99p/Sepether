@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import com.example.domain.entities.DayEntity
 import com.example.domain.entities.Forecastday
 import com.example.sepether.R
 import com.example.sepether.ui.theme.primaryContainer
@@ -31,16 +32,7 @@ fun DailyForecastItem(forecastday: Forecastday) {
         forecastday.day
         forecastday.date
     }
-    var icon = R.drawable.ic_sun
-    if (forecastday.day.daily_will_it_snow == 1) {
-        icon = R.drawable.ic_snow
-    }
-    if (forecastday.day.daily_will_it_snow == 1) {
-        icon = R.drawable.ic_drop
-    }
 
-    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val date = LocalDate.parse(forecastday.date , dateFormat)
 
     Column(
         modifier = Modifier
@@ -52,16 +44,35 @@ fun DailyForecastItem(forecastday: Forecastday) {
             ),
     ) {
         Row {
-            SimpleText(value = (date.dayOfWeek.name))
+            SimpleText(value = getDayOfTheWeek(forecastday.date))
         }
         Row {
             SimpleText(value = forecastday.day.condition.text)
             Spacer(modifier = Modifier.width(4.dp))
             SimpleText(value = "${forecastday.day.avgtemp_c} c ")
             Spacer(modifier = Modifier.width(4.dp))
-            Image(painter = painterResource(id = icon), contentDescription = "condition", modifier = Modifier.align(Alignment.CenterVertically))
+            Image(
+                painter = painterResource(id = getWeatherIcon(forecastday.day)),
+                contentDescription = "condition",
+                modifier = Modifier.align(Alignment.CenterVertically)
+            )
         }
     }
     Spacer(modifier = Modifier.height(4.dp))
 
 }
+
+fun getDayOfTheWeek(dateInput: String): String {
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+    val date = LocalDate.parse(dateInput, dateFormat)
+    return date.dayOfWeek.name
+}
+
+fun getWeatherIcon(dayEntity: DayEntity): Int =
+    if (dayEntity.daily_will_it_snow == 1) {
+        R.drawable.ic_snow
+    } else if (dayEntity.daily_will_it_rain == 1) {
+        R.drawable.ic_drop
+    } else {
+        R.drawable.ic_sun
+    }
