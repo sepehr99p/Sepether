@@ -13,10 +13,10 @@ object Color {
     val md_theme_light_onPrimaryContainer = Color(0xFF89F0DB)
 
 
-    val md_theme_dark_primary = Color(0xFFACD370)
-    val md_theme_dark_onPrimary = Color(0xFF213600)
-    val md_theme_dark_primaryContainer = Color(0xFF324F00)
-    val md_theme_dark_onPrimaryContainer = Color(0xFF324F00)
+    val md_theme_dark_primary = Color(0xFF283593)
+    val md_theme_dark_onPrimary = Color(0xFFC5CAE9)
+    val md_theme_dark_primaryContainer = Color(0xFF3949AB)
+    val md_theme_dark_onPrimaryContainer = Color(0xFF90CAF9)
 
     public val LightColorScheme = lightColorScheme(
         primary = md_theme_light_primary,

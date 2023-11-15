@@ -6,6 +6,7 @@ import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -49,7 +50,44 @@ import com.example.domain.entities.Forecastday
 import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.domain.entities.responses.ForecastServerEntity
 import com.example.sepether.R
+import com.example.sepether.ui.theme.Color
 import com.example.sepether.ui.theme.Color.LightColorScheme
+import com.example.sepether.ui.weather.components.CustomText
+import com.example.sepether.ui.weather.components.SimpleText
+
+
+@Composable
+fun SingleWeatherScreen(viewModel: WeatherViewModel) {
+    
+    val currentWeather = viewModel.currentWeather.value
+    LaunchedEffect(currentWeather) {
+        currentWeather.current
+        currentWeather.location
+    }
+    
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(Color.md_theme_dark_primary),
+        verticalArrangement = Arrangement.Top,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Spacer(modifier = Modifier.height(4.dp))
+        SimpleText(value = currentWeather.location?.name)
+        Spacer(modifier = Modifier.height(4.dp))
+        CustomText(value = ("${currentWeather.current?.temp_c} C"),24, FontWeight.Light,Color.md_theme_dark_onPrimary)
+        Spacer(modifier = Modifier.height(4.dp))
+        SimpleText(value = currentWeather.current?.condition?.text)
+        Spacer(modifier = Modifier.height(4.dp))
+        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f}"))
+        currentWeather.current?.is_day?.let {
+            // set dark background
+        } ?: kotlin.run {
+            // set light background
+        }
+    }
+}
 
 
 @Composable
@@ -113,7 +151,8 @@ fun ForecastView(forecastday: Forecastday) {
         LocalContext.current,
         R.drawable.bg_feed_view_gradient
     )
-    Box(modifier = Modifier.fillMaxWidth()
+    Box(modifier = Modifier
+        .fillMaxWidth()
         .height(500.dp)
         .width(LocalConfiguration.current.screenWidthDp.dp)){
         Image(modifier = Modifier
@@ -155,17 +194,7 @@ fun ForecastView(forecastday: Forecastday) {
     }
 }
 
-@Composable
-fun SimpleText(value: String) {
-    Text(
-        modifier = Modifier.padding(16.dp),
-        text = value,
-        color = LightColorScheme.onPrimary,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp
-    )
-}
+
 
 interface ClickListener{
     fun onClick()
@@ -191,7 +220,8 @@ interface ClickListener{
         R.drawable.bg_feed_view_gradient
     )
 
-    Box(modifier = Modifier.fillMaxWidth()
+    Box(modifier = Modifier
+        .fillMaxWidth()
         .height(300.dp)
         .clickable {
         }

@@ -11,6 +11,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
+import com.example.sepether.ui.theme.Color.DarkColorScheme
 import com.example.sepether.ui.theme.Color.LightColorScheme
 import com.example.sepether.utils.GPSHelper
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -38,9 +39,9 @@ class MainActivity : ComponentActivity(), LocationListener {
         analytics = Firebase.analytics
         setContent {
             MaterialTheme(
-                colorScheme = LightColorScheme
+                colorScheme = DarkColorScheme
             ) {
-                HomeScreen(viewModel)
+                SingleWeatherScreen(viewModel)
             }
         }
         getLocationPermission()
