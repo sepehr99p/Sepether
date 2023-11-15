@@ -50,9 +50,8 @@ class MainActivity : ComponentActivity(), LocationListener {
             "Tehran"
         }
         viewModel.getCurrentWeather(query)
-        viewModel.getForecast()
+        viewModel.getForecast(query)
     }
-
 
     private fun getLocationPermission() {
         if (ActivityCompat.checkSelfPermission(

@@ -26,11 +26,11 @@ import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun DailyForecastItem(forecastday: Forecastday) {
+fun DailyForecastItem(forecastDay: Forecastday) {
 
-    LaunchedEffect(forecastday) {
-        forecastday.day
-        forecastday.date
+    LaunchedEffect(forecastDay) {
+        forecastDay.day
+        forecastDay.date
     }
 
 
@@ -44,18 +44,19 @@ fun DailyForecastItem(forecastday: Forecastday) {
             ),
     ) {
         Row {
-            SimpleText(value = getDayOfTheWeek(forecastday.date))
-        }
-        Row {
-            SimpleText(value = forecastday.day.condition.text)
-            Spacer(modifier = Modifier.width(4.dp))
-            SimpleText(value = "${forecastday.day.avgtemp_c} c ")
+            SimpleText(value = getDayOfTheWeek(forecastDay.date))
             Spacer(modifier = Modifier.width(4.dp))
             Image(
-                painter = painterResource(id = getWeatherIcon(forecastday.day)),
+                painter = painterResource(id = getWeatherIcon(forecastDay.day)),
                 contentDescription = "condition",
                 modifier = Modifier.align(Alignment.CenterVertically)
             )
+        }
+        Row {
+            SimpleText(value = forecastDay.day.condition.text)
+            Spacer(modifier = Modifier.width(4.dp))
+            SimpleText(value = "${forecastDay.day.avgtemp_c} c ")
+            Spacer(modifier = Modifier.width(4.dp))
         }
     }
     Spacer(modifier = Modifier.height(4.dp))

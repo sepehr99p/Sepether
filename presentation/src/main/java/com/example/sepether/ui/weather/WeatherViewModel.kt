@@ -67,9 +67,9 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getForecast() {
+    fun getForecast(query : String) {
         scope.launch {
-            forecastWeatherUseCase.invoke("Tehran", 7)
+            forecastWeatherUseCase.invoke(query, 4)
                 .catch {
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
                 }
