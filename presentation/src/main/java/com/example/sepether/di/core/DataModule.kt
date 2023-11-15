@@ -1,6 +1,6 @@
 package com.example.sepether.di.core
 
-import com.example.data.api.WeatherApi
+import com.example.data.remote.WeatherApi
 import com.example.data.repository.WeatherRepositoryImpl
 import com.example.domain.repositories.WeatherRepository
 import com.example.domain.usecases.CurrentWeatherUseCase

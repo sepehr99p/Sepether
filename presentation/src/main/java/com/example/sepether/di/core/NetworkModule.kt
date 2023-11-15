@@ -1,7 +1,6 @@
 package com.example.sepether.di.core
 
-import com.example.data.api.RetryInterceptor
-import com.example.data.api.WeatherApi
+import com.example.data.remote.WeatherApi
 import com.example.data.common.Constants
 import com.example.data.common.Constants.TIME_OUT
 import dagger.Module
@@ -9,7 +8,6 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.Protocol
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

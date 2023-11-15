@@ -1,4 +1,4 @@
-package com.example.data.api
+package com.example.data.remote
 
 import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.domain.entities.responses.ForecastServerEntity

@@ -1,6 +1,6 @@
 package com.example.data.repository
 
-import com.example.data.api.WeatherApi
+import com.example.data.remote.WeatherApi
 import com.example.data.common.Constants.API_KEY
 import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.domain.entities.responses.ForecastServerEntity
