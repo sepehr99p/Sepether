@@ -27,3 +27,8 @@ val Color_Border = Color(0xFFEDEDED)
 val Color_Blue = Color(0xFF648FFC)
 val Text_2 = Color(0xFF848484)
 val Blue = Color(0xFF648FFC)
+
+val Primary = Color(0xFF283593)
+val onPrimary = Color(0xFFC5CAE9)
+val primaryContainer = Color(0xFF3949AB)
+val onPrimaryContainer = Color(0xFF90CAF9)

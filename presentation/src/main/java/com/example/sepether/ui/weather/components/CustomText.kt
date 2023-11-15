@@ -9,13 +9,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
-import com.example.sepether.ui.theme.Color.DarkColorScheme
+import com.example.sepether.ui.theme.onPrimary
 
 @Composable
 fun CustomText(value : String?,fontSize : Int,fontWeight: FontWeight, color : Color) {
     value?.let {
         Text(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(4.dp),
             text = it,
             color = color,
             fontStyle = FontStyle.Italic,
@@ -30,9 +30,9 @@ fun CustomText(value : String?,fontSize : Int,fontWeight: FontWeight, color : Co
 fun SimpleText(value: String?) {
     value?.let {
         Text(
-            modifier = Modifier.padding(16.dp),
+            modifier = Modifier.padding(4.dp),
             text = it,
-            color = DarkColorScheme.onPrimary,
+            color = onPrimary,
             fontStyle = FontStyle.Italic,
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp

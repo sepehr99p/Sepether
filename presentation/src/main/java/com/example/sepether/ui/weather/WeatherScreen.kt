@@ -50,10 +50,9 @@ import com.example.domain.entities.Forecastday
 import com.example.domain.entities.responses.CurrentServerEntity
 import com.example.domain.entities.responses.ForecastServerEntity
 import com.example.sepether.R
-import com.example.sepether.ui.theme.Color
-import com.example.sepether.ui.theme.Color.LightColorScheme
 import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.ui.weather.components.SimpleText
+import com.example.sepether.ui.theme.*
 
 
 @Composable
@@ -69,14 +68,14 @@ fun SingleWeatherScreen(viewModel: WeatherViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(Color.md_theme_dark_primary),
+            .background(Primary),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(4.dp))
         SimpleText(value = currentWeather.location?.name)
         Spacer(modifier = Modifier.height(4.dp))
-        CustomText(value = ("${currentWeather.current?.temp_c} C"),24, FontWeight.Light,Color.md_theme_dark_onPrimary)
+        CustomText(value = ("${currentWeather.current?.temp_c} C"),44, FontWeight.Light, onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
         SimpleText(value = currentWeather.current?.condition?.text)
         Spacer(modifier = Modifier.height(4.dp))
@@ -100,7 +99,7 @@ fun HomeScreen(viewModel: WeatherViewModel) {
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .background(LightColorScheme.primary)
+            .background(Primary)
     ) {
         Column(
             modifier = Modifier
@@ -128,7 +127,7 @@ fun ForecastScreen(forecastWeather: State<ForecastServerEntity>) {
             .fillMaxWidth()
             .height(500.dp)
             .width(LocalConfiguration.current.screenWidthDp.dp)
-            .background(LightColorScheme.primary), state = scrollState
+            .background(Primary), state = scrollState
     ) {
         forecastWeather.value.forecast?.forecastday?.let { list ->
             list.forEach {
@@ -177,7 +176,7 @@ fun ForecastView(forecastday: Forecastday) {
                     .fillMaxWidth()
                     .padding(16.dp),
                 text = forecastday.date,
-                color = LightColorScheme.onPrimary,
+                color = onPrimary,
                 fontSize = 18.sp
             )
             Spacer(
@@ -246,7 +245,7 @@ interface ClickListener{
             Text(
                 modifier = Modifier.padding(16.dp),
                 text = "Today",
-                color = LightColorScheme.onPrimary,
+                color = onPrimary,
                 fontSize = 18.sp
             )
             SimpleText(value = " condition : ${currentWeather.current?.condition?.text}")
