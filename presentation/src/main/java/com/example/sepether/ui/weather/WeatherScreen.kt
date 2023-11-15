@@ -53,7 +53,7 @@ import com.example.sepether.ui.theme.Color.LightColorScheme
 
 
 @Composable
-fun HomeScreen(viewModel: WeatherViewModel, clickListener: ClickListener) {
+fun HomeScreen(viewModel: WeatherViewModel) {
 
     var isLoading by remember {
         mutableStateOf(false)
@@ -69,7 +69,7 @@ fun HomeScreen(viewModel: WeatherViewModel, clickListener: ClickListener) {
                 .fillMaxWidth()
                 .align(Alignment.CenterStart)
         ) {
-            TodayWeather(viewModel.currentWeather.value, clickListener)
+            TodayWeather(viewModel.currentWeather.value)
             Divider(
                 modifier = Modifier.height(12.dp),
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.12f)
@@ -172,7 +172,7 @@ interface ClickListener{
 }
 
 @Composable
- fun TodayWeather(currentWeather: CurrentServerEntity, ClickListener: ClickListener) {
+ fun TodayWeather(currentWeather: CurrentServerEntity) {
 
 
     LaunchedEffect(currentWeather) {
@@ -194,7 +194,6 @@ interface ClickListener{
     Box(modifier = Modifier.fillMaxWidth()
         .height(300.dp)
         .clickable {
-            ClickListener.onClick()
         }
         .width(LocalConfiguration.current.screenWidthDp.dp)){
         Image(modifier = Modifier

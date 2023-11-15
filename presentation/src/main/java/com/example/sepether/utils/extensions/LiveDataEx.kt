@@ -1,4 +1,4 @@
-package com.example.sepether.ui.components
+package com.example.sepether.utils.extensions
 
 import androidx.compose.foundation.layout.LayoutScopeMarker
 import androidx.compose.runtime.Composable
@@ -6,8 +6,6 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import com.example.domain.common.Resource
 import com.example.sepether.utils.BaseError
-import com.google.android.gms.common.api.Response
-
 
 
 typealias OnSuccessCallback<T> = @Composable (T?) -> Unit

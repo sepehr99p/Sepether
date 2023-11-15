@@ -1,7 +1,6 @@
 package com.example.sepether.ui.weather
 
 import android.Manifest
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
@@ -12,7 +11,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.MaterialTheme
 import androidx.core.app.ActivityCompat
-import com.example.sepether.ui.music.MusicActivity
 import com.example.sepether.ui.theme.Color.LightColorScheme
 import com.example.sepether.utils.GPSHelper
 import com.google.firebase.analytics.FirebaseAnalytics
@@ -42,11 +40,7 @@ class MainActivity : ComponentActivity(), LocationListener {
             MaterialTheme(
                 colorScheme = LightColorScheme
             ) {
-                HomeScreen(viewModel, object : ClickListener{
-                    override fun onClick() {
-                        startActivity(Intent(this@MainActivity, MusicActivity::class.java))
-                    }
-                })
+                HomeScreen(viewModel)
             }
         }
         getLocationPermission()
