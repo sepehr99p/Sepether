@@ -42,10 +42,7 @@ fun DailyForecastItem(
             .background(primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CustomText(value = dayOfWeek(time),17, FontWeight.Medium, onPrimary)
-        Spacer(modifier = Modifier.height(4.dp))
-        Temperature(maxTemperatures, Red_Negative)
-        Temperature(minTemperatures, Primary_Blue)
+        CustomText(value = dayOfWeek(time),16, FontWeight.Medium, onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
         Image(
             painter = painterResource(id = WeatherType.fromWMO(weatherCodes).iconRes),
@@ -54,6 +51,9 @@ fun DailyForecastItem(
                 .width(40.dp)
                 .height(40.dp)
         )
+        Spacer(modifier = Modifier.height(4.dp))
+        Temperature(maxTemperatures, Red_Negative)
+        Temperature(minTemperatures, Primary_Blue)
         Spacer(modifier = Modifier.height(4.dp))
     }
 

@@ -45,7 +45,7 @@ fun Today(currentWeatherData: WeatherData) {
     Image(
         painter = painterResource(id = WeatherType.fromWMO(currentWeatherData.weatherType).iconRes),
         contentDescription = null,
-        modifier = Modifier.width(200.dp)
+        modifier = Modifier.width(150.dp)
     )
     Spacer(modifier = Modifier.height(16.dp))
     Text(
