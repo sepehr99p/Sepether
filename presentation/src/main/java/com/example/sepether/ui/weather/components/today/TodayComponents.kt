@@ -18,10 +18,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherData
 import com.example.sepether.R
+import com.example.sepether.ui.theme.onPrimary
+import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import java.time.format.DateTimeFormatter
@@ -48,52 +51,52 @@ fun Today(currentWeatherData: WeatherData) {
     Text(
         text = "${currentWeatherData.temperatureCelsius}°C",
         fontSize = 50.sp,
-        color = Color.White
+        color = onPrimary
     )
     Spacer(modifier = Modifier.height(16.dp))
     Text(
         text = WeatherType.fromWMO(currentWeatherData.weatherType).weatherDesc,
         fontSize = 20.sp,
-        color = Color.White
+        color = onPrimary
     )
     Spacer(modifier = Modifier.height(32.dp))
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
-        WeatherDataDisplay(
+        WeatherInfoItem(
             value = currentWeatherData.pressure.roundToInt(),
             unit = "hpa",
             icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
-            iconTint = Color.White,
-            textStyle = TextStyle(color = Color.White)
+            iconTint = onPrimary,
+            textStyle = TextStyle(color = onPrimary)
         )
-        WeatherDataDisplay(
+        WeatherInfoItem(
             value = currentWeatherData.humidity.roundToInt(),
             unit = "%",
             icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
-            iconTint = Color.White,
-            textStyle = TextStyle(color = Color.White)
+            iconTint = onPrimary,
+            textStyle = TextStyle(color = onPrimary)
         )
-        WeatherDataDisplay(
+        WeatherInfoItem(
             value = currentWeatherData.windSpeed.roundToInt(),
             unit = "km/h",
             icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
-            iconTint = Color.White,
-            textStyle = TextStyle(color = Color.White)
+            iconTint = onPrimary,
+            textStyle = TextStyle(color = onPrimary)
         )
     }
 }
 
 
 @Composable
-fun WeatherDataDisplay(
+fun WeatherInfoItem(
     value: Int,
     unit: String,
     icon: ImageVector,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle(),
-    iconTint: Color = Color.White
+    iconTint: Color = onPrimary
 ) {
     Row(
         modifier = modifier,

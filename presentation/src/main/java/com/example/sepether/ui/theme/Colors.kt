@@ -30,5 +30,5 @@ val Blue = Color(0xFF648FFC)
 
 val Primary = Color(0xFF1B2253)
 val onPrimary = Color(0xFFC5CAE9)
-val primaryContainer = Color(0xFF3949AB)
+val primaryContainer = Color(0xFF2C3986)
 val onPrimaryContainer = Color(0xFF98A7B3)
