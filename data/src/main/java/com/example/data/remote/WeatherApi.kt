@@ -14,7 +14,7 @@ interface WeatherApi {
         @Query("longitude") long: Double
     ): Response<WeatherDto>
 
-    @GET("v1/forecast?daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum")
+    @GET("v1/forecast?daily=weathercode,temperature_2m_max,temperature_2m_min,rain_sum,snowfall_sum")
     suspend fun getDailyForecast(
         @Query("latitude") lat: Double,
         @Query("longitude") long: Double

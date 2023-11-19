@@ -40,7 +40,7 @@ class WeatherViewModel @Inject constructor(
     val currentWeather: State<WeatherInfo> = _currentWeather
 
     private val _forecast = mutableStateOf(ForecastInfo(arrayListOf(), arrayListOf(), arrayListOf(),
-        arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf()))
+        arrayListOf(), arrayListOf(), arrayListOf()))
     val forecast: State<ForecastInfo> = _forecast
 
 

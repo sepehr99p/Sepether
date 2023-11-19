@@ -1,10 +1,11 @@
 package com.example.sepether.ui.weather.components.forecast.daily
 
-import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,31 +16,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sepether.ui.theme.Primary_Blue
 import com.example.sepether.ui.theme.Red_Negative
+import com.example.sepether.ui.theme.onPrimary
 import com.example.sepether.ui.theme.primaryContainer
-import com.example.sepether.ui.weather.components.SimpleText
+import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.utils.WeatherType
 import java.text.SimpleDateFormat
-import java.util.Date
 
 @Composable
 fun DailyForecastItem(
     time: String,
     maxTemperatures: Double,
     minTemperatures: Double,
-    rainSum: Double,
-    showersSum: Double,
-    snowfallSum: Double,
-    sunrise: String,
-    sunset: String,
-    weatherCodes: Int?
+    weatherCodes: Int
 ) {
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -48,18 +42,19 @@ fun DailyForecastItem(
             .background(primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SimpleText(value = dayOfWeek(time))
+        CustomText(value = dayOfWeek(time),17, FontWeight.Medium, onPrimary)
+        Spacer(modifier = Modifier.height(4.dp))
         Temperature(maxTemperatures, Red_Negative)
         Temperature(minTemperatures, Primary_Blue)
-        SimpleText(value = rainSum.toString())
-        SimpleText(value = snowfallSum.toString())
-        weatherCodes?.let {
-            Image(
-                painter = painterResource(id = WeatherType.fromWMO(it).iconRes),
-                contentDescription = null,
-                modifier = Modifier.width(40.dp)
-            )
-        }
+        Spacer(modifier = Modifier.height(4.dp))
+        Image(
+            painter = painterResource(id = WeatherType.fromWMO(weatherCodes).iconRes),
+            contentDescription = null,
+            modifier = Modifier
+                .width(40.dp)
+                .height(40.dp)
+        )
+        Spacer(modifier = Modifier.height(4.dp))
     }
 
 }
@@ -69,9 +64,8 @@ fun Temperature(temp: Double, color: Color) {
     Text(
         text = "$temp°C",
         color = color,
-        fontStyle = FontStyle.Italic,
-        fontWeight = FontWeight.Bold,
-        fontSize = 20.sp,
+        fontWeight = FontWeight.Medium,
+        fontSize = 16.sp,
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)

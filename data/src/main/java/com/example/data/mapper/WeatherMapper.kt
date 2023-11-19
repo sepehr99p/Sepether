@@ -58,10 +58,7 @@ fun ForecastDto.toForecastInfo() : ForecastInfo {
         this.forecastDataDto.maxTemperatures,
         this.forecastDataDto.minTemperatures,
         this.forecastDataDto.weatherCodes,
-        this.forecastDataDto.sunrise,
-        this.forecastDataDto.sunset,
         this.forecastDataDto.rainSum,
-        this.forecastDataDto.showersSum,
         this.forecastDataDto.snowfallSum
     )
 }

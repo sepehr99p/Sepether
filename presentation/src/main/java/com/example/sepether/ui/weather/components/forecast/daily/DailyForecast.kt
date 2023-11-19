@@ -28,12 +28,7 @@ fun DailyForecast(forecast : ForecastInfo) {
                     forecast.time[i],
                     forecast.maxTemperatures[i],
                     forecast.minTemperatures[i],
-                    forecast.rainSum[i],
-                    forecast.showersSum[i],
-                    forecast.snowfallSum[i],
-                    forecast.sunrise[i],
-                    forecast.sunset[i],
-                    forecast.weatherCodes?.get(i)
+                    forecast.weatherCodes[i]
                 )
             }
         }
