@@ -1,5 +1,6 @@
 package com.example.sepether.ui.weather.components.forecast.daily
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -24,6 +25,7 @@ import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
 fun DailyForecastItem(
@@ -50,10 +52,7 @@ fun DailyForecastItem(
         Temperature(maxTemperatures, Red_Negative)
         Temperature(minTemperatures, Primary_Blue)
         SimpleText(value = rainSum.toString())
-        SimpleText(value = showersSum.toString())
         SimpleText(value = snowfallSum.toString())
-        SimpleText(value = "Sunrise ${hour(sunrise)}")
-        SimpleText(value = "Sunset ${hour(sunset)}")
         weatherCodes?.let {
             Image(
                 painter = painterResource(id = WeatherType.fromWMO(it).iconRes),
@@ -84,5 +83,5 @@ fun hour(time: String): String {
 }
 
 fun dayOfWeek(time: String): String {
-    return SimpleDateFormat("EEE").format(SimpleDateFormat("yyyy-mm-dd").parse(time))
+    return SimpleDateFormat("EEE").format(SimpleDateFormat("yyyy-MM-dd").parse(time))
 }
