@@ -49,8 +49,8 @@ class MainActivity : ComponentActivity(), LocationListener {
         } else {
             "Tehran"
         }
-        viewModel.getCurrentWeather(query)
-        viewModel.getForecast(query)
+        viewModel.getCurrentWeather(gpsHelper.latitude.toString().substring(0,6).toDouble(),gpsHelper.longitude.toString().substring(0,6).toDouble())
+        viewModel.getForecast(gpsHelper.latitude,gpsHelper.longitude)
     }
 
     private fun getLocationPermission() {

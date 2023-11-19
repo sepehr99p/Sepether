@@ -1,24 +1,24 @@
 package com.example.data.remote
 
-import com.example.domain.entities.responses.CurrentServerEntity
-import com.example.domain.entities.responses.ForecastServerEntity
+import com.example.data.dto.ForecastDto
+import com.example.data.dto.WeatherDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface WeatherApi {
 
-    @GET("current.json")
-    suspend fun getCurrentWeather(
-        @Query("key") apiKey : String,
-        @Query("q") query : String
-    ) : Response<CurrentServerEntity>
+    @GET("v1/forecast?hourly=temperature_2m,weathercode,relativehumidity_2m,windspeed_10m,pressure_msl")
+    suspend fun getWeatherData(
+        @Query("latitude") lat: Double,
+        @Query("longitude") long: Double
+    ): Response<WeatherDto>
 
-    @GET("forecast.json")
-    suspend fun getForecast(
-        @Query("key") apiKey : String,
-        @Query("q") query : String,
-        @Query("days") days : Int
-    ) : Response<ForecastServerEntity>
+    @GET("v1/forecast?daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,sunset,rain_sum,showers_sum,snowfall_sum")
+    suspend fun getDailyForecast(
+        @Query("latitude") lat: Double,
+        @Query("longitude") long: Double
+    ) : Response<ForecastDto>
+
 
 }

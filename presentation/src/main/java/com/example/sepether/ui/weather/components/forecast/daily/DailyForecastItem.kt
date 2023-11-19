@@ -17,63 +17,61 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.domain.entities.DayEntity
-import com.example.domain.entities.Forecastday
 import com.example.sepether.R
 import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.SimpleText
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-@Composable
-fun DailyForecastItem(forecastDay: Forecastday) {
+//@Composable
+//fun DailyForecastItem(forecastDay: Forecastday) {
+//
+//    LaunchedEffect(forecastDay) {
+//        forecastDay.day
+//        forecastDay.date
+//    }
+//
+//
+//    Column(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .padding(horizontal = 8.dp, vertical = 2.dp)
+//            .clip(shape = RoundedCornerShape(8.dp, 8.dp, 8.dp, 8.dp))
+//            .background(
+//                primaryContainer
+//            ),
+//    ) {
+//        Row {
+//            SimpleText(value = getDayOfTheWeek(forecastDay.date))
+//            Spacer(modifier = Modifier.width(4.dp))
+//            Image(
+//                painter = painterResource(id = getWeatherIcon(forecastDay.day)),
+//                contentDescription = "condition",
+//                modifier = Modifier.align(Alignment.CenterVertically)
+//            )
+//        }
+//        Row {
+//            SimpleText(value = forecastDay.day.condition.text)
+//            Spacer(modifier = Modifier.width(4.dp))
+//            SimpleText(value = "${forecastDay.day.avgtemp_c} c ")
+//            Spacer(modifier = Modifier.width(4.dp))
+//        }
+//    }
+//    Spacer(modifier = Modifier.height(4.dp))
+//
+//}
 
-    LaunchedEffect(forecastDay) {
-        forecastDay.day
-        forecastDay.date
-    }
-
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 8.dp, vertical = 2.dp)
-            .clip(shape = RoundedCornerShape(8.dp, 8.dp, 8.dp, 8.dp))
-            .background(
-                primaryContainer
-            ),
-    ) {
-        Row {
-            SimpleText(value = getDayOfTheWeek(forecastDay.date))
-            Spacer(modifier = Modifier.width(4.dp))
-            Image(
-                painter = painterResource(id = getWeatherIcon(forecastDay.day)),
-                contentDescription = "condition",
-                modifier = Modifier.align(Alignment.CenterVertically)
-            )
-        }
-        Row {
-            SimpleText(value = forecastDay.day.condition.text)
-            Spacer(modifier = Modifier.width(4.dp))
-            SimpleText(value = "${forecastDay.day.avgtemp_c} c ")
-            Spacer(modifier = Modifier.width(4.dp))
-        }
-    }
-    Spacer(modifier = Modifier.height(4.dp))
-
-}
-
-fun getDayOfTheWeek(dateInput: String): String {
-    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-    val date = LocalDate.parse(dateInput, dateFormat)
-    return date.dayOfWeek.name
-}
-
-fun getWeatherIcon(dayEntity: DayEntity): Int =
-    if (dayEntity.daily_will_it_snow == 1) {
-        R.drawable.ic_snow
-    } else if (dayEntity.daily_will_it_rain == 1) {
-        R.drawable.ic_drop
-    } else {
-        R.drawable.ic_sun
-    }
+//fun getDayOfTheWeek(dateInput: String): String {
+//    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+//    val date = LocalDate.parse(dateInput, dateFormat)
+//    return date.dayOfWeek.name
+//}
+//
+//fun getWeatherIcon(dayEntity: DayEntity): Int =
+//    if (dayEntity.daily_will_it_snow == 1) {
+//        R.drawable.ic_snow
+//    } else if (dayEntity.daily_will_it_rain == 1) {
+//        R.drawable.ic_drop
+//    } else {
+//        R.drawable.ic_sun
+//    }

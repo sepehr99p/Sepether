@@ -20,6 +20,7 @@ import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
+import com.example.sepether.ui.weather.components.today.hourly.WeatherForecast
 import com.example.sepether.utils.extensions.toCelcius
 
 @Composable
@@ -27,14 +28,7 @@ fun TodayWeatherScreen(viewModel: WeatherViewModel) {
 
     val currentWeather = viewModel.currentWeather.value
     LaunchedEffect(currentWeather) {
-        currentWeather.current
-        currentWeather.location
-    }
-
-    currentWeather.current?.is_day?.let {
-        // set light background
-    } ?: run {
-        // set dark background
+        currentWeather.currentWeatherData
     }
 
     Column(
@@ -46,13 +40,14 @@ fun TodayWeatherScreen(viewModel: WeatherViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = Modifier.height(16.dp))
-        CustomText(value = currentWeather.location?.name,36, FontWeight.ExtraBold, onPrimary)
-        Spacer(modifier = Modifier.height(4.dp))
-        CustomText(value = ("${currentWeather.current?.temp_c}c"),44, FontWeight.Light, onPrimary)
-        Spacer(modifier = Modifier.height(4.dp))
-        CustomText(value = currentWeather.current?.condition?.text,24, FontWeight.Medium, onPrimaryContainer)
-        Spacer(modifier = Modifier.height(4.dp))
-        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f?.toCelcius()} C"))
+        WeatherForecast(state = currentWeather)
+//        CustomText(value = currentWeather.location?.name,36, FontWeight.ExtraBold, onPrimary)
+//        Spacer(modifier = Modifier.height(4.dp))
+//        CustomText(value = ("${currentWeather.current?.temp_c}c"),44, FontWeight.Light, onPrimary)
+//        Spacer(modifier = Modifier.height(4.dp))
+//        CustomText(value = currentWeather.current?.condition?.text,24, FontWeight.Medium, onPrimaryContainer)
+//        Spacer(modifier = Modifier.height(4.dp))
+//        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f?.toCelcius()} C"))
         Spacer(modifier = Modifier.height(8.dp))
         DailyForecast(viewModel)
     }

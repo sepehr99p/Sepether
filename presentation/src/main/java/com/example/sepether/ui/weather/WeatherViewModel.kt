@@ -7,8 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Resource
-import com.example.domain.entities.responses.CurrentServerEntity
-import com.example.domain.entities.responses.ForecastServerEntity
+import com.example.domain.entities.ForecastInfo
+import com.example.domain.entities.WeatherInfo
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -30,21 +30,23 @@ class WeatherViewModel @Inject constructor(
         private const val TAG = "WeatherViewModel"
     }
 
-    val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
-    val rainyBackgroundUrl = "https://e0.pxfuel.com/wallpapers/619/737/desktop-wallpaper-rain-rain-weather-beautiful-background-raining-aesthetic.jpg"
+    private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
+
+    private val _currentWeather = mutableStateOf(
+        WeatherInfo(
+            mapOf(),null
+        )
+    )
+    val currentWeather: State<WeatherInfo> = _currentWeather
+
+    private val _forecast = mutableStateOf(ForecastInfo(arrayListOf(), arrayListOf(), arrayListOf(),
+        arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf(), arrayListOf()))
+    val forecast: State<ForecastInfo> = _forecast
 
 
-    private val _currentWeather = mutableStateOf(CurrentServerEntity(null,null))
-    val currentWeather: State<CurrentServerEntity> = _currentWeather
-
-    private val _forecast = mutableStateOf(ForecastServerEntity(null,null,null))
-    val forecast: State<ForecastServerEntity> = _forecast
-
-
-    fun getCurrentWeather(query: String) {
-        Log.i("SEPI", "getCurrentWeather: $query")
+    fun getCurrentWeather(lat : Double, long : Double) {
         scope.launch {
-            currentWeatherUseCase.invoke(query)
+            currentWeatherUseCase.invoke(lat, long)
                 .catch {
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
                 }.collect {
@@ -67,9 +69,9 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getForecast(query : String) {
+    fun getForecast(lat : Double, long : Double) {
         scope.launch {
-            forecastWeatherUseCase.invoke(query, 4)
+            forecastWeatherUseCase.invoke(lat, long)
                 .catch {
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
                 }
