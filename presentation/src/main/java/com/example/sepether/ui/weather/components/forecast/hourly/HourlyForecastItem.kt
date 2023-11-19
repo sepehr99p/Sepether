@@ -18,14 +18,14 @@ import com.example.sepether.utils.WeatherType
 import java.time.format.DateTimeFormatter
 
 @Composable
-fun HourlyWeatherDisplay(
-    data: WeatherData,
+fun HourlyForecastItem(
+    weatherData: WeatherData,
     modifier: Modifier = Modifier,
     textColor: Color = Color.White
 ) {
 
-    val formattedTime = remember(data) {
-        data.time.format(
+    val formattedTime = remember(weatherData) {
+        weatherData.time.format(
             DateTimeFormatter.ofPattern("HH:mm")
         )
     }
@@ -39,12 +39,12 @@ fun HourlyWeatherDisplay(
             color = Color.LightGray
         )
         Image(
-            painter = painterResource(id = WeatherType.fromWMO(data.weatherType).iconRes),
+            painter = painterResource(id = WeatherType.fromWMO(weatherData.weatherType).iconRes),
             contentDescription = null,
             modifier = Modifier.width(40.dp)
         )
         Text(
-            text = "${data.temperatureCelsius}°C",
+            text = "${weatherData.temperatureCelsius}°C",
             color = textColor,
             fontWeight = FontWeight.Bold
         )
