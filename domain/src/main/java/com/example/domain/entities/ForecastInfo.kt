@@ -4,7 +4,7 @@ data class ForecastInfo(
     val time: List<String>,
     val maxTemperatures: List<Double>,
     val minTemperatures: List<Double>,
-    val weatherCodes: List<Int>,
+    val weatherCodes: List<Int>?,
     val sunrise: List<String>,
     val sunset: List<String>,
     val rainSum: List<Double>,

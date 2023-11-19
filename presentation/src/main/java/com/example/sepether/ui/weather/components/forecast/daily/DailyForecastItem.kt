@@ -1,77 +1,45 @@
 package com.example.sepether.ui.weather.components.forecast.daily
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.example.sepether.R
-import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.SimpleText
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import com.example.sepether.utils.WeatherType
 
-//@Composable
-//fun DailyForecastItem(forecastDay: Forecastday) {
-//
-//    LaunchedEffect(forecastDay) {
-//        forecastDay.day
-//        forecastDay.date
-//    }
-//
-//
-//    Column(
-//        modifier = Modifier
-//            .fillMaxWidth()
-//            .padding(horizontal = 8.dp, vertical = 2.dp)
-//            .clip(shape = RoundedCornerShape(8.dp, 8.dp, 8.dp, 8.dp))
-//            .background(
-//                primaryContainer
-//            ),
-//    ) {
-//        Row {
-//            SimpleText(value = getDayOfTheWeek(forecastDay.date))
-//            Spacer(modifier = Modifier.width(4.dp))
-//            Image(
-//                painter = painterResource(id = getWeatherIcon(forecastDay.day)),
-//                contentDescription = "condition",
-//                modifier = Modifier.align(Alignment.CenterVertically)
-//            )
-//        }
-//        Row {
-//            SimpleText(value = forecastDay.day.condition.text)
-//            Spacer(modifier = Modifier.width(4.dp))
-//            SimpleText(value = "${forecastDay.day.avgtemp_c} c ")
-//            Spacer(modifier = Modifier.width(4.dp))
-//        }
-//    }
-//    Spacer(modifier = Modifier.height(4.dp))
-//
-//}
+@Composable
+fun DailyForecastItem(
+    time: String,
+    maxTemperatures: Double,
+    minTemperatures: Double,
+    rainSum: Double,
+    showersSum: Double,
+    snowfallSum: Double,
+    sunrise: String,
+    sunset: String,
+    weatherCodes: Int?
+) {
 
-//fun getDayOfTheWeek(dateInput: String): String {
-//    val dateFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-//    val date = LocalDate.parse(dateInput, dateFormat)
-//    return date.dayOfWeek.name
-//}
-//
-//fun getWeatherIcon(dayEntity: DayEntity): Int =
-//    if (dayEntity.daily_will_it_snow == 1) {
-//        R.drawable.ic_snow
-//    } else if (dayEntity.daily_will_it_rain == 1) {
-//        R.drawable.ic_drop
-//    } else {
-//        R.drawable.ic_sun
-//    }
+    Column {
+        SimpleText(value = time)
+        SimpleText(value = maxTemperatures.toString())
+        SimpleText(value = minTemperatures.toString())
+        SimpleText(value = rainSum.toString())
+        SimpleText(value = showersSum.toString())
+        SimpleText(value = snowfallSum.toString())
+        SimpleText(value = sunrise)
+        SimpleText(value = sunset)
+        weatherCodes?.let {
+            Image(
+                painter = painterResource(id = WeatherType.fromWMO(it).iconRes),
+                contentDescription = null,
+                modifier = Modifier.width(40.dp)
+            )
+        }
+    }
+
+}
+

@@ -52,20 +52,6 @@ fun WeatherForecast(
                         }
                     }
                 }
-//                items(data.size) { weatherData ->
-//                    Log.i(TAG, "WeatherForecast: ${weatherData}")
-//                    val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(data[weatherData].time.toString())
-//                    date?.let {
-//                        if (it.time > System.currentTimeMillis()) {
-//                            HourlyWeatherDisplay(
-//                                data = data[weatherData],
-//                                modifier = Modifier
-//                                    .height(100.dp)
-//                                    .padding(horizontal = 16.dp)
-//                            )
-//                        }
-//                    }
-//                }
             })
         }
     }

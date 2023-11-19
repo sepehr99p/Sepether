@@ -11,25 +11,22 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.sepether.ui.theme.Primary
-import com.example.sepether.ui.theme.onPrimary
-import com.example.sepether.ui.theme.onPrimaryContainer
 import com.example.sepether.ui.weather.WeatherViewModel
-import com.example.sepether.ui.weather.components.CustomText
-import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.today.hourly.WeatherForecast
-import com.example.sepether.utils.extensions.toCelcius
 
 @Composable
 fun TodayWeatherScreen(viewModel: WeatherViewModel) {
 
     val currentWeather = viewModel.currentWeather.value
+    val forecast = viewModel.forecast
     LaunchedEffect(currentWeather) {
         currentWeather.currentWeatherData
+        forecast.value
     }
+
 
     Column(
         modifier = Modifier
@@ -49,6 +46,6 @@ fun TodayWeatherScreen(viewModel: WeatherViewModel) {
 //        Spacer(modifier = Modifier.height(4.dp))
 //        SimpleText(value = ("feels like ${currentWeather.current?.feelslike_f?.toCelcius()} C"))
         Spacer(modifier = Modifier.height(8.dp))
-        DailyForecast(viewModel)
+        DailyForecast(forecast.value)
     }
 }
