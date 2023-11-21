@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.ui.theme.Primary
+import java.text.SimpleDateFormat
 
 @Composable
 fun DailyForecast(forecast : ForecastInfo) {
@@ -23,15 +24,20 @@ fun DailyForecast(forecast : ForecastInfo) {
     ) {
 
         for (i in 0 until forecast.time.size) {
-            item {
-                DailyForecastItem(
-                    forecast.time[i],
-                    forecast.maxTemperatures[i],
-                    forecast.minTemperatures[i],
-                    forecast.weatherCodes[i]
-                )
+            if (isNotToday(forecast.time[i])) {
+                item {
+                    DailyForecastItem(
+                        forecast.time[i],
+                        forecast.maxTemperatures[i],
+                        forecast.minTemperatures[i],
+                        forecast.weatherCodes[i]
+                    )
+                }
             }
         }
     }
 
 }
+
+fun isNotToday(time: String): Boolean =
+    SimpleDateFormat("yyyy-MM-dd").parse(time).time > System.currentTimeMillis()
