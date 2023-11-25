@@ -90,7 +90,6 @@ class MainActivity : ComponentActivity(), LocationListener {
         latitude = location.latitude
         longitude = location.longitude
         val geoCoder = Geocoder(this, Locale.getDefault())
-        val finalAddress = viewModel.getFinalAddress(geoCoder,latitude,longitude)
     }
 
     fun currentLongitude(): Double {

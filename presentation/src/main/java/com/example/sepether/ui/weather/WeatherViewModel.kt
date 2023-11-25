@@ -1,6 +1,5 @@
 package com.example.sepether.ui.weather
 
-import android.location.Geocoder
 import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -17,7 +16,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import java.io.IOException
 import javax.inject.Inject
 
 
@@ -36,19 +34,26 @@ class WeatherViewModel @Inject constructor(
     private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
         DataState(
             WeatherInfo(
-                mapOf(),null
+                mapOf(), null
             ),
             false
         )
     )
     val currentWeather: State<DataState<WeatherInfo?>> = _currentWeather
 
-    private val _forecast = mutableStateOf(ForecastInfo(arrayListOf(), arrayListOf(), arrayListOf(),
-        arrayListOf(), arrayListOf(), arrayListOf()))
-    val forecast: State<ForecastInfo> = _forecast
+    private val _forecast = mutableStateOf<DataState<ForecastInfo?>>(
+        DataState(
+            ForecastInfo(
+                arrayListOf(), arrayListOf(), arrayListOf(),
+                arrayListOf(), arrayListOf(), arrayListOf()
+            ),
+            false
+        )
+    )
+    val forecast: State<DataState<ForecastInfo?>> = _forecast
 
 
-    fun getCurrentWeather(lat : Double, long : Double) {
+    fun getCurrentWeather(lat: Double, long: Double) {
         scope.launch {
             currentWeatherUseCase.invoke(lat, long)
                 .catch {
@@ -56,33 +61,23 @@ class WeatherViewModel @Inject constructor(
                 }.collect {
                     when (it) {
                         is Resource.Success -> {
-                            Log.i(TAG, "getCurrentWeather: success")
-                            _currentWeather.value = DataState(
-                                it.data,false
-                            )
+                            _currentWeather.value = DataState(it.data, false)
                         }
 
                         is Resource.Loading -> {
-                            _currentWeather.value = DataState(
-                                null,
-                                true
-                            )
-                            Log.i(TAG, "getCurrentWeather: loading")
+                            _currentWeather.value = DataState(null, true)
                         }
 
                         is Resource.Error -> {
-                            _currentWeather.value = DataState(
-                                null,false
-                            )
+                            _currentWeather.value = DataState(null, false)
                             Log.i(TAG, "getCurrentWeather: error ${it.message}")
-                            //todo : find a better solution for this problem later
                         }
                     }
                 }
         }
     }
 
-    fun getForecast(lat : Double, long : Double) {
+    fun getForecast(lat: Double, long: Double) {
         scope.launch {
             forecastWeatherUseCase.invoke(lat, long)
                 .catch {
@@ -91,14 +86,15 @@ class WeatherViewModel @Inject constructor(
                 .collect {
                     when (it) {
                         is Resource.Success -> {
-                            _forecast.value = it.data!!
+                            _forecast.value = DataState(it.data, false)
                         }
 
                         is Resource.Loading -> {
-                            Log.i(TAG, "getForecast: loading")
+                            _forecast.value = DataState(null, true)
                         }
 
                         is Resource.Error -> {
+                            _forecast.value = DataState(null, false)
                             Log.i(TAG, "getForecast: error ${it.message}")
                         }
                     }
@@ -106,24 +102,5 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getFinalAddress(geoCoder: Geocoder, latitude: Double, longitude: Double): String {
-        val builder = java.lang.StringBuilder()
-        var finalAddress = ""
-        try {
-            val address = geoCoder.getFromLocation(latitude, longitude, 1)
-            val maxLines = address!![0].maxAddressLineIndex
-            for (i in 0 until maxLines) {
-                val addressStr = address[0].getAddressLine(i)
-                builder.append(addressStr)
-                builder.append(" ")
-            }
-            finalAddress = builder.toString()
-        } catch (e: IOException) {
-            Log.e(TAG, "IOException: ")
-        } catch (e: java.lang.NullPointerException) {
-            Log.e(TAG, "NullPointerException: ")
-        }
-        return finalAddress
-    }
 
 }
