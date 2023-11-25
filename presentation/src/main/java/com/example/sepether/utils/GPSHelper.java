@@ -2,10 +2,15 @@ package com.example.sepether.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.util.Log;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 public class GPSHelper {
 
@@ -65,6 +70,17 @@ public class GPSHelper {
      */
     public double getLongitude() {
         return longitude;
+    }
+
+    public String cityName(Context context) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            return addresses.get(0).getAddressLine(0);
+        } catch (Exception e) {
+            return "";
+        }
+
     }
 
 }
