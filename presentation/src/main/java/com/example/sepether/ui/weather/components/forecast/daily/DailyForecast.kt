@@ -9,11 +9,13 @@ import androidx.compose.ui.Modifier
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.data.DataState
 import com.example.sepether.ui.components.LoadingView
+import com.example.sepether.ui.components.RetryView
 import com.example.sepether.ui.theme.Primary
+import com.example.sepether.ui.weather.WeatherViewModel
 import java.text.SimpleDateFormat
 
 @Composable
-fun DailyForecast(forecast: DataState<ForecastInfo?>) {
+fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewModel) {
 
     val scrollState = rememberLazyListState()
     forecast.data?.let { forecastInfo ->
@@ -40,7 +42,9 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>) {
         if (forecast.isLoading) {
             LoadingView()
         } else {
-            // presentError View
+            RetryView(text = "failed to fetch forecast") {
+                viewModel.getForecast()
+            }
         }
     }
 
