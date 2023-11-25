@@ -11,6 +11,7 @@ import com.example.domain.entities.WeatherInfo
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
 import com.example.sepether.data.DataState
+import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -29,6 +30,7 @@ class WeatherViewModel @Inject constructor(
         private const val TAG = "WeatherViewModel"
     }
 
+    lateinit var gpsHelper : GPSHelper
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
     private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
@@ -53,9 +55,10 @@ class WeatherViewModel @Inject constructor(
     val forecast: State<DataState<ForecastInfo?>> = _forecast
 
 
-    fun getCurrentWeather(lat: Double, long: Double) {
+    fun getCurrentWeather() {
+
         scope.launch {
-            currentWeatherUseCase.invoke(lat, long)
+            currentWeatherUseCase.invoke(currentLatitude(),currentLongitude())
                 .catch {
                     _currentWeather.value = DataState(null, false)
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
@@ -78,9 +81,9 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun getForecast(lat: Double, long: Double) {
+    fun getForecast() {
         scope.launch {
-            forecastWeatherUseCase.invoke(lat, long)
+            forecastWeatherUseCase.invoke(currentLatitude(),currentLongitude())
                 .catch {
                     _forecast.value = DataState(null, false)
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
@@ -103,6 +106,19 @@ class WeatherViewModel @Inject constructor(
                 }
         }
     }
+
+    fun currentLongitude(): Double {
+        return gpsHelper.longitude.toString().substring(0,
+            gpsHelper.longitude.toString().length.coerceAtMost(6)
+        ).toDouble()
+    }
+
+    fun currentLatitude() : Double {
+        return gpsHelper.latitude.toString().substring(0,
+            gpsHelper.latitude.toString().length.coerceAtMost(6)
+        ).toDouble()
+    }
+
 
 
 }

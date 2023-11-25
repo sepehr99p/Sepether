@@ -15,7 +15,6 @@ import java.text.SimpleDateFormat
 @Composable
 fun DailyForecast(forecast: DataState<ForecastInfo?>) {
 
-
     val scrollState = rememberLazyListState()
     forecast.data?.let { forecastInfo ->
         LazyRow(
@@ -44,7 +43,6 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>) {
             // presentError View
         }
     }
-
 
 }
 

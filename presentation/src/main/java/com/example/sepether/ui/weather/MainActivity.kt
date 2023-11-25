@@ -26,11 +26,12 @@ class MainActivity : ComponentActivity(), LocationListener {
 //    private lateinit var analytics: FirebaseAnalytics
     private var latitude = 0.0
     private var longitude = 0.0
-    private val gpsHelper by lazy { GPSHelper(this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        analytics = Firebase.analytics
+        viewModel.gpsHelper = GPSHelper(this)
         setContent {
             WeatherScreen(viewModel)
         }
@@ -40,8 +41,8 @@ class MainActivity : ComponentActivity(), LocationListener {
     override fun onResume() {
         super.onResume()
         updateLocation()
-        viewModel.getCurrentWeather(currentLatitude(),currentLongitude())
-        viewModel.getForecast(currentLatitude(),currentLongitude())
+        viewModel.getCurrentWeather()
+        viewModel.getForecast()
     }
 
     private fun getLocationPermission() {
@@ -82,7 +83,7 @@ class MainActivity : ComponentActivity(), LocationListener {
             )
             //
         } else {
-            gpsHelper.getMyLocation()
+            viewModel.gpsHelper.getMyLocation()
         }
     }
 
@@ -92,17 +93,6 @@ class MainActivity : ComponentActivity(), LocationListener {
         val geoCoder = Geocoder(this, Locale.getDefault())
     }
 
-    fun currentLongitude(): Double {
-        return gpsHelper.longitude.toString().substring(0,
-            gpsHelper.longitude.toString().length.coerceAtMost(6)
-        ).toDouble()
-    }
-
-    fun currentLatitude() : Double {
-        return gpsHelper.latitude.toString().substring(0,
-            gpsHelper.latitude.toString().length.coerceAtMost(6)
-        ).toDouble()
-    }
 
 
 
