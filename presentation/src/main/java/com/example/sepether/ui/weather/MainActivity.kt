@@ -40,13 +40,8 @@ class MainActivity : ComponentActivity(), LocationListener {
     override fun onResume() {
         super.onResume()
         updateLocation()
-        val query: String = if (gpsHelper.latitude != 0.0 && gpsHelper.longitude != 0.0) {
-            "${gpsHelper.latitude.toString().substring(0,6)},${gpsHelper.longitude.toString().substring(0,6)}"
-        } else {
-            "Tehran"
-        }
-        viewModel.getCurrentWeather(gpsHelper.latitude.toString().substring(0,Math.min(6,gpsHelper.latitude.toString().length)).toDouble(),gpsHelper.longitude.toString().substring(0,Math.min(6,gpsHelper.longitude.toString().length)).toDouble())
-        viewModel.getForecast(gpsHelper.latitude,gpsHelper.longitude)
+        viewModel.getCurrentWeather(currentLatitude(),currentLongitude())
+        viewModel.getForecast(currentLatitude(),currentLongitude())
     }
 
     private fun getLocationPermission() {
@@ -97,5 +92,19 @@ class MainActivity : ComponentActivity(), LocationListener {
         val geoCoder = Geocoder(this, Locale.getDefault())
         val finalAddress = viewModel.getFinalAddress(geoCoder,latitude,longitude)
     }
+
+    fun currentLongitude(): Double {
+        return gpsHelper.longitude.toString().substring(0,
+            gpsHelper.longitude.toString().length.coerceAtMost(6)
+        ).toDouble()
+    }
+
+    fun currentLatitude() : Double {
+        return gpsHelper.latitude.toString().substring(0,
+            gpsHelper.latitude.toString().length.coerceAtMost(6)
+        ).toDouble()
+    }
+
+
 
 }
