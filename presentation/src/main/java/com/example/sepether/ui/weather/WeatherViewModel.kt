@@ -57,6 +57,7 @@ class WeatherViewModel @Inject constructor(
         scope.launch {
             currentWeatherUseCase.invoke(lat, long)
                 .catch {
+                    _currentWeather.value = DataState(null, false)
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
                 }.collect {
                     when (it) {
@@ -81,6 +82,7 @@ class WeatherViewModel @Inject constructor(
         scope.launch {
             forecastWeatherUseCase.invoke(lat, long)
                 .catch {
+                    _forecast.value = DataState(null, false)
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
                 }
                 .collect {
