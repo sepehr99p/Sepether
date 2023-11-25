@@ -11,6 +11,7 @@ import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
+import com.example.sepether.data.DataState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
@@ -32,12 +33,15 @@ class WeatherViewModel @Inject constructor(
 
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
-    private val _currentWeather = mutableStateOf<WeatherInfo?>(
-        WeatherInfo(
-            mapOf(),null
+    private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
+        DataState(
+            WeatherInfo(
+                mapOf(),null
+            ),
+            false
         )
     )
-    val currentWeather: State<WeatherInfo?> = _currentWeather
+    val currentWeather: State<DataState<WeatherInfo?>> = _currentWeather
 
     private val _forecast = mutableStateOf(ForecastInfo(arrayListOf(), arrayListOf(), arrayListOf(),
         arrayListOf(), arrayListOf(), arrayListOf()))
@@ -53,15 +57,23 @@ class WeatherViewModel @Inject constructor(
                     when (it) {
                         is Resource.Success -> {
                             Log.i(TAG, "getCurrentWeather: success")
-                            _currentWeather.value = it.data
+                            _currentWeather.value = DataState(
+                                it.data,false
+                            )
                         }
 
                         is Resource.Loading -> {
-                            _currentWeather.value = null
+                            _currentWeather.value = DataState(
+                                null,
+                                true
+                            )
                             Log.i(TAG, "getCurrentWeather: loading")
                         }
 
                         is Resource.Error -> {
+                            _currentWeather.value = DataState(
+                                null,false
+                            )
                             Log.i(TAG, "getCurrentWeather: error ${it.message}")
                             //todo : find a better solution for this problem later
                         }

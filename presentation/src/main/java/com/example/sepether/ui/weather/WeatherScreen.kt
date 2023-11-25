@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -22,11 +21,11 @@ import com.example.sepether.ui.weather.components.today.Today
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
 
-    val currentWeather = viewModel.currentWeather.value
-    val forecast = viewModel.forecast
-    LaunchedEffect(currentWeather) {
-        currentWeather?.currentWeatherData
-        forecast.value
+    val currentWeatherState = viewModel.currentWeather
+    val forecastState = viewModel.forecast
+    LaunchedEffect(currentWeatherState) {
+        currentWeatherState.value
+        forecastState.value
     }
 
     Column(
@@ -37,17 +36,21 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-
-        currentWeather?.let {
+        currentWeatherState.value.data?.let {weatherInfo ->
             Spacer(modifier = Modifier.height(16.dp))
-            currentWeather.currentWeatherData?.let {
+
+            weatherInfo.currentWeatherData?.let {
                 Today(it)
             }
-            HourlyForecast(weatherInfo = currentWeather)
+            HourlyForecast(weatherInfo = weatherInfo)
             Spacer(modifier = Modifier.height(8.dp))
-            DailyForecast(forecast.value)
+            DailyForecast(forecastState.value)
         } ?: run {
-            LoadingView()
+            if (currentWeatherState.value.isLoading) {
+                LoadingView()
+            } else {
+                // present Error view
+            }
         }
     }
 }
