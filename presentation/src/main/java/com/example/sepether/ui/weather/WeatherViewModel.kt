@@ -32,12 +32,12 @@ class WeatherViewModel @Inject constructor(
 
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
-    private val _currentWeather = mutableStateOf(
+    private val _currentWeather = mutableStateOf<WeatherInfo?>(
         WeatherInfo(
             mapOf(),null
         )
     )
-    val currentWeather: State<WeatherInfo> = _currentWeather
+    val currentWeather: State<WeatherInfo?> = _currentWeather
 
     private val _forecast = mutableStateOf(ForecastInfo(arrayListOf(), arrayListOf(), arrayListOf(),
         arrayListOf(), arrayListOf(), arrayListOf()))
@@ -53,10 +53,11 @@ class WeatherViewModel @Inject constructor(
                     when (it) {
                         is Resource.Success -> {
                             Log.i(TAG, "getCurrentWeather: success")
-                            _currentWeather.value = it.data!!
+                            _currentWeather.value = it.data
                         }
 
                         is Resource.Loading -> {
+                            _currentWeather.value = null
                             Log.i(TAG, "getCurrentWeather: loading")
                         }
 
