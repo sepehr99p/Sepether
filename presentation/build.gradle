@@ -4,7 +4,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-    id 'com.google.gms.google-services'
+//    id 'com.google.gms.google-services'
 }
 
 android {
@@ -118,10 +118,10 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     implementation "com.google.dagger:hilt-android:$hilt_version"
-    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
-    implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
+//    implementation 'com.google.firebase:firebase-analytics-ktx:21.3.0'
+//    implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
     kapt "com.google.dagger:hilt-android-compiler:$hilt_version"
-    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
+//    implementation(platform("com.google.firebase:firebase-bom:32.2.3"))
 
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
@@ -139,9 +139,9 @@ dependencies {
     implementation 'androidx.multidex:multidex:2.0.1'
 
     //Play Services
-    implementation 'com.google.android.gms:play-services-gcm:16.1.0'
-    implementation 'com.google.android.gms:play-services-location:17.0.0'
-
+//    implementation 'com.google.android.gms:play-services-gcm:16.1.0'
+//    implementation 'com.google.android.gms:play-services-location:17.0.0'
+//
     implementation "androidx.viewpager2:viewpager2:1.0.0"
 
     def composeBom = platform('androidx.compose:compose-bom:2023.08.00')

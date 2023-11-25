@@ -11,9 +11,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.example.sepether.utils.GPSHelper
-import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 
@@ -26,14 +23,14 @@ class MainActivity : ComponentActivity(), LocationListener {
     }
 
     private val viewModel by viewModels<WeatherViewModel>()
-    private lateinit var analytics: FirebaseAnalytics
+//    private lateinit var analytics: FirebaseAnalytics
     private var latitude = 0.0
     private var longitude = 0.0
     private val gpsHelper by lazy { GPSHelper(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        analytics = Firebase.analytics
+//        analytics = Firebase.analytics
         setContent {
             WeatherScreen(viewModel)
         }
@@ -48,7 +45,7 @@ class MainActivity : ComponentActivity(), LocationListener {
         } else {
             "Tehran"
         }
-        viewModel.getCurrentWeather(gpsHelper.latitude.toString().substring(0,6).toDouble(),gpsHelper.longitude.toString().substring(0,6).toDouble())
+        viewModel.getCurrentWeather(gpsHelper.latitude.toString().substring(0,Math.min(6,gpsHelper.latitude.toString().length)).toDouble(),gpsHelper.longitude.toString().substring(0,Math.min(6,gpsHelper.longitude.toString().length)).toDouble())
         viewModel.getForecast(gpsHelper.latitude,gpsHelper.longitude)
     }
 
@@ -68,6 +65,8 @@ class MainActivity : ComponentActivity(), LocationListener {
                 ), 102
             )
             return
+        } else {
+            updateLocation()
         }
     }
 
@@ -80,6 +79,12 @@ class MainActivity : ComponentActivity(), LocationListener {
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
+            requestPermissions(
+                arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION
+                ), 102
+            )
             //
         } else {
             gpsHelper.getMyLocation()
