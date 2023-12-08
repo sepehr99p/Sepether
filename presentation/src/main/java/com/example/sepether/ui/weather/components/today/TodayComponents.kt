@@ -29,9 +29,11 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
+import com.example.sepether.ui.theme.Color_Withe
 import com.example.sepether.ui.theme.onPrimary
 import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.SimpleText
+import com.example.sepether.ui.weather.components.forecast.daily.dayOfWeek
 import com.example.sepether.utils.WeatherType
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
@@ -63,7 +65,7 @@ fun Today(currentWeatherData: WeatherData) {
     Text(
         text = WeatherType.fromWMO(currentWeatherData.weatherType).weatherDesc,
         fontSize = 20.sp,
-        color = onPrimary
+        color = Color_Withe
     )
     Spacer(modifier = Modifier.height(32.dp))
     Row(
@@ -132,14 +134,43 @@ fun TodayDetails(weatherInfo: WeatherInfo) {
             .fillMaxWidth()
             .padding(8.dp)
     ) {
-        Text(text = "Today's info", color = onPrimary, fontWeight = FontWeight.Bold)
         Spacer(modifier = Modifier.height(8.dp))
-        DetailComponent(info = "Pressure ${weatherInfo.currentWeatherData?.pressure}")
-        DetailComponent(info = "Humidity ${weatherInfo.currentWeatherData?.humidity}")
-        DetailComponent(info = "Wind Speed ${weatherInfo.currentWeatherData?.windSpeed}")
-        DetailComponent(info = "temperatureCelsius ${weatherInfo.currentWeatherData?.temperatureCelsius}")
+        weatherInfo.weatherDataPerDay.forEach { day ->
+            EachDayDetails(day)
+        }
     }
 
+}
+
+@Composable
+fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(4.dp)
+            .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
+            .background(primaryContainer),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            modifier = Modifier.padding(4.dp),
+            text = dayOfWeek(weatherData.value[0].time.toString()), color = onPrimary, fontWeight = FontWeight.Bold, fontSize = 20.sp
+        )
+        var averagePressure = 0.0
+        var averageHumidity = 0.0
+        var averageWindSpeed = 0.0
+        var averageTemp = 0.0
+        weatherData.value.forEach {
+            averagePressure += it.pressure
+            averageHumidity += it.humidity
+            averageWindSpeed += it.windSpeed
+            averageTemp += it.temperatureCelsius
+        }
+        DetailComponent(info = "Pressure ${(averagePressure/weatherData.value.size).roundToInt()} hpa")
+        DetailComponent(info = "Humidity ${(averageHumidity/weatherData.value.size).roundToInt()} %")
+        DetailComponent(info = "Wind Speed ${(averageWindSpeed/weatherData.value.size).roundToInt()} km/h")
+        DetailComponent(info = "temperatureCelsius ${(averageTemp/weatherData.value.size).roundToInt()} c")
+    }
 }
 
 @Composable
@@ -158,3 +189,4 @@ fun DetailComponent(info: String) {
         )
     }
 }
+
