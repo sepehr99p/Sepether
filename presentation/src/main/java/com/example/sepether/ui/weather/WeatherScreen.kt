@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -19,6 +21,7 @@ import com.example.sepether.ui.theme.Primary
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.today.Today
+import com.example.sepether.ui.weather.components.today.TodayDetails
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -35,9 +38,10 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
+            .verticalScroll(rememberScrollState())
             .background(Primary),
         verticalArrangement = Arrangement.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         currentWeatherState.value.data?.let {weatherInfo ->
             Spacer(modifier = Modifier.height(16.dp))
@@ -48,6 +52,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             HourlyForecast(weatherInfo = weatherInfo)
             Spacer(modifier = Modifier.height(8.dp))
             DailyForecast(forecastState.value,viewModel)
+            TodayDetails(weatherInfo)
         } ?: run {
             if (currentWeatherState.value.isLoading) {
                 LoadingView()

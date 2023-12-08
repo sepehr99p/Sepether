@@ -8,7 +8,7 @@ buildscript {
 
     repositories {
         //Add Neshan maven repo here
-        maven { url "https://maven.neshan.org/artifactory/public-maven" }
+//        maven { url "https://maven.neshan.org/artifactory/public-maven" }
         maven { url "https://jitpack.io" }
     }
 
