@@ -24,6 +24,8 @@ import com.example.sepether.ui.theme.Red_Negative
 import com.example.sepether.ui.theme.onPrimary
 import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.CustomText
+import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_OF_WEEK
+import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_WEEK
 import com.example.sepether.utils.WeatherType
 import java.text.SimpleDateFormat
 
@@ -72,10 +74,7 @@ fun Temperature(temp: Double, color: Color) {
     )
 }
 
-fun hour(time: String): String {
-    return SimpleDateFormat("HH:mm").format(SimpleDateFormat("yyyy-mm-dd'T'HH:mm").parse(time))
-}
 
 fun dayOfWeek(time: String): String {
-    return SimpleDateFormat("EEE").format(SimpleDateFormat("yyyy-MM-dd").parse(time))
+    return SimpleDateFormat(TIME_PATTERN_DAY_OF_WEEK).format(SimpleDateFormat(TIME_PATTERN_DAY_WEEK).parse(time))
 }

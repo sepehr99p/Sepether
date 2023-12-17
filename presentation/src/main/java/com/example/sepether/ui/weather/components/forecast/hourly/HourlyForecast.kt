@@ -14,6 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherInfo
+import com.example.sepether.utils.Constants.TIME_PATTERN
 import java.text.SimpleDateFormat
 
 @Composable
@@ -32,8 +33,8 @@ fun HourlyForecast(
             Spacer(modifier = Modifier.height(16.dp))
             LazyRow(content = {
                 data.forEach { weatherData ->
-                    item {
-                        val date = SimpleDateFormat("yyyy-MM-dd'T'HH:mm").parse(weatherData.time.toString())
+                    item(key = weatherData.time.toString()) {
+                        val date = SimpleDateFormat(TIME_PATTERN).parse(weatherData.time.toString())
                         date?.let {
                             if (it.time > System.currentTimeMillis()) {
                                 HourlyForecastItem(

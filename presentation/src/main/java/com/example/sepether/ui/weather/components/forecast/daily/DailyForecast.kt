@@ -24,10 +24,9 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
                 .fillMaxWidth()
                 .background(Primary), state = scrollState
         ) {
-
             for (i in 0 until forecastInfo.time.size) {
                 if (isNotToday(forecastInfo.time[i])) {
-                    item {
+                    item(key = forecastInfo.time[i]) {
                         DailyForecastItem(
                             forecastInfo.time[i],
                             forecastInfo.maxTemperatures[i],
