@@ -1,6 +1,8 @@
 package com.example.sepether.ui.theme
 
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
+
 
 
 val Primary_Blue = Color(0xFF5AC8D3)
@@ -32,3 +34,15 @@ val Primary = Color(0xFF1B2253)
 val onPrimary = Color(0xFFC5CAE9)
 val primaryContainer = Color(0x25FDFDFD)
 val onPrimaryContainer = Color(0xFF98A7B3)
+
+val LightColorScheme = lightColorScheme(
+    primary = Color(0xFFD5D7EB),
+    onPrimary = Color(0xFF10163F),
+    primaryContainer = Color(0xA3BFC2C5)
+)
+
+val DarkColorScheme = lightColorScheme(
+    primary = Color(0xFF1B2253),
+    onPrimary = Color(0xFFC5CAE9),
+    primaryContainer = Color(0x25FDFDFD)
+)

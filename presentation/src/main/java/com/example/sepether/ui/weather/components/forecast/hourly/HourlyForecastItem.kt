@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -21,7 +22,7 @@ import java.time.format.DateTimeFormatter
 fun HourlyForecastItem(
     weatherData: WeatherData,
     modifier: Modifier = Modifier,
-    textColor: Color = Color.White
+    textColor: Color = MaterialTheme.colorScheme.onPrimary
 ) {
 
     val formattedTime = remember(weatherData) {
@@ -36,7 +37,7 @@ fun HourlyForecastItem(
     ) {
         Text(
             text = formattedTime,
-            color = Color.LightGray
+            color = MaterialTheme.colorScheme.onPrimary
         )
         Image(
             painter = painterResource(id = WeatherType.fromWMO(weatherData.weatherType).iconRes),

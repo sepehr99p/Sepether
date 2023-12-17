@@ -1,5 +1,6 @@
 package com.example.sepether.ui.weather.components.today
 
+import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -59,13 +61,13 @@ fun Today(currentWeatherData: WeatherData) {
     Text(
         text = "${currentWeatherData.temperatureCelsius}°C",
         fontSize = 50.sp,
-        color = onPrimary
+        color = MaterialTheme.colorScheme.onPrimary
     )
     Spacer(modifier = Modifier.height(16.dp))
     Text(
         text = WeatherType.fromWMO(currentWeatherData.weatherType).weatherDesc,
         fontSize = 20.sp,
-        color = Color_Withe
+        color = MaterialTheme.colorScheme.onPrimary
     )
     Spacer(modifier = Modifier.height(32.dp))
     Row(
@@ -76,22 +78,22 @@ fun Today(currentWeatherData: WeatherData) {
             value = currentWeatherData.pressure.roundToInt(),
             unit = "hpa",
             icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
-            iconTint = onPrimary,
-            textStyle = TextStyle(color = onPrimary)
+            iconTint = MaterialTheme.colorScheme.onPrimary,
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
         )
         WeatherInfoItem(
             value = currentWeatherData.humidity.roundToInt(),
             unit = "%",
             icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
-            iconTint = onPrimary,
-            textStyle = TextStyle(color = onPrimary)
+            iconTint = MaterialTheme.colorScheme.onPrimary,
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
         )
         WeatherInfoItem(
             value = currentWeatherData.windSpeed.roundToInt(),
             unit = "km/h",
             icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
-            iconTint = onPrimary,
-            textStyle = TextStyle(color = onPrimary)
+            iconTint = MaterialTheme.colorScheme.onPrimary,
+            textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
         )
     }
 }
@@ -104,7 +106,7 @@ fun WeatherInfoItem(
     icon: ImageVector,
     modifier: Modifier = Modifier,
     textStyle: TextStyle = TextStyle(),
-    iconTint: Color = onPrimary
+    iconTint: Color = MaterialTheme.colorScheme.onPrimary
 ) {
     Row(
         modifier = modifier,
@@ -149,12 +151,12 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
             .fillMaxWidth()
             .padding(4.dp)
             .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
-            .background(primaryContainer),
+            .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
             modifier = Modifier.padding(4.dp),
-            text = dayOfWeek(weatherData.value[0].time.toString()), color = onPrimary, fontWeight = FontWeight.Bold, fontSize = 20.sp
+            text = dayOfWeek(weatherData.value[0].time.toString()), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Bold, fontSize = 20.sp
         )
         var averagePressure = 0.0
         var averageHumidity = 0.0
@@ -180,11 +182,11 @@ fun DetailComponent(info: String) {
             .fillMaxWidth()
             .padding(4.dp)
             .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
-            .background(primaryContainer)
+            .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Text(
             text = info,
-            color = onPrimary,
+            color = MaterialTheme.colorScheme.onPrimary,
             modifier = Modifier.padding(16.dp)
         )
     }

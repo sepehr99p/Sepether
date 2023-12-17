@@ -23,7 +23,8 @@ class MainActivity : ComponentActivity(), LocationListener {
     }
 
     private val viewModel by viewModels<WeatherViewModel>()
-//    private lateinit var analytics: FirebaseAnalytics
+
+    //    private lateinit var analytics: FirebaseAnalytics
     private var latitude = 0.0
     private var longitude = 0.0
 
@@ -33,7 +34,9 @@ class MainActivity : ComponentActivity(), LocationListener {
 //        analytics = Firebase.analytics
         viewModel.gpsHelper = GPSHelper(this)
         setContent {
-            WeatherScreen(viewModel)
+            SepetherTheme {
+                WeatherScreen(viewModel)
+            }
         }
         getLocationPermission()
     }
@@ -92,8 +95,6 @@ class MainActivity : ComponentActivity(), LocationListener {
         longitude = location.longitude
         val geoCoder = Geocoder(this, Locale.getDefault())
     }
-
-
 
 
 }
