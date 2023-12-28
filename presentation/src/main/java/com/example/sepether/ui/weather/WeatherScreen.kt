@@ -33,6 +33,7 @@ import com.example.sepether.ui.theme.LightColorScheme
 import com.example.sepether.ui.theme.Primary
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
+import com.example.sepether.ui.weather.components.graphs.LineGraph
 import com.example.sepether.ui.weather.components.today.Today
 import com.example.sepether.ui.weather.components.today.TodayDetails
 
@@ -97,6 +98,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             HourlyForecast(weatherInfo = weatherInfo)
             Spacer(modifier = Modifier.height(8.dp))
             DailyForecast(forecastState.value,viewModel)
+            LineGraph(forecastInfo = forecastState.value.data)
             TodayDetails(weatherInfo)
         } ?: run {
             if (currentWeatherState.value.isLoading) {
