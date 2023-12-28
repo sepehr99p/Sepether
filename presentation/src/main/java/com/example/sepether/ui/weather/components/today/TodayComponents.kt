@@ -1,6 +1,5 @@
 package com.example.sepether.ui.weather.components.today
 
-import android.content.res.Resources.Theme
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -31,12 +30,9 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
-import com.example.sepether.ui.theme.Color_Withe
-import com.example.sepether.ui.theme.onPrimary
-import com.example.sepether.ui.theme.primaryContainer
 import com.example.sepether.ui.weather.components.SimpleText
-import com.example.sepether.ui.weather.components.forecast.daily.dayOfWeek
 import com.example.sepether.utils.WeatherType
+import com.example.sepether.utils.dayOfWeek
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 

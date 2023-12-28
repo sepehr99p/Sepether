@@ -20,32 +20,27 @@ import java.time.format.DateTimeFormatter
 
 @Composable
 fun HourlyForecastItem(
-    weatherData: WeatherData,
+    state: HourlyState,
     modifier: Modifier = Modifier,
     textColor: Color = MaterialTheme.colorScheme.onPrimary
 ) {
 
-    val formattedTime = remember(weatherData) {
-        weatherData.time.format(
-            DateTimeFormatter.ofPattern("HH:mm")
-        )
-    }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
     ) {
         Text(
-            text = formattedTime,
+            text = state.time,
             color = MaterialTheme.colorScheme.onPrimary
         )
         Image(
-            painter = painterResource(id = WeatherType.fromWMO(weatherData.weatherType).iconRes),
+            painter = painterResource(id = state.iconRes),
             contentDescription = null,
             modifier = Modifier.width(40.dp)
         )
         Text(
-            text = "${weatherData.temperatureCelsius}°C",
+            text = state.temp,
             color = textColor,
             fontWeight = FontWeight.Bold
         )

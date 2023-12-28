@@ -38,7 +38,7 @@ fun HourlyForecast(
                         date?.let {
                             if (it.time > System.currentTimeMillis()) {
                                 HourlyForecastItem(
-                                    weatherData = weatherData,
+                                    state = rememberHourlyState(weatherData = weatherData),
                                     modifier = Modifier
                                         .height(100.dp)
                                         .padding(horizontal = 16.dp)

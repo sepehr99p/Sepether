@@ -29,10 +29,7 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
                 if (isNotToday(forecastInfo.time[i])) {
                     item(key = forecastInfo.time[i]) {
                         DailyForecastItem(
-                            forecastInfo.time[i],
-                            forecastInfo.maxTemperatures[i],
-                            forecastInfo.minTemperatures[i],
-                            forecastInfo.weatherCodes[i]
+                            state = rememberDailyForecastState(forecastInfo = forecastInfo, index = i)
                         )
                     }
                 }

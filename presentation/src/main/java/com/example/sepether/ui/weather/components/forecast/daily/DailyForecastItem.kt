@@ -32,10 +32,7 @@ import java.text.SimpleDateFormat
 
 @Composable
 fun DailyForecastItem(
-    time: String,
-    maxTemperatures: Double,
-    minTemperatures: Double,
-    weatherCodes: Int
+    state: DailyForecastState
 ) {
     Column(
         modifier = Modifier
@@ -45,18 +42,18 @@ fun DailyForecastItem(
             .background(primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CustomText(value = dayOfWeek(time),16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)
+        CustomText(value = state.time,16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
         Image(
-            painter = painterResource(id = WeatherType.fromWMO(weatherCodes).iconRes),
+            painter = painterResource(id = state.iconRes),
             contentDescription = null,
             modifier = Modifier
                 .width(40.dp)
                 .height(40.dp)
         )
         Spacer(modifier = Modifier.height(4.dp))
-        Temperature(maxTemperatures, Red_Negative)
-        Temperature(minTemperatures, Primary_Blue)
+        Temperature(state.maxTemp, Red_Negative)
+        Temperature(state.minTemp, Primary_Blue)
         Spacer(modifier = Modifier.height(4.dp))
     }
 
@@ -76,6 +73,4 @@ fun Temperature(temp: Double, color: Color) {
 }
 
 
-fun dayOfWeek(time: String): String {
-    return SimpleDateFormat(TIME_PATTERN_DAY_OF_WEEK).format(SimpleDateFormat(TIME_PATTERN_DAY_WEEK).parse(time))
-}
+
