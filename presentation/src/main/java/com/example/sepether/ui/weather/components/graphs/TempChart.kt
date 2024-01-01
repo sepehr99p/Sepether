@@ -38,8 +38,11 @@ fun LineGraph(
                 chart.data = LineData(dataSet)
 
 
+                chart.setNoDataText("No data :(")
+
+                chart.dragDecelerationFrictionCoef = 0.9f
                 chart.setTouchEnabled(false)
-                chart.isDragEnabled = false
+                chart.isDragEnabled = true
                 chart.isScaleXEnabled = false
                 chart.isScaleYEnabled = false
 

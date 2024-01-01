@@ -1,5 +1,6 @@
 package com.example.sepether.ui.weather.components.forecast.hourly
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -17,13 +18,12 @@ import com.example.domain.entities.WeatherInfo
 import com.example.sepether.utils.Constants.TIME_PATTERN
 import java.text.SimpleDateFormat
 
+@SuppressLint("SimpleDateFormat")
 @Composable
 fun HourlyForecast(
     weatherInfo: WeatherInfo,
     modifier: Modifier = Modifier
 ) {
-    val TAG = "SEPI"
-    Log.i(TAG, "WeatherForecast: ")
     weatherInfo.weatherDataPerDay[0]?.let { data ->
         Column(
             modifier = modifier

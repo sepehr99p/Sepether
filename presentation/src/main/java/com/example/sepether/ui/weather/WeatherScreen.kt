@@ -21,6 +21,7 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -31,6 +32,7 @@ import com.example.sepether.ui.components.RetryView
 import com.example.sepether.ui.theme.DarkColorScheme
 import com.example.sepether.ui.theme.LightColorScheme
 import com.example.sepether.ui.theme.Primary
+import com.example.sepether.ui.weather.components.ex.weatherScreenModifier
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
@@ -81,11 +83,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .fillMaxHeight()
-            .verticalScroll(rememberScrollState())
-            .background(MaterialTheme.colorScheme.primary),
+        modifier = Modifier.weatherScreenModifier(),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
@@ -111,3 +109,5 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         }
     }
 }
+
+

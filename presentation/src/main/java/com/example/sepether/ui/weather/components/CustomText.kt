@@ -24,7 +24,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.example.sepether.ui.theme.onPrimary
 
 @Composable
-fun CustomText(value : String?,fontSize : Int,fontWeight: FontWeight, color : Color) {
+internal fun CustomText(value : String?,fontSize : Int,fontWeight: FontWeight, color : Color) {
     value?.let {
         Text(
             modifier = Modifier.padding(4.dp),
@@ -46,7 +46,7 @@ fun MyViewPreview() {
 
 
 @Composable
-fun SimpleText(value: String?) {
+internal fun SimpleText(value: String?) {
     value?.let {
         Text(
             modifier = Modifier.padding(4.dp),
@@ -62,7 +62,7 @@ fun SimpleText(value: String?) {
 
 
 @Composable
-fun OnboardingScreen(modifier: Modifier = Modifier) {
+internal fun OnboardingScreen(modifier: Modifier = Modifier) {
     // TODO: This state should be hoisted
     var shouldShowOnboarding by remember { mutableStateOf(true) }
 

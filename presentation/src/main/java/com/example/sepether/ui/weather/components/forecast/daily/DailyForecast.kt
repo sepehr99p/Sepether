@@ -13,17 +13,17 @@ import com.example.sepether.ui.components.LoadingView
 import com.example.sepether.ui.components.RetryView
 import com.example.sepether.ui.theme.Primary
 import com.example.sepether.ui.weather.WeatherViewModel
+import com.example.sepether.utils.isNotToday
 import java.text.SimpleDateFormat
 
 @Composable
 fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewModel) {
 
-    val scrollState = rememberLazyListState()
     forecast.data?.let { forecastInfo ->
         LazyRow(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(MaterialTheme.colorScheme.primary), state = scrollState
+                .background(MaterialTheme.colorScheme.primary), state = rememberLazyListState()
         ) {
             for (i in 0 until forecastInfo.time.size) {
                 if (isNotToday(forecastInfo.time[i])) {
@@ -47,5 +47,4 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
 
 }
 
-fun isNotToday(time: String): Boolean =
-    SimpleDateFormat("yyyy-MM-dd").parse(time).time > System.currentTimeMillis()
+
