@@ -22,46 +22,53 @@ fun LineGraph(
 ) {
     forecastInfo?.let {
         AndroidView(
-            modifier = Modifier.fillMaxSize().height(180.dp),
+            modifier = Modifier
+                .fillMaxSize()
+                .height(180.dp),
             factory = { context ->
-                val chart = LineChart(context)
                 val entries: List<Entry> =
-                    forecastInfo.time.zip(forecastInfo.maxTemperatures) { x, y -> Entry(timeStamp(x).toFloat(), y.toFloat()) }  // Convert the x and y data into entries
-                val dataSet = LineDataSet(entries, "dataLabel").apply {
-//                    color = Color.Transparent.toArgb()
-
-                    setDrawValues(true)
-//                    setDrawCircles(drawMarkers)
-                    setDrawFilled(true)
-                    fillColor = Color.Transparent.toArgb()
-                    fillColor = Color.Transparent.toArgb()
-                    fillAlpha = Color.Transparent.toArgb()
-                }
-
-
-                chart.apply {
-                    data = LineData(dataSet)
-
-                    setGridBackgroundColor(Color.Transparent.toArgb())
-                    setNoDataText("No data :(")
-
-                    dragDecelerationFrictionCoef = 0.9f
-                    setTouchEnabled(false)
-                    isDragEnabled = true
-                    isScaleXEnabled = false
-                    isScaleYEnabled = false
-
-                    description.isEnabled = false
-                    legend.isEnabled = false
-
-                    xAxis.textColor = Color.Transparent.toArgb()
-
-                    axisRight.isEnabled = false
-
-                    // Refresh and return the chart
-                    invalidate()
-                }
+                    forecastInfo.time.zip(forecastInfo.maxTemperatures) { x, y ->
+                        Entry(
+                            timeStamp(x).toFloat(),
+                            y.toFloat()
+                        )
+                    }  // Convert the x and y data into entries
+                LineChart(context).config(genDataSet(entries))
             }
         )
     }
+}
+
+
+fun genDataSet(entries: List<Entry>): LineDataSet = LineDataSet(entries, "dataLabel").apply {
+
+    setDrawValues(true)
+//                    setDrawCircles(drawMarkers)
+    setDrawFilled(true)
+    fillColor = Color.Transparent.toArgb()
+    fillColor = Color.Transparent.toArgb()
+    fillAlpha = Color.Transparent.toArgb()
+}
+
+fun LineChart.config(dataSet: LineDataSet): LineChart = this.apply {
+    data = LineData(dataSet)
+
+    setGridBackgroundColor(Color.Transparent.toArgb())
+    setNoDataText("No data :(")
+
+    dragDecelerationFrictionCoef = 0.9f
+    setTouchEnabled(false)
+    isDragEnabled = true
+    isScaleXEnabled = false
+    isScaleYEnabled = false
+
+    description.isEnabled = false
+    legend.isEnabled = false
+
+    xAxis.textColor = Color.Transparent.toArgb()
+
+    axisRight.isEnabled = false
+
+    // Refresh and return the chart
+    invalidate()
 }
