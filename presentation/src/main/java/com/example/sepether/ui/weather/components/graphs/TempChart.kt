@@ -33,36 +33,34 @@ fun LineGraph(
                     setDrawValues(true)
 //                    setDrawCircles(drawMarkers)
                     setDrawFilled(true)
-                    chart.setGridBackgroundColor(Color.Transparent.toArgb())
                     fillColor = Color.Transparent.toArgb()
                     fillColor = Color.Transparent.toArgb()
                     fillAlpha = Color.Transparent.toArgb()
                 }
 
 
-                chart.data = LineData(dataSet)
+                chart.apply {
+                    data = LineData(dataSet)
 
+                    setGridBackgroundColor(Color.Transparent.toArgb())
+                    setNoDataText("No data :(")
 
-                chart.setNoDataText("No data :(")
+                    dragDecelerationFrictionCoef = 0.9f
+                    setTouchEnabled(false)
+                    isDragEnabled = true
+                    isScaleXEnabled = false
+                    isScaleYEnabled = false
 
-                chart.dragDecelerationFrictionCoef = 0.9f
-                chart.setTouchEnabled(false)
-                chart.isDragEnabled = true
-                chart.isScaleXEnabled = false
-                chart.isScaleYEnabled = false
+                    description.isEnabled = false
+                    legend.isEnabled = false
 
-                chart.description.isEnabled = false
-                chart.legend.isEnabled = false
+                    xAxis.textColor = Color.Transparent.toArgb()
 
-                chart.xAxis.textColor = Color.Transparent.toArgb()
+                    axisRight.isEnabled = false
 
-                chart.axisRight.isEnabled = false
-//                chart.xAxis.textColor = axisTextColor.toArgb()
-//                chart.xAxis.position = xAxisPosition
-
-                // Refresh and return the chart
-                chart.invalidate()
-                chart
+                    // Refresh and return the chart
+                    invalidate()
+                }
             }
         )
     }
