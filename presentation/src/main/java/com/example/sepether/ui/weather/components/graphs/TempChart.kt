@@ -4,6 +4,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.domain.entities.ForecastInfo
@@ -26,12 +28,15 @@ fun LineGraph(
                 val entries: List<Entry> =
                     forecastInfo.time.zip(forecastInfo.maxTemperatures) { x, y -> Entry(timeStamp(x).toFloat(), y.toFloat()) }  // Convert the x and y data into entries
                 val dataSet = LineDataSet(entries, "dataLabel").apply {
-//                    color = lineColor.toArgb()
+//                    color = Color.Transparent.toArgb()
+
                     setDrawValues(true)
 //                    setDrawCircles(drawMarkers)
                     setDrawFilled(true)
-//                    fillColor = fillColor.toArgb()
-                    fillAlpha = fillAlpha
+                    chart.setGridBackgroundColor(Color.Transparent.toArgb())
+                    fillColor = Color.Transparent.toArgb()
+                    fillColor = Color.Transparent.toArgb()
+                    fillAlpha = Color.Transparent.toArgb()
                 }
 
 
@@ -49,7 +54,8 @@ fun LineGraph(
                 chart.description.isEnabled = false
                 chart.legend.isEnabled = false
 
-//                chart.axisLeft.textColor = axisTextColor.toArgb()
+                chart.xAxis.textColor = Color.Transparent.toArgb()
+
                 chart.axisRight.isEnabled = false
 //                chart.xAxis.textColor = axisTextColor.toArgb()
 //                chart.xAxis.position = xAxisPosition

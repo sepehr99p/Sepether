@@ -21,7 +21,6 @@ import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
@@ -31,14 +30,11 @@ import com.example.sepether.ui.components.LoadingView
 import com.example.sepether.ui.components.RetryView
 import com.example.sepether.ui.theme.DarkColorScheme
 import com.example.sepether.ui.theme.LightColorScheme
-import com.example.sepether.ui.theme.Primary
-import com.example.sepether.ui.weather.components.ex.weatherScreenModifier
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
 import com.example.sepether.ui.weather.components.today.Today
 import com.example.sepether.ui.weather.components.today.TodayDetails
-
 
 
 @Composable
@@ -49,8 +45,11 @@ fun SepetherTheme(
     val colorScheme = when {
         Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
             val context = LocalContext.current
-            if (isSystemInDarkTheme()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
+            if (isSystemInDarkTheme()) dynamicDarkColorScheme(context) else dynamicLightColorScheme(
+                context
+            )
         }
+
         isSystemInDarkTheme() -> DarkColorScheme
         else -> LightColorScheme
     }
@@ -83,11 +82,15 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
     }
 
     Column(
-        modifier = Modifier.weatherScreenModifier(),
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight()
+            .background(MaterialTheme.colorScheme.primary)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        currentWeatherState.value.data?.let {weatherInfo ->
+        currentWeatherState.value.data?.let { weatherInfo ->
             Spacer(modifier = Modifier.height(16.dp))
 
             weatherInfo.currentWeatherData?.let {
@@ -95,7 +98,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             }
             HourlyForecast(weatherInfo = weatherInfo)
             Spacer(modifier = Modifier.height(8.dp))
-            DailyForecast(forecastState.value,viewModel)
+            DailyForecast(forecastState.value, viewModel)
             LineGraph(forecastInfo = forecastState.value.data)
             TodayDetails(weatherInfo)
         } ?: run {
