@@ -10,6 +10,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
+import com.example.sepether.ui.theme.SepetherTheme
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
