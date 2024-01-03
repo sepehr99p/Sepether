@@ -11,13 +11,18 @@ import androidx.compose.ui.viewinterop.AndroidView
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.utils.timeStamp
 import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.data.PieData
+import com.github.mikephil.charting.data.PieDataSet
+import com.github.mikephil.charting.data.PieEntry
+import com.github.mikephil.charting.interfaces.datasets.IPieDataSet
 
 
 @Composable
-fun LineGraph(
+fun TempPieChart(
     forecastInfo: ForecastInfo?
 ) {
     forecastInfo?.let {
@@ -26,50 +31,33 @@ fun LineGraph(
                 .fillMaxSize()
                 .height(180.dp),
             factory = { context ->
-                val entries: List<Entry> =
+
+                val entries: List<PieEntry> =
                     forecastInfo.time.zip(forecastInfo.maxTemperatures) { x, y ->
-                        Entry(
+                        PieEntry(
                             timeStamp(x).toFloat(),
                             y.toFloat()
                         )
                     }  // Convert the x and y data into entries
-
-                LineChart(context).config(genDataSet(entries))
+                PieChart(context).config(genDataSet(entries))
             }
         )
     }
 }
 
 
-fun genDataSet(entries: List<Entry>): LineDataSet = LineDataSet(entries, "dataLabel").apply {
-
-    setDrawValues(true)
-//                    setDrawCircles(drawMarkers)
-    setDrawFilled(true)
-    fillColor = Color.Transparent.toArgb()
-    fillColor = Color.Transparent.toArgb()
-    fillAlpha = Color.Transparent.toArgb()
+fun genDataSet(entries: List<PieEntry>): PieDataSet {
+    return PieDataSet(entries,"label")
 }
+fun PieChart.config(dataSet: PieDataSet): PieChart = this.apply {
+    data = PieData(dataSet)
 
-fun LineChart.config(dataSet: LineDataSet): LineChart = this.apply {
-    data = LineData(dataSet)
-
-    setGridBackgroundColor(Color.Transparent.toArgb())
     setNoDataText("No data :(")
 
     dragDecelerationFrictionCoef = 0.9f
     setTouchEnabled(false)
-    isDragEnabled = true
-    isScaleXEnabled = false
-    isScaleYEnabled = false
-
     description.isEnabled = false
     legend.isEnabled = false
-
-    xAxis.textColor = Color.Transparent.toArgb()
-
-    axisRight.isEnabled = false
-
     // Refresh and return the chart
     invalidate()
 }

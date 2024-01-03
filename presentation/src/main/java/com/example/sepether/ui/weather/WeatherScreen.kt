@@ -20,6 +20,7 @@ import com.example.sepether.ui.components.RetryView
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
+import com.example.sepether.ui.weather.components.graphs.TempPieChart
 import com.example.sepether.ui.weather.components.today.Today
 import com.example.sepether.ui.weather.components.today.TodayDetails
 
@@ -53,6 +54,8 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             Spacer(modifier = Modifier.height(8.dp))
             DailyForecast(forecastState.value, viewModel)
             LineGraph(forecastInfo = forecastState.value.data)
+            Spacer(modifier = Modifier.height(8.dp))
+            TempPieChart(forecastInfo = forecastState.value.data)
             TodayDetails(weatherInfo)
         } ?: run {
             if (currentWeatherState.value.isLoading) {
