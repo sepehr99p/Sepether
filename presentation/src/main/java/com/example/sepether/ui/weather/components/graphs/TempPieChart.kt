@@ -38,7 +38,7 @@ fun TempPieChart(
                             timeStamp(x).toFloat(),
                             y.toFloat()
                         )
-                    }  // Convert the x and y data into entries
+                    }
                 PieChart(context).config(genDataSet(entries))
             }
         )

@@ -12,6 +12,8 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -28,11 +30,11 @@ import com.example.sepether.ui.weather.components.today.TodayDetails
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
 
-    val currentWeatherState = viewModel.currentWeather
-    val forecastState = viewModel.forecast
-    LaunchedEffect(currentWeatherState) {
-        currentWeatherState.value
-        forecastState.value
+    val currentWeatherState by remember {
+        viewModel.currentWeather
+    }
+    val forecastState by remember {
+        viewModel.forecast
     }
 
     Column(
@@ -44,7 +46,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        currentWeatherState.value.data?.let { weatherInfo ->
+        currentWeatherState.data?.let { weatherInfo ->
             Spacer(modifier = Modifier.height(16.dp))
 
             weatherInfo.currentWeatherData?.let {
@@ -52,13 +54,13 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             }
             HourlyForecast(weatherInfo = weatherInfo)
             Spacer(modifier = Modifier.height(8.dp))
-            DailyForecast(forecastState.value, viewModel)
-            LineGraph(forecastInfo = forecastState.value.data)
+            DailyForecast(forecastState, viewModel)
+            LineGraph(forecastInfo = forecastState.data)
             Spacer(modifier = Modifier.height(8.dp))
-            TempPieChart(forecastInfo = forecastState.value.data)
+            TempPieChart(forecastInfo = forecastState.data)
             TodayDetails(weatherInfo)
         } ?: run {
-            if (currentWeatherState.value.isLoading) {
+            if (currentWeatherState.isLoading) {
                 LoadingView()
             } else {
                 RetryView(text = "Failed to fetch data") {
