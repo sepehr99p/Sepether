@@ -38,7 +38,7 @@ class MainActivity : ComponentActivity(), LocationListener {
         viewModel.gpsHelper = GPSHelper(this)
         setContent {
             SepetherTheme {
-                WeatherScreen(viewModel)
+                SepetherNavHost(viewModel = viewModel)
             }
         }
         getLocationPermission()
