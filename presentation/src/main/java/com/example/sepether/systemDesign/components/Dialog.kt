@@ -1,4 +1,4 @@
-package com.example.sepether.ui.components
+package com.example.sepether.systemDesign.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.example.sepether.R
-import com.example.sepether.ui.theme.Primary_Blue
+import com.example.sepether.systemDesign.theme.Primary_Blue
 
 @ExperimentalComposeUiApi
 @Composable

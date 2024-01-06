@@ -1,4 +1,4 @@
-package com.example.sepether.ui
+package com.example.sepether
 
 import androidx.multidex.MultiDexApplication
 import dagger.hilt.android.HiltAndroidApp

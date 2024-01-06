@@ -17,8 +17,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.sepether.ui.components.LoadingView
-import com.example.sepether.ui.components.RetryView
+import com.example.sepether.systemDesign.components.LoadingView
+import com.example.sepether.systemDesign.components.RetryView
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph

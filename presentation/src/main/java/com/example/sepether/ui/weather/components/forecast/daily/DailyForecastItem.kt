@@ -20,10 +20,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sepether.ui.theme.Primary_Blue
-import com.example.sepether.ui.theme.Red_Negative
-import com.example.sepether.ui.theme.onPrimary
-import com.example.sepether.ui.theme.primaryContainer
+import com.example.sepether.systemDesign.theme.Primary_Blue
+import com.example.sepether.systemDesign.theme.Red_Negative
+import com.example.sepether.systemDesign.theme.onPrimary
+import com.example.sepether.systemDesign.theme.primaryContainer
 import com.example.sepether.ui.weather.components.CustomText
 import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_OF_WEEK
 import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_WEEK

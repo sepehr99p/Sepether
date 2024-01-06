@@ -9,9 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.data.DataState
-import com.example.sepether.ui.components.LoadingView
-import com.example.sepether.ui.components.RetryView
-import com.example.sepether.ui.theme.Primary
+import com.example.sepether.systemDesign.components.LoadingView
+import com.example.sepether.systemDesign.components.RetryView
+import com.example.sepether.systemDesign.theme.Primary
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.isNotToday
 import java.text.SimpleDateFormat

@@ -1,4 +1,4 @@
-package com.example.sepether.ui.components
+package com.example.sepether.systemDesign.components
 
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height

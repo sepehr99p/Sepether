@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
-import com.example.sepether.ui.theme.onPrimary
+import com.example.sepether.systemDesign.theme.onPrimary
 
 @Composable
 internal fun CustomText(value : String?,fontSize : Int,fontWeight: FontWeight, color : Color) {

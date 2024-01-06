@@ -1,4 +1,4 @@
-package com.example.sepether.ui.components
+package com.example.sepether.systemDesign.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
@@ -14,8 +14,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.sepether.ui.theme.Primary_Blue
-import com.example.sepether.ui.theme.onPrimary
+import com.example.sepether.systemDesign.theme.Primary_Blue
+import com.example.sepether.systemDesign.theme.onPrimary
 import com.example.sepether.ui.weather.components.SimpleText
 
 @Composable

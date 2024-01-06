@@ -1,4 +1,4 @@
-package com.example.sepether.ui.weather
+package com.example.sepether.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -10,7 +10,9 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
-import com.example.sepether.ui.theme.SepetherTheme
+import com.example.sepether.systemDesign.theme.SepetherTheme
+import com.example.sepether.ui.weather.WeatherScreen
+import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
