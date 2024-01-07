@@ -152,7 +152,10 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
     ) {
         Text(
             modifier = Modifier.padding(4.dp),
-            text = dayOfWeek(weatherData.value[0].time.toString()), color = MaterialTheme.colorScheme.onPrimary, fontWeight = FontWeight.Bold, fontSize = 20.sp
+            text = dayOfWeek(weatherData.value[0].time.toString()),
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontWeight = FontWeight.Bold,
+            fontSize = 20.sp
         )
         var averagePressure = 0.0
         var averageHumidity = 0.0
@@ -164,10 +167,10 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
             averageWindSpeed += it.windSpeed
             averageTemp += it.temperatureCelsius
         }
-        DetailComponent(info = "Pressure ${(averagePressure/weatherData.value.size).roundToInt()} hpa")
-        DetailComponent(info = "Humidity ${(averageHumidity/weatherData.value.size).roundToInt()} %")
-        DetailComponent(info = "Wind Speed ${(averageWindSpeed/weatherData.value.size).roundToInt()} km/h")
-        DetailComponent(info = "temperatureCelsius ${(averageTemp/weatherData.value.size).roundToInt()} c")
+        DetailComponent(info = "Pressure ${(averagePressure / weatherData.value.size).roundToInt()} hpa")
+        DetailComponent(info = "Humidity ${(averageHumidity / weatherData.value.size).roundToInt()} %")
+        DetailComponent(info = "Wind Speed ${(averageWindSpeed / weatherData.value.size).roundToInt()} km/h")
+        DetailComponent(info = "temperatureCelsius ${(averageTemp / weatherData.value.size).roundToInt()} c")
     }
 }
 

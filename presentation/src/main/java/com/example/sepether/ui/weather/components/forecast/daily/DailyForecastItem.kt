@@ -22,13 +22,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sepether.systemDesign.theme.Primary_Blue
 import com.example.sepether.systemDesign.theme.Red_Negative
-import com.example.sepether.systemDesign.theme.onPrimary
 import com.example.sepether.systemDesign.theme.primaryContainer
 import com.example.sepether.ui.weather.components.CustomText
-import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_OF_WEEK
-import com.example.sepether.utils.Constants.TIME_PATTERN_DAY_WEEK
-import com.example.sepether.utils.WeatherType
-import java.text.SimpleDateFormat
 
 @Composable
 fun DailyForecastItem(
@@ -42,7 +37,7 @@ fun DailyForecastItem(
             .background(primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CustomText(value = state.time,16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)
+        CustomText(value = state.time, 16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)
         Spacer(modifier = Modifier.height(4.dp))
         Image(
             painter = painterResource(id = state.iconRes),

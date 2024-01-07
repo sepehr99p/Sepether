@@ -8,13 +8,13 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 interface HourlyState {
-    val time : String
-    val iconRes : Int
-    val temp : String
+    val time: String
+    val iconRes: Int
+    val temp: String
 }
 
 
-class HourlyUiState(private val initialValue : WeatherData) : HourlyState {
+class HourlyUiState(private val initialValue: WeatherData) : HourlyState {
 
     override val time: String
         get() = getTime(initialValue.time)
@@ -27,13 +27,13 @@ class HourlyUiState(private val initialValue : WeatherData) : HourlyState {
         get() = "${initialValue.temperatureCelsius}°C"
 
 
-    private fun getTime(time : LocalDateTime) : String = time.format(
+    private fun getTime(time: LocalDateTime): String = time.format(
         DateTimeFormatter.ofPattern("HH:mm")
     )
 
 }
 
 @Composable
-fun rememberHourlyState(weatherData: WeatherData) : HourlyState = remember {
+fun rememberHourlyState(weatherData: WeatherData): HourlyState = remember {
     HourlyUiState(weatherData)
 }

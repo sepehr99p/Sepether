@@ -30,7 +30,7 @@ class WeatherViewModel @Inject constructor(
         private const val TAG = "WeatherViewModel"
     }
 
-    lateinit var gpsHelper : GPSHelper
+    lateinit var gpsHelper: GPSHelper
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
     private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
@@ -58,7 +58,7 @@ class WeatherViewModel @Inject constructor(
     fun getCurrentWeather() {
 
         scope.launch {
-            currentWeatherUseCase.invoke(currentLatitude(),currentLongitude())
+            currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
                     _currentWeather.value = DataState(null, false)
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
@@ -83,7 +83,7 @@ class WeatherViewModel @Inject constructor(
 
     fun getForecast() {
         scope.launch {
-            forecastWeatherUseCase.invoke(currentLatitude(),currentLongitude())
+            forecastWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
                     _forecast.value = DataState(null, false)
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
@@ -108,17 +108,18 @@ class WeatherViewModel @Inject constructor(
     }
 
     fun currentLongitude(): Double {
-        return gpsHelper.longitude.toString().substring(0,
+        return gpsHelper.longitude.toString().substring(
+            0,
             gpsHelper.longitude.toString().length.coerceAtMost(6)
         ).toDouble()
     }
 
-    fun currentLatitude() : Double {
-        return gpsHelper.latitude.toString().substring(0,
+    fun currentLatitude(): Double {
+        return gpsHelper.latitude.toString().substring(
+            0,
             gpsHelper.latitude.toString().length.coerceAtMost(6)
         ).toDouble()
     }
-
 
 
 }

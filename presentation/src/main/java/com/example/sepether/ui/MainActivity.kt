@@ -11,7 +11,6 @@ import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
 import com.example.sepether.systemDesign.theme.SepetherTheme
-import com.example.sepether.ui.weather.WeatherScreen
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.AndroidEntryPoint

@@ -11,10 +11,8 @@ import com.example.domain.entities.ForecastInfo
 import com.example.sepether.data.DataState
 import com.example.sepether.systemDesign.components.LoadingView
 import com.example.sepether.systemDesign.components.RetryView
-import com.example.sepether.systemDesign.theme.Primary
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.isNotToday
-import java.text.SimpleDateFormat
 
 @Composable
 fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewModel) {
@@ -29,7 +27,10 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
                 if (isNotToday(forecastInfo.time[i])) {
                     item(key = forecastInfo.time[i]) {
                         DailyForecastItem(
-                            state = rememberDailyForecastState(forecastInfo = forecastInfo, index = i)
+                            state = rememberDailyForecastState(
+                                forecastInfo = forecastInfo,
+                                index = i
+                            )
                         )
                     }
                 }

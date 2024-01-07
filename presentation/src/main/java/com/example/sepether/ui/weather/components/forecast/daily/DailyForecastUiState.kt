@@ -7,13 +7,14 @@ import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
 
 interface DailyForecastState {
-    val time : String
-    val maxTemp : Double
-    val minTemp : Double
-    val iconRes : Int
+    val time: String
+    val maxTemp: Double
+    val minTemp: Double
+    val iconRes: Int
 }
 
-class DailyForecastUiState(private val initialValue : ForecastInfo,private val index : Int) : DailyForecastState {
+class DailyForecastUiState(private val initialValue: ForecastInfo, private val index: Int) :
+    DailyForecastState {
     override val time: String
         get() = dayOfWeek(initialValue.time[index])
     override val maxTemp: Double
@@ -26,6 +27,7 @@ class DailyForecastUiState(private val initialValue : ForecastInfo,private val i
 }
 
 @Composable
-fun rememberDailyForecastState(forecastInfo: ForecastInfo,index : Int) : DailyForecastState = remember {
-    DailyForecastUiState(forecastInfo,index)
-}
+fun rememberDailyForecastState(forecastInfo: ForecastInfo, index: Int): DailyForecastState =
+    remember {
+        DailyForecastUiState(forecastInfo, index)
+    }
