@@ -15,6 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sepether.systemDesign.theme.Primary_Blue
 import com.example.sepether.systemDesign.theme.Red_Negative
+import com.example.sepether.systemDesign.theme.Shapes
 import com.example.sepether.systemDesign.theme.primaryContainer
 import com.example.sepether.ui.weather.components.CustomText
 
@@ -33,8 +35,10 @@ fun DailyForecastItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
-            .background(primaryContainer),
+            .clip(shape = Shapes.large)
+            .background(brush = Brush.horizontalGradient(
+                colors = listOf(MaterialTheme.colorScheme.primary,MaterialTheme.colorScheme.primaryContainer)
+            )),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CustomText(value = state.time, 16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)

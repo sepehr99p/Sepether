@@ -39,7 +39,7 @@ val LightColorScheme = lightColorScheme(
     primary = Color(0xFFD5D7EB),
     onPrimary = Color(0xFF10163F),
     primaryContainer = Color(0xA3BFC2C5),
-    onPrimaryContainer = Color(0xFF98A7B3)
+    onPrimaryContainer = Color(0xFF98A7B3),
 )
 
 val DarkColorScheme = lightColorScheme(

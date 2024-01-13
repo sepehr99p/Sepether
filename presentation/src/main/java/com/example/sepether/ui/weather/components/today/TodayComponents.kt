@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
+import com.example.sepether.systemDesign.theme.Shapes
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
@@ -146,7 +147,7 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(4.dp)
-            .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
+            .clip(shape = Shapes.large)
             .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
