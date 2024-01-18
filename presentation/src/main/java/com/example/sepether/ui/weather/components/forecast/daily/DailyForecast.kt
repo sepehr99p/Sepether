@@ -6,14 +6,11 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.data.DataState
-import com.example.sepether.systemDesign.components.LoadingView
-import com.example.sepether.systemDesign.components.RetryView
+import com.example.sepether.systemDesign.components.WeatherLoadingView
+import com.example.sepether.systemDesign.components.WeatherRetryView
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.isNotToday
 
@@ -22,7 +19,7 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
 
     when(forecast) {
         is DataState.FailedState -> {
-            RetryView(text = "failed to fetch forecast") {
+            WeatherRetryView(text = "failed to fetch forecast") {
                 viewModel.getForecast()
             }
         }
@@ -47,7 +44,7 @@ fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewMode
             }
 
         }
-        is DataState.LoadingState -> LoadingView()
+        is DataState.LoadingState -> WeatherLoadingView()
     }
 
 }

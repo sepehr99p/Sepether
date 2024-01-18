@@ -8,15 +8,12 @@ import androidx.compose.animation.core.rememberInfiniteTransition
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -33,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import com.example.sepether.systemDesign.theme.Shapes
 
 @Composable
-fun LoadingView() {
+fun WeatherLoadingView() {
     Spacer(modifier = Modifier.height(24.dp))
     CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
 //    Text(text = "Sepether")

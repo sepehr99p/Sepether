@@ -1,6 +1,5 @@
 package com.example.sepether.systemDesign.components
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,10 +15,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.sepether.systemDesign.theme.Primary_Blue
 import com.example.sepether.systemDesign.theme.onPrimary
-import com.example.sepether.ui.weather.components.SimpleText
 
 @Composable
-fun RetryView(text: String, click: () -> Unit) {
+fun WeatherRetryView(text: String, click: () -> Unit) {
     Column(
         modifier = Modifier.fillMaxWidth().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
