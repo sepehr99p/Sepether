@@ -35,12 +35,12 @@ import com.example.sepether.systemDesign.theme.Shapes
 @Composable
 fun LoadingView() {
     Spacer(modifier = Modifier.height(24.dp))
-//    CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-    Text(text = "Sepether")
-    Spacer(modifier = Modifier.height(24.dp))
-    Row {
-        LoadingShimmerEffect()
-    }
+    CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
+//    Text(text = "Sepether")
+//    Spacer(modifier = Modifier.height(24.dp))
+//    Row {
+//        LoadingShimmerEffect()
+//    }
 
 }
 

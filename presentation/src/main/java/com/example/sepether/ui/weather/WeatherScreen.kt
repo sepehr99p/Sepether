@@ -62,44 +62,62 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
     val forecastState by remember {
         viewModel.forecast
     }
-
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight()
-            .background(MaterialTheme.colorScheme.primary)
-            .verticalScroll(rememberScrollState()),
+            .background(MaterialTheme.colorScheme.primary),
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+        AnimatedContent(
+            currentWeatherState,
+            transitionSpec = {
+                fadeIn(
+                    animationSpec = tween(500)
+                ) togetherWith fadeOut(animationSpec = tween(500))
+            },
+            label = "Animated Content"
+        ) { targetState ->
+            when (targetState) {
+                is DataState.LoadingState -> {
+                    LoadingView()
+                }
 
-        when(currentWeatherState) {
-            is DataState.LoadingState -> {
-                LoadingView()
-            }
-            is DataState.FailedState -> {
-                RetryView(text = "Failed to fetch data") {
-                    viewModel.getCurrentWeather()
+                is DataState.FailedState -> {
+                    RetryView(text = "Failed to fetch data") {
+                        viewModel.getCurrentWeather()
+                    }
+                }
+
+                is DataState.LoadedState -> {
+
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState()),
+                        verticalArrangement = Arrangement.Top,
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                    ) {
+                        Spacer(modifier = Modifier.height(16.dp))
+
+                        currentWeatherState.data!!.currentWeatherData?.let {
+                            Today(it)
+                        }
+                        HourlyForecast(weatherInfo = currentWeatherState.data!!)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        DailyForecast(forecastState, viewModel)
+                        LineGraph(forecastInfo = forecastState.data)
+                        Spacer(modifier = Modifier.height(8.dp))
+                        TempPieChart(forecastInfo = forecastState.data)
+                        TodayDetails(currentWeatherState.data!!)
+                    }
                 }
             }
-            is DataState.LoadedState -> {
 
-                Spacer(modifier = Modifier.height(16.dp))
-
-                currentWeatherState.data!!.currentWeatherData?.let {
-                    Today(it)
-                }
-                HourlyForecast(weatherInfo = currentWeatherState.data!!)
-                Spacer(modifier = Modifier.height(8.dp))
-                DailyForecast(forecastState, viewModel)
-                LineGraph(forecastInfo = forecastState.data)
-                Spacer(modifier = Modifier.height(8.dp))
-                TempPieChart(forecastInfo = forecastState.data)
-                TodayDetails(currentWeatherState.data!!)
-            }
         }
 
     }
+
 }
 
 
