@@ -15,6 +15,8 @@ import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -33,15 +35,15 @@ class WeatherViewModel @Inject constructor(
     lateinit var gpsHelper: GPSHelper
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
-    private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
+    private val _currentWeather = MutableStateFlow<DataState<WeatherInfo?>>(
         DataState.LoadingState(null )
     )
-    val currentWeather: State<DataState<WeatherInfo?>> = _currentWeather
+    val currentWeather: StateFlow<DataState<WeatherInfo?>> = _currentWeather
 
-    private val _forecast = mutableStateOf<DataState<ForecastInfo?>>(
+    private val _forecast = MutableStateFlow<DataState<ForecastInfo?>>(
         DataState.LoadingState(null)
     )
-    val forecast: State<DataState<ForecastInfo?>> = _forecast
+    val forecast: StateFlow<DataState<ForecastInfo?>> = _forecast
 
 
     fun getCurrentWeather() {

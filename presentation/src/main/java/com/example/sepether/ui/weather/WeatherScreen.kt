@@ -30,6 +30,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,6 +43,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewModelScope
 import com.example.sepether.data.DataState
 import com.example.sepether.systemDesign.components.LoadingView
 import com.example.sepether.systemDesign.components.RetryView
@@ -50,18 +53,17 @@ import com.example.sepether.ui.weather.components.graphs.LineGraph
 import com.example.sepether.ui.weather.components.graphs.TempPieChart
 import com.example.sepether.ui.weather.components.today.Today
 import com.example.sepether.ui.weather.components.today.TodayDetails
+import kotlinx.coroutines.launch
 import kotlin.math.roundToInt
 
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
 
-    val currentWeatherState by remember {
-        viewModel.currentWeather
-    }
-    val forecastState by remember {
-        viewModel.forecast
-    }
+    val currentWeatherState = viewModel.currentWeather.collectAsState()
+
+
+    val forecastState = viewModel.forecast.collectAsState()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -71,7 +73,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         AnimatedContent(
-            currentWeatherState,
+            currentWeatherState.value,
             transitionSpec = {
                 fadeIn(
                     animationSpec = tween(500)
@@ -100,16 +102,16 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                     ) {
                         Spacer(modifier = Modifier.height(16.dp))
 
-                        currentWeatherState.data!!.currentWeatherData?.let {
+                        currentWeatherState.value.data!!.currentWeatherData?.let {
                             Today(it)
                         }
-                        HourlyForecast(weatherInfo = currentWeatherState.data!!)
+                        HourlyForecast(weatherInfo = currentWeatherState.value.data!!)
                         Spacer(modifier = Modifier.height(8.dp))
-                        DailyForecast(forecastState, viewModel)
-                        LineGraph(forecastInfo = forecastState.data)
+                        DailyForecast(forecastState.value, viewModel)
+                        LineGraph(forecastInfo = forecastState.value.data)
                         Spacer(modifier = Modifier.height(8.dp))
-                        TempPieChart(forecastInfo = forecastState.data)
-                        TodayDetails(currentWeatherState.data!!)
+                        TempPieChart(forecastInfo = forecastState.value.data)
+                        TodayDetails(currentWeatherState.value.data!!)
                     }
                 }
             }
