@@ -34,23 +34,12 @@ class WeatherViewModel @Inject constructor(
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
     private val _currentWeather = mutableStateOf<DataState<WeatherInfo?>>(
-        DataState(
-            WeatherInfo(
-                mapOf(), null
-            ),
-            false
-        )
+        DataState.LoadingState(null )
     )
     val currentWeather: State<DataState<WeatherInfo?>> = _currentWeather
 
     private val _forecast = mutableStateOf<DataState<ForecastInfo?>>(
-        DataState(
-            ForecastInfo(
-                arrayListOf(), arrayListOf(), arrayListOf(),
-                arrayListOf(), arrayListOf(), arrayListOf()
-            ),
-            false
-        )
+        DataState.LoadingState(null)
     )
     val forecast: State<DataState<ForecastInfo?>> = _forecast
 
@@ -60,20 +49,20 @@ class WeatherViewModel @Inject constructor(
         scope.launch {
             currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
-                    _currentWeather.value = DataState(null, false)
+                    _currentWeather.value = DataState.FailedState(null)
                     Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
                 }.collect {
                     when (it) {
                         is Resource.Success -> {
-                            _currentWeather.value = DataState(it.data, false)
+                            _currentWeather.value = DataState.LoadedState(it.data)
                         }
 
                         is Resource.Loading -> {
-                            _currentWeather.value = DataState(null, true)
+                            _currentWeather.value = DataState.LoadingState(null)
                         }
 
                         is Resource.Error -> {
-                            _currentWeather.value = DataState(null, false)
+                            _currentWeather.value = DataState.FailedState(null)
                             Log.i(TAG, "getCurrentWeather: error ${it.message}")
                         }
                     }
@@ -85,21 +74,21 @@ class WeatherViewModel @Inject constructor(
         scope.launch {
             forecastWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
-                    _forecast.value = DataState(null, false)
+                    _forecast.value = DataState.FailedState(null)
                     Log.i(TAG, "getForecast: ${it.localizedMessage}")
                 }
                 .collect {
                     when (it) {
                         is Resource.Success -> {
-                            _forecast.value = DataState(it.data, false)
+                            _forecast.value = DataState.LoadedState(it.data)
                         }
 
                         is Resource.Loading -> {
-                            _forecast.value = DataState(null, true)
+                            _forecast.value = DataState.LoadingState(null)
                         }
 
                         is Resource.Error -> {
-                            _forecast.value = DataState(null, false)
+                            _forecast.value = DataState.FailedState(null)
                             Log.i(TAG, "getForecast: error ${it.message}")
                         }
                     }

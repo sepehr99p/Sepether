@@ -35,10 +35,12 @@ import com.example.sepether.systemDesign.theme.Shapes
 @Composable
 fun LoadingView() {
     Spacer(modifier = Modifier.height(24.dp))
-    CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-//    Row {
-//        LoadingShimmerEffect()
-//    }
+//    CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
+    Text(text = "Sepether")
+    Spacer(modifier = Modifier.height(24.dp))
+    Row {
+        LoadingShimmerEffect()
+    }
 
 }
 
@@ -49,9 +51,6 @@ fun RowScope.LoadingShimmerEffect(
     val gradient = listOf(
         MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
         MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.3f),
-        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
-        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
-        MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.9f),
     )
 
     val transition = rememberInfiniteTransition()
@@ -84,7 +83,7 @@ fun RowScope.LoadingShimmerEffect(
             .clip(Shapes.medium)
             .background(brush)
             .weight(1f)
-            .height(4.dp)
+            .height(8.dp)
             .onGloballyPositioned {
                 positionInRootTopBar = it.positionInRoot()
             }
