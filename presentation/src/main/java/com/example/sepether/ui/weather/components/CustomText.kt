@@ -39,15 +39,15 @@ internal fun CustomText(value: String?, fontSize: Int, fontWeight: FontWeight, c
 @Preview
 @Composable
 fun MyViewPreview() {
-    SimpleText("TEST")
+    SimpleText(value = "TEST")
 }
 
 
 @Composable
-internal fun SimpleText(value: String?) {
+internal fun SimpleText(modifier: Modifier = Modifier, value: String?) {
     value?.let {
         Text(
-            modifier = Modifier.padding(4.dp),
+            modifier = modifier.padding(4.dp),
             text = it,
             color = MaterialTheme.colorScheme.onPrimary,
             fontStyle = FontStyle.Italic,
