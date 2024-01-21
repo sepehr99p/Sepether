@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -39,7 +40,7 @@ import kotlin.math.roundToInt
 
 
 @Composable
-fun Today(currentWeatherData: WeatherData) {
+fun ColumnScope.Today(currentWeatherData: WeatherData) {
 
     SimpleText(
         value = "Today ${

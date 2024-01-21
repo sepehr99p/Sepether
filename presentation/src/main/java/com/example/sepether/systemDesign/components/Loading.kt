@@ -62,10 +62,10 @@ fun WeatherLoadingView() {
     Column {
         Spacer(modifier = Modifier.height(24.dp))
         CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-        Text(text = "Sepether")
+//        Text(text = "Sepether")
         Spacer(modifier = Modifier.height(24.dp))
 
-        ShimmerNewItem()
+//        ShimmerNewItem()
     }
 
 

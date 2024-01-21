@@ -3,6 +3,7 @@ package com.example.sepether.ui.weather.components.forecast.hourly
 import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,7 +21,7 @@ import java.text.SimpleDateFormat
 
 @SuppressLint("SimpleDateFormat")
 @Composable
-fun HourlyForecast(
+fun ColumnScope.HourlyForecast(
     weatherInfo: WeatherInfo,
     modifier: Modifier = Modifier
 ) {

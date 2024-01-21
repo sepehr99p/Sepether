@@ -1,6 +1,7 @@
 package com.example.sepether.ui.weather.components.forecast.daily
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -15,7 +16,7 @@ import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.isNotToday
 
 @Composable
-fun DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewModel) {
+fun ColumnScope.DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: WeatherViewModel) {
 
     when(forecast) {
         is DataState.FailedState -> {
