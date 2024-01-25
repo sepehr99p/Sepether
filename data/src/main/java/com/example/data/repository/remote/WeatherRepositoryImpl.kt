@@ -1,10 +1,10 @@
 package com.example.data.repository.remote
 
-import com.example.domain.common.Resource
 import com.example.data.common.checkResponse
 import com.example.data.mapper.foreCastMapperImpl
 import com.example.data.mapper.weatherMapperImpl
 import com.example.data.remote.WeatherApi
+import com.example.domain.common.Resource
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.domain.repositories.WeatherRepository

@@ -11,6 +11,8 @@ import com.example.domain.usecases.ForecastWeatherUseCase
 import com.example.sepether.data.DataState
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
@@ -18,7 +20,15 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.Response
+import okhttp3.ResponseBody
+import java.io.IOException
 import javax.inject.Inject
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
 
 
 @HiltViewModel
@@ -35,7 +45,7 @@ class WeatherViewModel @Inject constructor(
     private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
 
     private val _currentWeather = MutableStateFlow<DataState<WeatherInfo?>>(
-        DataState.LoadingState(null )
+        DataState.LoadingState(null)
     )
     val currentWeather: StateFlow<DataState<WeatherInfo?>> = _currentWeather
 
@@ -47,7 +57,7 @@ class WeatherViewModel @Inject constructor(
 
     fun getCurrentWeather() {
 
-        val fetchWeatherJob = scope.launch(start = CoroutineStart.LAZY) {
+        val fetchWeatherJob = scope.launch(CoroutineName("fetchCurrentWeather"),start = CoroutineStart.LAZY) {
             currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
                     _currentWeather.value = DataState.FailedState(null)
@@ -69,11 +79,15 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
         }
+
         fetchWeatherJob.start()
+        if (fetchWeatherJob.isCancelled) {
+            throw CancellationException()
+        }
     }
 
     fun getForecast() {
-        scope.launch {
+        scope.launch(CoroutineName("FetchForecast")) {
             forecastWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
                     _forecast.value = DataState.FailedState(null)
