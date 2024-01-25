@@ -12,6 +12,7 @@ import com.example.sepether.data.DataState
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -42,8 +43,14 @@ class WeatherViewModel @Inject constructor(
         private const val TAG = "WeatherViewModel"
     }
 
+    //    A CEH is optional. It should only be used when you really need to do something with unhandled exceptions.
+    private val ceh = CoroutineExceptionHandler { _, t ->
+        Log.e(TAG, "ceh", t)
+    }
+
     lateinit var gpsHelper: GPSHelper
-    private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext + SupervisorJob())
+    private val scope =
+        CoroutineScope(Job() + viewModelScope.coroutineContext + SupervisorJob() + ceh)
 
     private val _currentWeather = MutableStateFlow<DataState<WeatherInfo?>>(
         DataState.LoadingState(null)
@@ -58,28 +65,29 @@ class WeatherViewModel @Inject constructor(
 
     fun getCurrentWeather() {
 
-        val fetchWeatherJob = scope.launch(CoroutineName("fetchCurrentWeather"),start = CoroutineStart.LAZY) {
-            currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
-                .catch {
-                    _currentWeather.value = DataState.FailedState(null)
-                    Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
-                }.collect {
-                    when (it) {
-                        is Resource.Success -> {
-                            _currentWeather.value = DataState.LoadedState(it.data)
-                        }
+        val fetchWeatherJob =
+            scope.launch(CoroutineName("fetchCurrentWeather"), start = CoroutineStart.LAZY) {
+                currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
+                    .catch {
+                        _currentWeather.value = DataState.FailedState(null)
+                        Log.i(TAG, "getCurrentWeather: exception ${it.localizedMessage}")
+                    }.collect {
+                        when (it) {
+                            is Resource.Success -> {
+                                _currentWeather.value = DataState.LoadedState(it.data)
+                            }
 
-                        is Resource.Loading -> {
-                            _currentWeather.value = DataState.LoadingState(null)
-                        }
+                            is Resource.Loading -> {
+                                _currentWeather.value = DataState.LoadingState(null)
+                            }
 
-                        is Resource.Error -> {
-                            _currentWeather.value = DataState.FailedState(null)
-                            Log.i(TAG, "getCurrentWeather: error ${it.message}")
+                            is Resource.Error -> {
+                                _currentWeather.value = DataState.FailedState(null)
+                                Log.i(TAG, "getCurrentWeather: error ${it.message}")
+                            }
                         }
                     }
-                }
-        }
+            }
 
         fetchWeatherJob.start()
         if (fetchWeatherJob.isCancelled) {
