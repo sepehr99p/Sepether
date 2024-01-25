@@ -1,8 +1,6 @@
 package com.example.sepether.ui.weather
 
 import android.util.Log
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Resource
@@ -14,6 +12,7 @@ import com.example.sepether.data.DataState
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -48,7 +47,7 @@ class WeatherViewModel @Inject constructor(
 
     fun getCurrentWeather() {
 
-        scope.launch {
+        val fetchWeatherJob = scope.launch(start = CoroutineStart.LAZY) {
             currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())
                 .catch {
                     _currentWeather.value = DataState.FailedState(null)
@@ -70,6 +69,7 @@ class WeatherViewModel @Inject constructor(
                     }
                 }
         }
+        fetchWeatherJob.start()
     }
 
     fun getForecast() {
