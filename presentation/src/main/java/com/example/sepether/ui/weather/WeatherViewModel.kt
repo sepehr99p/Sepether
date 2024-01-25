@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineName
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
@@ -42,7 +43,7 @@ class WeatherViewModel @Inject constructor(
     }
 
     lateinit var gpsHelper: GPSHelper
-    private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext)
+    private val scope = CoroutineScope(Job() + viewModelScope.coroutineContext + SupervisorJob())
 
     private val _currentWeather = MutableStateFlow<DataState<WeatherInfo?>>(
         DataState.LoadingState(null)
