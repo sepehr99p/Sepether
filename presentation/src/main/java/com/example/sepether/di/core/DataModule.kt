@@ -3,6 +3,7 @@ package com.example.sepether.di.core
 import com.example.data.remote.WeatherApi
 import com.example.data.repository.remote.WeatherRepositoryImpl
 import com.example.domain.repositories.WeatherRepository
+import com.example.domain.usecases.AirQualityUseCase
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
 import dagger.Module
@@ -17,12 +18,18 @@ object DataModule {
 
     @Provides
     @Singleton
-    fun provideWeatherRepository(weatherApi: WeatherApi) : WeatherRepository = WeatherRepositoryImpl(weatherApi)
+    fun provideWeatherRepository(weatherApi: WeatherApi): WeatherRepository =
+        WeatherRepositoryImpl(weatherApi)
 
     @Provides
-    fun provideCurrentWeaetherUseCase(weatherRepository: WeatherRepository) : CurrentWeatherUseCase = CurrentWeatherUseCase(weatherRepository)
+    fun provideCurrentWeaetherUseCase(weatherRepository: WeatherRepository): CurrentWeatherUseCase =
+        CurrentWeatherUseCase(weatherRepository)
 
     @Provides
-    fun provideForecastWeatherUseCase(weatherRepository: WeatherRepository) : ForecastWeatherUseCase = ForecastWeatherUseCase(weatherRepository)
+    fun provideForecastWeatherUseCase(weatherRepository: WeatherRepository): ForecastWeatherUseCase =
+        ForecastWeatherUseCase(weatherRepository)
 
+    @Provides
+    fun provideAirQualityUseCase(weatherRepository: WeatherRepository): AirQualityUseCase =
+        AirQualityUseCase(weatherRepository)
 }

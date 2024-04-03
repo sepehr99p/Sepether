@@ -2,6 +2,7 @@ package com.example.data.remote
 
 import com.example.data.dto.ForecastDto
 import com.example.data.dto.WeatherDto
+import com.example.data.dto.airQuality.AirQualityDto
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -19,6 +20,12 @@ interface WeatherApi {
         @Query("latitude") lat: Double,
         @Query("longitude") long: Double
     ) : Response<ForecastDto>
+
+    @GET("v1/air-quality")
+    suspend fun fetchAirQuality(
+        @Query("latitude") lat: Double,
+        @Query("longitude") long: Double
+    ) : Response<AirQualityDto>
 
 
 }

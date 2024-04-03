@@ -1,10 +1,12 @@
 package com.example.data.repository.remote
 
 import com.example.data.common.checkResponse
+import com.example.data.mapper.airQualityMapperImpl
 import com.example.data.mapper.foreCastMapperImpl
 import com.example.data.mapper.weatherMapperImpl
 import com.example.data.remote.WeatherApi
 import com.example.domain.common.Resource
+import com.example.domain.entities.AirQualityEntity
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.domain.repositories.WeatherRepository
@@ -20,6 +22,10 @@ class WeatherRepositoryImpl @Inject constructor(
 
     override suspend fun getForecast(lat: Double, long: Double): Resource<ForecastInfo> {
         return checkResponse(weatherApi.getDailyForecast(lat, long), foreCastMapperImpl)
+    }
+
+    override suspend fun fetchAirQuality(lat: Double, long: Double): Resource<AirQualityEntity> {
+        return checkResponse(weatherApi.fetchAirQuality(lat, long), airQualityMapperImpl)
     }
 
 }

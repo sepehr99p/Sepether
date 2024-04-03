@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Resource
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
+import com.example.domain.usecases.AirQualityUseCase
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
 import com.example.sepether.ui.DataState
@@ -21,6 +22,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -28,7 +30,8 @@ import javax.inject.Inject
 @HiltViewModel
 class WeatherViewModel @Inject constructor(
     private val forecastWeatherUseCase: ForecastWeatherUseCase,
-    private val currentWeatherUseCase: CurrentWeatherUseCase
+    private val currentWeatherUseCase: CurrentWeatherUseCase,
+    private val airQualityUseCase: AirQualityUseCase
 ) : ViewModel() {
 
     companion object {
@@ -53,6 +56,32 @@ class WeatherViewModel @Inject constructor(
         DataState.LoadingState(null)
     )
     val forecast: StateFlow<DataState<ForecastInfo?>> = _forecast
+    
+    init {
+
+    }
+
+    fun fetchAirQuality() {
+        Log.i(TAG, ": ")
+        scope.launch {
+            airQualityUseCase.invoke(currentLatitude(),currentLongitude())
+                .catch {
+                    Log.i(TAG, ": ")
+                }.collect{
+                    when(it) {
+                        is Resource.Error -> {
+                            Log.i(TAG, ": ")
+                        }
+                        is Resource.Loading -> {
+                            Log.i(TAG, ": ")
+                        }
+                        is Resource.Success -> {
+                            Log.i(TAG, ": ")
+                        }
+                    }
+                }
+        }
+    }
 
 
     fun getCurrentWeather() {
@@ -113,14 +142,14 @@ class WeatherViewModel @Inject constructor(
         }
     }
 
-    fun currentLongitude(): Double {
+    private fun currentLongitude(): Double {
         return gpsHelper.longitude.toString().substring(
             0,
             gpsHelper.longitude.toString().length.coerceAtMost(6)
         ).toDouble()
     }
 
-    fun currentLatitude(): Double {
+    private fun currentLatitude(): Double {
         return gpsHelper.latitude.toString().substring(
             0,
             gpsHelper.latitude.toString().length.coerceAtMost(6)

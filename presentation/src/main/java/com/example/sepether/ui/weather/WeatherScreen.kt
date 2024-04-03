@@ -20,8 +20,10 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
+import com.example.sepether.R
 import com.example.sepether.ui.DataState
 import com.example.sepether.systemDesign.components.WeatherLoadingView
 import com.example.sepether.systemDesign.components.WeatherRetryView
@@ -64,7 +66,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
                 }
 
                 is DataState.FailedState -> {
-                    WeatherRetryView(text = "Failed to fetch data") {
+                    WeatherRetryView(text = stringResource(id = R.string.failed_to_fetch)) {
                         viewModel.getCurrentWeather()
                     }
                 }

@@ -3,7 +3,11 @@ package com.example.data.mapper
 import com.example.data.dto.ForecastDto
 import com.example.data.dto.WeatherDataDto
 import com.example.data.dto.WeatherDto
+import com.example.data.dto.airQuality.AirQualityDto
+import com.example.data.dto.airQuality.HourlyAirQuality
+import com.example.domain.entities.AirQualityEntity
 import com.example.domain.entities.ForecastInfo
+import com.example.domain.entities.HourlyAirQualityEntity
 import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import java.time.LocalDateTime
@@ -39,7 +43,7 @@ fun WeatherDataDto.toWeatherDataMap(): Map<Int, List<WeatherData>> {
     }
 }
 
-fun WeatherDto.toWeatherInfo(): WeatherInfo {
+fun WeatherDto.toDomainModel(): WeatherInfo {
     val weatherDataMap = weatherData.toWeatherDataMap()
     val now = LocalDateTime.now()
     val currentWeatherData = weatherDataMap[0]?.find {
@@ -52,26 +56,42 @@ fun WeatherDto.toWeatherInfo(): WeatherInfo {
     )
 }
 
-fun ForecastDto.toForecastInfo() : ForecastInfo {
-    return ForecastInfo(
-        this.forecastDataDto.time,
-        this.forecastDataDto.maxTemperatures,
-        this.forecastDataDto.minTemperatures,
-        this.forecastDataDto.weatherCodes,
-        this.forecastDataDto.rainSum,
-        this.forecastDataDto.snowfallSum
+fun ForecastDto.toDomainModel() : ForecastInfo = ForecastInfo(
+    this.forecastDataDto.time,
+    this.forecastDataDto.maxTemperatures,
+    this.forecastDataDto.minTemperatures,
+    this.forecastDataDto.weatherCodes,
+    this.forecastDataDto.rainSum,
+    this.forecastDataDto.snowfallSum
+)
+
+fun HourlyAirQuality.toDomainModel() : HourlyAirQualityEntity = HourlyAirQualityEntity(
+    time = this.time,
+    pm10 = this.pm10
+)
+
+fun AirQualityDto.toDomainModel() : AirQualityEntity =
+    AirQualityEntity(
+        elevation = this.elevation,
+        timezoneAbbreviation = this.timezoneAbbreviation,
+        hourly = this.hourly.toDomainModel()
     )
+
+val airQualityMapperImpl = object  : MapperCallback<AirQualityDto, AirQualityEntity> {
+    override fun map(value: AirQualityDto): AirQualityEntity {
+        return value.toDomainModel()
+    }
 }
 
 val weatherMapperImpl = object : MapperCallback<WeatherDto,WeatherInfo>{
     override fun map(value: WeatherDto): WeatherInfo {
-        return value.toWeatherInfo()
+        return value.toDomainModel()
     }
 }
 
 val foreCastMapperImpl = object : MapperCallback<ForecastDto,ForecastInfo> {
     override fun map(value: ForecastDto): ForecastInfo {
-        return value.toForecastInfo()
+        return value.toDomainModel()
     }
 
 }

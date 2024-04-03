@@ -22,5 +22,6 @@
     <string name="notAllowed">not allowed</string>
 
     <string name="failed_forecast">failed to fetch forecast</string>
+    <string name="failed_to_fetch">Failed to fetch data</string>
 
 </resources>
