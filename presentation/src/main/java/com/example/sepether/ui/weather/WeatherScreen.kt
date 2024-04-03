@@ -26,6 +26,8 @@ import com.example.domain.entities.WeatherInfo
 import com.example.sepether.data.DataState
 import com.example.sepether.systemDesign.components.WeatherLoadingView
 import com.example.sepether.systemDesign.components.WeatherRetryView
+import com.example.sepether.systemDesign.theme.dimen.padding_16
+import com.example.sepether.systemDesign.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
@@ -91,16 +93,16 @@ fun WeatherSuccessView(
         verticalArrangement = Arrangement.Top,
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(padding_16))
 
         currentWeatherState.value.data!!.currentWeatherData?.let {
             Today(it)
         }
         HourlyForecast(weatherInfo = currentWeatherState.value.data!!)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding_8))
         DailyForecast(forecastState.value, viewModel)
         LineGraph(forecastInfo = forecastState.value.data)
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding_8))
         TempPieChart(forecastInfo = forecastState.value.data)
         TodayDetails(currentWeatherState.value.data!!)
     }

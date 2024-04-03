@@ -32,6 +32,12 @@ import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
 import com.example.sepether.systemDesign.theme.Shapes
+import com.example.sepether.systemDesign.theme.dimen.corner_16
+import com.example.sepether.systemDesign.theme.dimen.image_24
+import com.example.sepether.systemDesign.theme.dimen.padding_16
+import com.example.sepether.systemDesign.theme.dimen.padding_32
+import com.example.sepether.systemDesign.theme.dimen.padding_4
+import com.example.sepether.systemDesign.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
@@ -49,25 +55,25 @@ fun ColumnScope.Today(currentWeatherData: WeatherData) {
             )
         }"
     )
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(padding_16))
     Image(
         painter = painterResource(id = WeatherType.fromWMO(currentWeatherData.weatherType).iconRes),
         contentDescription = null,
         modifier = Modifier.width(150.dp)
     )
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(padding_16))
     Text(
         text = "${currentWeatherData.temperatureCelsius}°C",
         fontSize = 50.sp,
         color = MaterialTheme.colorScheme.onPrimary
     )
-    Spacer(modifier = Modifier.height(16.dp))
+    Spacer(modifier = Modifier.height(padding_16))
     Text(
         text = WeatherType.fromWMO(currentWeatherData.weatherType).weatherDesc,
         fontSize = 20.sp,
         color = MaterialTheme.colorScheme.onPrimary
     )
-    Spacer(modifier = Modifier.height(32.dp))
+    Spacer(modifier = Modifier.height(padding_32))
     Row(
         modifier = Modifier.fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceAround
@@ -114,9 +120,9 @@ fun WeatherInfoItem(
             imageVector = icon,
             contentDescription = null,
             tint = iconTint,
-            modifier = Modifier.size(25.dp)
+            modifier = Modifier.size(image_24)
         )
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(modifier = Modifier.width(padding_4))
         Text(
             text = "$value$unit",
             style = textStyle
@@ -132,9 +138,9 @@ fun TodayDetails(weatherInfo: WeatherInfo) {
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(padding_8)
     ) {
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(padding_8))
         weatherInfo.weatherDataPerDay.forEach { day ->
             EachDayDetails(day)
         }
@@ -147,13 +153,13 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(padding_4)
             .clip(shape = Shapes.large)
             .background(MaterialTheme.colorScheme.primaryContainer),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(padding_4),
             text = dayOfWeek(weatherData.value[0].time.toString()),
             color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = FontWeight.Bold,
@@ -181,14 +187,14 @@ fun DetailComponent(info: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
-            .clip(shape = RoundedCornerShape(16.dp, 16.dp, 16.dp, 16.dp))
+            .padding(padding_4)
+            .clip(shape = RoundedCornerShape(corner_16, corner_16, corner_16, corner_16))
             .background(MaterialTheme.colorScheme.primaryContainer)
     ) {
         Text(
             text = info,
             color = MaterialTheme.colorScheme.onPrimary,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(padding_16)
         )
     }
 }

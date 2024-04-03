@@ -20,12 +20,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.sepether.systemDesign.theme.dimen.padding_4
 
 @Composable
 internal fun CustomText(value: String?, fontSize: Int, fontWeight: FontWeight, color: Color) {
     value?.let {
         Text(
-            modifier = Modifier.padding(4.dp),
+            modifier = Modifier.padding(padding_4),
             text = it,
             color = color,
             fontStyle = FontStyle.Italic,
@@ -47,7 +48,7 @@ fun MyViewPreview() {
 internal fun SimpleText(modifier: Modifier = Modifier, value: String?) {
     value?.let {
         Text(
-            modifier = modifier.padding(4.dp),
+            modifier = modifier.padding(padding_4),
             text = it,
             color = MaterialTheme.colorScheme.onPrimary,
             fontStyle = FontStyle.Italic,
@@ -68,7 +69,7 @@ internal fun OnboardingScreen(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Welcome to the Basics Codelab!")
+        Text("test")
         Button(
             modifier = Modifier.padding(vertical = 24.dp),
             onClick = { shouldShowOnboarding = false }
