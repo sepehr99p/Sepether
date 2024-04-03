@@ -8,7 +8,9 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import com.example.domain.entities.ForecastInfo
+import com.example.sepether.R
 import com.example.sepether.data.DataState
 import com.example.sepether.systemDesign.components.WeatherLoadingView
 import com.example.sepether.systemDesign.components.WeatherRetryView
@@ -20,7 +22,7 @@ fun ColumnScope.DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: Wea
 
     when(forecast) {
         is DataState.FailedState -> {
-            WeatherRetryView(text = "failed to fetch forecast") {
+            WeatherRetryView(text = stringResource(id = R.string.failed_forecast)) {
                 viewModel.getForecast()
             }
         }
@@ -31,11 +33,11 @@ fun ColumnScope.DailyForecast(forecast: DataState<ForecastInfo?>, viewModel: Wea
                     .background(MaterialTheme.colorScheme.primary), state = rememberLazyListState()
             ) {
                 for (i in 0 until forecast.data!!.time.size) {
-                    if (isNotToday(forecast.data!!.time[i])) {
-                        item(key = forecast.data!!.time[i]) {
+                    if (isNotToday(forecast.data.time[i])) {
+                        item(key = forecast.data.time[i]) {
                             DailyForecastItem(
                                 state = rememberDailyForecastState(
-                                    forecastInfo = forecast.data!!,
+                                    forecastInfo = forecast.data,
                                     index = i
                                 )
                             )

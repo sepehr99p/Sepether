@@ -21,4 +21,6 @@
     <string name="codeIsUsed">code is used</string>
     <string name="notAllowed">not allowed</string>
 
+    <string name="failed_forecast">failed to fetch forecast</string>
+
 </resources>

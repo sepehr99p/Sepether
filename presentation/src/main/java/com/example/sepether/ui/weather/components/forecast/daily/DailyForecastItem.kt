@@ -24,6 +24,9 @@ import androidx.compose.ui.unit.sp
 import com.example.sepether.systemDesign.theme.Primary_Blue
 import com.example.sepether.systemDesign.theme.Red_Negative
 import com.example.sepether.systemDesign.theme.Shapes
+import com.example.sepether.systemDesign.theme.dimen.padding_16
+import com.example.sepether.systemDesign.theme.dimen.padding_4
+import com.example.sepether.systemDesign.theme.dimen.padding_8
 import com.example.sepether.systemDesign.theme.primaryContainer
 import com.example.sepether.ui.weather.components.CustomText
 
@@ -34,7 +37,7 @@ fun DailyForecastItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(padding_8)
             .clip(shape = Shapes.large)
             .background(brush = Brush.horizontalGradient(
                 colors = listOf(MaterialTheme.colorScheme.primary,MaterialTheme.colorScheme.primaryContainer)
@@ -42,7 +45,7 @@ fun DailyForecastItem(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         CustomText(value = state.time, 16, FontWeight.Medium, MaterialTheme.colorScheme.onPrimary)
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(padding_4))
         Image(
             painter = painterResource(id = state.iconRes),
             contentDescription = null,
@@ -50,10 +53,10 @@ fun DailyForecastItem(
                 .width(40.dp)
                 .height(40.dp)
         )
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(padding_4))
         Temperature(state.maxTemp, Red_Negative)
         Temperature(state.minTemp, Primary_Blue)
-        Spacer(modifier = Modifier.height(4.dp))
+        Spacer(modifier = Modifier.height(padding_4))
     }
 
 }
@@ -67,7 +70,7 @@ fun Temperature(temp: Double, color: Color) {
         fontSize = 16.sp,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(padding_16)
     )
 }
 
