@@ -15,7 +15,7 @@ class ForecastWeatherUseCase constructor(
     private val weatherRepository: WeatherRepository
 ) {
 
-    suspend operator fun invoke(lat : Double, long : Double): Flow<Resource<ForecastInfo>> =
+    suspend operator fun invoke(lat: Double, long: Double): Flow<Resource<ForecastInfo>> =
         flow {
             emit(weatherRepository.getForecast(lat, long))
         }.retryWithPolicy(DefaultRetryPolicy())
