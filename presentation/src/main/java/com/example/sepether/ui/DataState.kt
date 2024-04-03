@@ -1,4 +1,4 @@
-package com.example.sepether.data
+package com.example.sepether.ui
 
 sealed class DataState<T>(val data : T?) {
     class LoadingState<T>(data: T) : DataState<T>(data)

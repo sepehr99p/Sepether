@@ -20,10 +20,9 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
-import com.example.sepether.data.DataState
+import com.example.sepether.ui.DataState
 import com.example.sepether.systemDesign.components.WeatherLoadingView
 import com.example.sepether.systemDesign.components.WeatherRetryView
 import com.example.sepether.systemDesign.theme.dimen.padding_16

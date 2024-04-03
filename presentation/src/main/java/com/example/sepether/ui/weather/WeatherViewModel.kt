@@ -8,7 +8,7 @@ import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.domain.usecases.CurrentWeatherUseCase
 import com.example.domain.usecases.ForecastWeatherUseCase
-import com.example.sepether.data.DataState
+import com.example.sepether.ui.DataState
 import com.example.sepether.utils.GPSHelper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CancellationException
@@ -22,15 +22,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
-import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import okhttp3.ResponseBody
-import java.io.IOException
 import javax.inject.Inject
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
 
 
 @HiltViewModel
