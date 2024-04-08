@@ -23,5 +23,6 @@
 
     <string name="failed_forecast">failed to fetch forecast</string>
     <string name="failed_to_fetch">Failed to fetch data</string>
+    <string name="air_quality">Air Quality</string>
 
 </resources>

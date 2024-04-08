@@ -52,6 +52,7 @@ class MainActivity : ComponentActivity(), LocationListener {
         updateLocation()
         viewModel.getCurrentWeather()
         viewModel.getForecast()
+        viewModel.fetchAirQuality()
     }
 
     private fun getLocationPermission() {

@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.common.Resource
+import com.example.domain.entities.AirQualityEntity
 import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.domain.usecases.AirQualityUseCase
@@ -56,7 +57,13 @@ class WeatherViewModel @Inject constructor(
         DataState.LoadingState(null)
     )
     val forecast: StateFlow<DataState<ForecastInfo?>> = _forecast
-    
+
+    private val _airQuality = MutableStateFlow<DataState<AirQualityEntity?>>(
+        DataState.LoadingState(null)
+    )
+
+    val airQuality: StateFlow<DataState<AirQualityEntity?>> = _airQuality
+
     init {
 
     }
@@ -66,17 +73,18 @@ class WeatherViewModel @Inject constructor(
         scope.launch {
             airQualityUseCase.invoke(currentLatitude(),currentLongitude())
                 .catch {
-                    Log.i(TAG, ": ")
+                    _airQuality.value = DataState.FailedState(null)
+                    Log.i(TAG, "fetchAirQuality: exception ${it.localizedMessage}")
                 }.collect{
                     when(it) {
                         is Resource.Error -> {
-                            Log.i(TAG, ": ")
+                            _airQuality.value = DataState.FailedState(null)
                         }
                         is Resource.Loading -> {
-                            Log.i(TAG, ": ")
+                            _airQuality.value = DataState.LoadingState(null)
                         }
                         is Resource.Success -> {
-                            Log.i(TAG, ": ")
+                            _airQuality.value = DataState.LoadedState(it.data)
                         }
                     }
                 }
@@ -85,7 +93,6 @@ class WeatherViewModel @Inject constructor(
 
 
     fun getCurrentWeather() {
-
         val fetchWeatherJob =
             scope.launch(CoroutineName("fetchCurrentWeather"), start = CoroutineStart.LAZY) {
                 currentWeatherUseCase.invoke(currentLatitude(), currentLongitude())

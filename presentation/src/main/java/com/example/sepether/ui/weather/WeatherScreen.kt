@@ -25,24 +25,22 @@ import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
 import com.example.sepether.ui.DataState
-import com.example.sepether.systemDesign.components.WeatherLoadingView
+import com.example.sepether.systemDesign.components.LoadingComponent
 import com.example.sepether.systemDesign.components.WeatherRetryView
 import com.example.sepether.systemDesign.theme.dimen.padding_16
 import com.example.sepether.systemDesign.theme.dimen.padding_8
+import com.example.sepether.ui.weather.components.airQuality.AirQualityComponent
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
-import com.example.sepether.ui.weather.components.graphs.TempPieChart
 import com.example.sepether.ui.weather.components.today.Today
 import com.example.sepether.ui.weather.components.today.TodayDetails
 
 
 @Composable
 fun WeatherScreen(viewModel: WeatherViewModel) {
-
     val currentWeatherState = viewModel.currentWeather.collectAsState()
     val forecastState = viewModel.forecast.collectAsState()
-    viewModel.fetchAirQuality()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,7 +60,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
         ) { targetState ->
             when (targetState) {
                 is DataState.LoadingState -> {
-                    WeatherLoadingView()
+                    LoadingComponent()
                 }
 
                 is DataState.FailedState -> {
@@ -88,6 +86,7 @@ fun WeatherSuccessView(
     forecastState: State<DataState<ForecastInfo?>>,
     viewModel: WeatherViewModel
 ) {
+    val airQualityState = viewModel.airQuality.collectAsState()
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState()),
@@ -106,6 +105,17 @@ fun WeatherSuccessView(
         Spacer(modifier = Modifier.height(padding_8))
 //        TempPieChart(forecastInfo = forecastState.value.data)
         TodayDetails(currentWeatherState.value.data!!)
+        when(airQualityState.value) {
+            is DataState.FailedState -> {
+
+            }
+            is DataState.LoadedState -> {
+                AirQualityComponent(data = airQualityState.value.data)
+            }
+            is DataState.LoadingState -> {
+                LoadingComponent()
+            }
+        }
     }
 
 }

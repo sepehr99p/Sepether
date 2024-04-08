@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -53,16 +52,12 @@ import com.example.sepether.R
 import com.example.sepether.systemDesign.theme.Shapes
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.weather.components.today.WeatherInfoItem
-import com.example.sepether.utils.WeatherType
-import java.time.format.DateTimeFormatter
-import kotlin.math.roundToInt
 
 @Composable
-fun WeatherLoadingView() {
+fun LoadingComponent() {
     Column {
         Spacer(modifier = Modifier.height(24.dp))
         CircularProgressIndicator(color = MaterialTheme.colorScheme.onPrimary)
-//        Text(text = "Sepether")
         Spacer(modifier = Modifier.height(24.dp))
 
 //        ShimmerNewItem()
@@ -122,7 +117,7 @@ fun ColumnScope.LoadingShimmerEffect(
 val Int.px: Int get() = (this * getSystem().displayMetrics.density).toInt()
 
 @Composable
-fun ShimmerNewItem() {
+private fun ShimmerNewItem() {
     SimpleText(
         modifier = Modifier.shimmerEffectNew(true),
         value = "Today"
@@ -181,7 +176,7 @@ fun ShimmerNewItem() {
 }
 
 @Composable
-fun ShimmerItem(
+private fun ShimmerItem(
     isLoading: Boolean,
     modifier: Modifier = Modifier
 ) {
