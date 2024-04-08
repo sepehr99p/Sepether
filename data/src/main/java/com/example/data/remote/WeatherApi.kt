@@ -21,11 +21,7 @@ interface WeatherApi {
         @Query("longitude") long: Double
     ) : Response<ForecastDto>
 
-    @GET("v1/air-quality")
-    suspend fun fetchAirQuality(
-        @Query("latitude") lat: Double,
-        @Query("longitude") long: Double
-    ) : Response<AirQualityDto>
+
 
 
 }

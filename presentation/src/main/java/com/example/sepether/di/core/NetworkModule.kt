@@ -3,6 +3,7 @@ package com.example.sepether.di.core
 import com.example.data.remote.WeatherApi
 import com.example.data.common.Constants
 import com.example.data.common.Constants.TIME_OUT
+import com.example.data.remote.AirQualityApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -20,24 +22,48 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideWeatherApiService(
-        retrofit: Retrofit
+    fun provideForecastApiService(
+        @Named("forecast") retrofit: Retrofit
     ): WeatherApi {
         return retrofit.create(WeatherApi::class.java)
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(
+    fun provideAirQualityApiService(
+        @Named("airQuality") retrofit: Retrofit
+    ): AirQualityApi {
+        return retrofit.create(AirQualityApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    @Named("forecast")
+    fun provideForecastRetrofit(
         converterFactory: GsonConverterFactory,
         httpClient: OkHttpClient.Builder
     ): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(Constants.BASE_URL)
+            .baseUrl(Constants.FORECAST_BASE_URL)
             .addConverterFactory(converterFactory)
             .client(httpClient.build())
             .build()
     }
+
+    @Provides
+    @Singleton
+    @Named("airQuality")
+    fun provideAirQualityRetrofit(
+        converterFactory: GsonConverterFactory,
+        httpClient: OkHttpClient.Builder
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(Constants.AIR_QUALITY_BASE_URL)
+            .addConverterFactory(converterFactory)
+            .client(httpClient.build())
+            .build()
+    }
+
 
     @Provides
     @Singleton

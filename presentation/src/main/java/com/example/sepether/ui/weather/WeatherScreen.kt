@@ -42,7 +42,7 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
 
     val currentWeatherState = viewModel.currentWeather.collectAsState()
     val forecastState = viewModel.forecast.collectAsState()
-
+    viewModel.fetchAirQuality()
     Column(
         modifier = Modifier
             .fillMaxWidth()

@@ -24,8 +24,6 @@ class WeatherRepositoryImpl @Inject constructor(
         return checkResponse(weatherApi.getDailyForecast(lat, long), foreCastMapperImpl)
     }
 
-    override suspend fun fetchAirQuality(lat: Double, long: Double): Resource<AirQualityEntity> {
-        return checkResponse(weatherApi.fetchAirQuality(lat, long), airQualityMapperImpl)
-    }
+
 
 }
