@@ -104,7 +104,7 @@ fun WeatherSuccessView(
         DailyForecast(forecastState.value, viewModel)
         LineGraph(forecastInfo = forecastState.value.data)
         Spacer(modifier = Modifier.height(padding_8))
-        TempPieChart(forecastInfo = forecastState.value.data)
+//        TempPieChart(forecastInfo = forecastState.value.data)
         TodayDetails(currentWeatherState.value.data!!)
     }
 
