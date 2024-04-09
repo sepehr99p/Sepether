@@ -23,6 +23,7 @@ import com.example.sepether.R
 import com.example.sepether.systemDesign.theme.dimen.corner_8
 import com.example.sepether.systemDesign.theme.dimen.padding_16
 import com.example.sepether.systemDesign.theme.dimen.padding_2
+import com.example.sepether.systemDesign.theme.dimen.padding_20
 import com.example.sepether.systemDesign.theme.dimen.padding_4
 import com.example.sepether.systemDesign.theme.dimen.padding_8
 import kotlin.math.roundToLong
@@ -30,7 +31,7 @@ import kotlin.math.roundToLong
 @Composable
 fun HourlyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? = null) {
     Column(
-        modifier = modifier.padding(vertical = padding_8, horizontal = padding_16),
+        modifier = modifier.padding(vertical = padding_4, horizontal = padding_16),
     ) {
         Text(
             modifier = Modifier.padding(vertical = padding_8),
@@ -55,7 +56,7 @@ fun DailyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEnti
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .padding(vertical = padding_8, horizontal = padding_16),
+            .padding(vertical = padding_8, horizontal = padding_20),
     ) {
         Text(
             modifier = Modifier.padding(vertical = padding_8),
@@ -87,12 +88,17 @@ private fun DailyQualityItemComponent(
         modifier = modifier
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_8))
-            .background(brush = Brush.horizontalGradient(
-                colors = listOf(MaterialTheme.colorScheme.primary,MaterialTheme.colorScheme.primaryContainer)
-            ))
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.primaryContainer
+                    )
+                )
+            )
             .padding(vertical = padding_8, horizontal = padding_16),
-
-        ) {
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
         )
@@ -121,10 +127,17 @@ private fun HourlyQualityItemComponent(
         modifier = modifier
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_8))
-            .background(color = MaterialTheme.colorScheme.primaryContainer)
-            .padding(padding_4),
-
-        ) {
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        MaterialTheme.colorScheme.primary,
+                        MaterialTheme.colorScheme.primaryContainer
+                    )
+                )
+            )
+            .padding(padding_8),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
         Text(
             text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
         )
