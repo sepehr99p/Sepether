@@ -65,31 +65,7 @@ fun ForecastDto.toDomainModel(): ForecastInfo = ForecastInfo(
     this.forecastDataDto.snowfallSum
 )
 
-fun HourlyAirQuality.toDomainModel(): HourlyAirQualityEntity {
-    val newList = arrayListOf<String>()
-    this.time.forEach {
-        val time = LocalDateTime.parse(it, DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm"))
-        newList.add("${time.hour}:${time.minute}")
-    }
-    return HourlyAirQualityEntity(
-        time = newList,
-        pm10 = this.pm10
-    )
 
-}
-
-fun AirQualityDto.toDomainModel(): AirQualityEntity =
-    AirQualityEntity(
-        elevation = this.elevation,
-        timezoneAbbreviation = this.timezoneAbbreviation,
-        hourly = this.hourly.toDomainModel()
-    )
-
-val airQualityMapperImpl = object : MapperCallback<AirQualityDto, AirQualityEntity> {
-    override fun map(value: AirQualityDto): AirQualityEntity {
-        return value.toDomainModel()
-    }
-}
 
 val weatherMapperImpl = object : MapperCallback<WeatherDto, WeatherInfo> {
     override fun map(value: WeatherDto): WeatherInfo {
