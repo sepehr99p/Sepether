@@ -1,7 +1,7 @@
 package com.example.sepether.ui.weather.components.airQuality
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -26,6 +25,7 @@ import com.example.sepether.systemDesign.theme.dimen.padding_2
 import com.example.sepether.systemDesign.theme.dimen.padding_20
 import com.example.sepether.systemDesign.theme.dimen.padding_4
 import com.example.sepether.systemDesign.theme.dimen.padding_8
+import com.example.sepether.utils.extensions.airQualityBackground
 import kotlin.math.roundToLong
 
 @Composable
@@ -88,31 +88,11 @@ private fun DailyQualityItemComponent(
         modifier = modifier
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_8))
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.primaryContainer
-                    )
-                )
-            )
+            .airQualityBackground()
             .padding(vertical = padding_8, horizontal = padding_16),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(
-            text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
-        )
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = quality, color = MaterialTheme.colorScheme.onPrimary)
-            Text(
-                modifier = Modifier.padding(start = padding_2),
-                text = "μg/m³",
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 8.sp
-            )
-        }
+        QualityItem(quality = quality, time = time)
     }
 }
 
@@ -127,31 +107,29 @@ private fun HourlyQualityItemComponent(
         modifier = modifier
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_8))
-            .background(
-                brush = Brush.horizontalGradient(
-                    colors = listOf(
-                        MaterialTheme.colorScheme.primary,
-                        MaterialTheme.colorScheme.primaryContainer
-                    )
-                )
-            )
+            .airQualityBackground()
             .padding(padding_8),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        QualityItem(quality = quality, time = time)
+    }
+}
+
+@Composable
+private fun ColumnScope.QualityItem(quality: String, time: String) {
+    Text(
+        text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
+    )
+    Row(
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(text = quality, color = MaterialTheme.colorScheme.onPrimary)
         Text(
-            text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
+            modifier = Modifier.padding(start = padding_2),
+            text = "μg/m³",
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontSize = 8.sp
         )
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(text = quality, color = MaterialTheme.colorScheme.onPrimary)
-            Text(
-                modifier = Modifier.padding(start = padding_2),
-                text = "μg/m³",
-                color = MaterialTheme.colorScheme.onPrimary,
-                fontSize = 8.sp
-            )
-        }
     }
 }
 
