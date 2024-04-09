@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -23,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -41,6 +43,7 @@ import com.example.sepether.systemDesign.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
+import com.example.sepether.utils.extensions.airQualityBackground
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -135,31 +138,40 @@ fun TodayDetails(weatherInfo: WeatherInfo) {
 
     Column(
         verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
+        horizontalAlignment = Alignment.Start,
         modifier = Modifier
             .fillMaxWidth()
             .padding(padding_8)
     ) {
+        Text(
+            text = stringResource(id = R.string.daily_detail),
+            color = MaterialTheme.colorScheme.onPrimary,
+            fontSize = 25.sp
+        )
         Spacer(modifier = Modifier.height(padding_8))
-        weatherInfo.weatherDataPerDay.forEach { day ->
-            EachDayDetails(day)
+        LazyRow {
+            weatherInfo.weatherDataPerDay.forEach { day ->
+                item {
+                    EachDayDetails(day)
+                }
+            }
         }
     }
 
 }
 
 @Composable
-fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
+private fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(padding_4)
             .clip(shape = Shapes.large)
-            .background(MaterialTheme.colorScheme.primaryContainer),
-        horizontalAlignment = Alignment.CenterHorizontally,
+            .airQualityBackground(),
+        horizontalAlignment = Alignment.Start,
     ) {
         Text(
-            modifier = Modifier.padding(padding_4),
+            modifier = Modifier.padding(padding_8),
             text = dayOfWeek(weatherData.value[0].time.toString()),
             color = MaterialTheme.colorScheme.onPrimary,
             fontWeight = FontWeight.Bold,
@@ -183,13 +195,13 @@ fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
 }
 
 @Composable
-fun DetailComponent(info: String) {
+private fun DetailComponent(info: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_16, corner_16, corner_16, corner_16))
-            .background(MaterialTheme.colorScheme.primaryContainer)
+            .airQualityBackground()
     ) {
         Text(
             text = info,
