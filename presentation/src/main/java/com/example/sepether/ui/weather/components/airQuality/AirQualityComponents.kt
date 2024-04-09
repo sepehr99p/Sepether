@@ -65,13 +65,8 @@ private fun AirQualityListItemComponent(
             .padding(padding_4),
 
         ) {
-
-        val time = LocalDateTime.parse(
-            hour,
-            DateTimeFormatter.ofPattern(TIME_PATTERN)
-        )
         Text(
-            text = time.hour.toString() + ":" + time.minute, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
+            text = hour, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically
