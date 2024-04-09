@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
@@ -40,7 +41,7 @@ fun HourlyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEnt
             LazyRow {
                 with(airQuality.hourly) {
                     items(pm10.zip(time)) {
-                        AirQualityListItemComponent(quality = it.first.toString(), time = it.second)
+                        HourlyQualityItemComponent(quality = it.first.toString(), time = it.second)
                     }
                 }
 
@@ -52,7 +53,9 @@ fun HourlyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEnt
 @Composable
 fun DailyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? = null) {
     Column(
-        modifier = modifier.fillMaxWidth().padding(vertical = padding_8, horizontal = padding_16),
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(vertical = padding_8, horizontal = padding_16),
     ) {
         Text(
             modifier = Modifier.padding(vertical = padding_8),
@@ -63,7 +66,7 @@ fun DailyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEnti
             LazyRow {
                 with(airQuality.daily) {
                     items(this.data) {
-                        AirQualityListItemComponent(
+                        DailyQualityItemComponent(
                             quality = it.second.roundToLong().toString(),
                             time = it.first
                         )
@@ -75,7 +78,41 @@ fun DailyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEnti
 }
 
 @Composable
-private fun AirQualityListItemComponent(
+private fun DailyQualityItemComponent(
+    modifier: Modifier = Modifier,
+    quality: String,
+    time: String
+) {
+    Column(
+        modifier = modifier
+            .padding(padding_4)
+            .clip(shape = RoundedCornerShape(corner_8))
+            .background(brush = Brush.horizontalGradient(
+                colors = listOf(MaterialTheme.colorScheme.primary,MaterialTheme.colorScheme.primaryContainer)
+            ))
+            .padding(vertical = padding_8, horizontal = padding_16),
+
+        ) {
+        Text(
+            text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
+        )
+        Row(
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(text = quality, color = MaterialTheme.colorScheme.onPrimary)
+            Text(
+                modifier = Modifier.padding(start = padding_2),
+                text = "μg/m³",
+                color = MaterialTheme.colorScheme.onPrimary,
+                fontSize = 8.sp
+            )
+        }
+    }
+}
+
+
+@Composable
+private fun HourlyQualityItemComponent(
     modifier: Modifier = Modifier,
     quality: String,
     time: String
@@ -109,7 +146,13 @@ private fun AirQualityListItemComponent(
 @Preview
 @Composable
 private fun AirQualityListItemComponentPreview() {
-    AirQualityListItemComponent(quality = "test", time = "2024-04-11T06:00")
+    HourlyQualityItemComponent(quality = "test", time = "2024-04-11T06:00")
+}
+
+@Preview
+@Composable
+private fun DailyQualityItemComponentPreview() {
+    DailyQualityItemComponent(quality = "test", time = "2024-04-11T06:00")
 }
 
 
