@@ -10,14 +10,17 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
-import androidx.lifecycle.lifecycleScope
 import com.example.sepether.systemDesign.theme.SepetherTheme
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.GPSHelper
+import com.google.firebase.FirebaseApp
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.ParametersBuilder
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.ktx.app
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
 import java.util.Locale
 
 
@@ -30,19 +33,29 @@ class MainActivity : ComponentActivity(), LocationListener {
 
     private val viewModel by viewModels<WeatherViewModel>()
 
-    //    private lateinit var analytics: FirebaseAnalytics
+    private lateinit var analytics: FirebaseAnalytics
     private var latitude = 0.0
     private var longitude = 0.0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        analytics = Firebase.analytics
+        FirebaseApp.initializeApp(this)
+
+        analytics = FirebaseAnalytics.getInstance(this)
         viewModel.gpsHelper = GPSHelper(this)
         setContent {
             SepetherTheme {
                 SepetherNavHost(viewModel = viewModel)
             }
+        }
+
+        val bundle = Bundle()
+        bundle.putString("key","testing value")
+
+        analytics.logEvent("testing",bundle)
+        analytics.logEvent("name") {
+            param("key","val")
         }
         getLocationPermission()
     }
