@@ -25,5 +25,6 @@
     <string name="failed_to_fetch">Failed to fetch data</string>
     <string name="air_quality">Air Quality</string>
     <string name="hourly_air_quality">Hourly Air Quality</string>
+    <string name="daily_air_quality">Daily Air Quality</string>
 
 </resources>

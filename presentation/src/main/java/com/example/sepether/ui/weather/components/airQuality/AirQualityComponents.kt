@@ -3,6 +3,7 @@ package com.example.sepether.ui.weather.components.airQuality
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -18,20 +19,17 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.AirQualityEntity
 import com.example.sepether.R
-import com.example.sepether.systemDesign.theme.dimen.corner_4
 import com.example.sepether.systemDesign.theme.dimen.corner_8
+import com.example.sepether.systemDesign.theme.dimen.padding_16
 import com.example.sepether.systemDesign.theme.dimen.padding_2
 import com.example.sepether.systemDesign.theme.dimen.padding_4
 import com.example.sepether.systemDesign.theme.dimen.padding_8
-import com.example.sepether.utils.Constants.TIME_PATTERN
-import java.text.SimpleDateFormat
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+import kotlin.math.roundToLong
 
 @Composable
-fun AirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? = null) {
+fun HourlyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? = null) {
     Column(
-        modifier = modifier.padding(vertical = padding_8),
+        modifier = modifier.padding(vertical = padding_8, horizontal = padding_16),
     ) {
         Text(
             modifier = Modifier.padding(vertical = padding_8),
@@ -42,7 +40,7 @@ fun AirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? =
             LazyRow {
                 with(airQuality.hourly) {
                     items(pm10.zip(time)) {
-                        AirQualityListItemComponent(quality = it.first.toString(), hour = it.second)
+                        AirQualityListItemComponent(quality = it.first.toString(), time = it.second)
                     }
                 }
 
@@ -52,10 +50,35 @@ fun AirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? =
 }
 
 @Composable
+fun DailyAirQualityComponent(modifier: Modifier = Modifier, data: AirQualityEntity? = null) {
+    Column(
+        modifier = modifier.fillMaxWidth().padding(vertical = padding_8, horizontal = padding_16),
+    ) {
+        Text(
+            modifier = Modifier.padding(vertical = padding_8),
+            text = stringResource(id = R.string.daily_air_quality),
+            color = MaterialTheme.colorScheme.onPrimary
+        )
+        data?.let { airQuality ->
+            LazyRow {
+                with(airQuality.daily) {
+                    items(this.data) {
+                        AirQualityListItemComponent(
+                            quality = it.second.roundToLong().toString(),
+                            time = it.first
+                        )
+                    }
+                }
+            }
+        }
+    }
+}
+
+@Composable
 private fun AirQualityListItemComponent(
     modifier: Modifier = Modifier,
     quality: String,
-    hour: String
+    time: String
 ) {
     Column(
         modifier = modifier
@@ -66,7 +89,7 @@ private fun AirQualityListItemComponent(
 
         ) {
         Text(
-            text = hour, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
+            text = time, color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.6f)
         )
         Row(
             verticalAlignment = Alignment.CenterVertically
@@ -86,12 +109,18 @@ private fun AirQualityListItemComponent(
 @Preview
 @Composable
 private fun AirQualityListItemComponentPreview() {
-    AirQualityListItemComponent(quality = "test", hour = "2024-04-11T06:00")
+    AirQualityListItemComponent(quality = "test", time = "2024-04-11T06:00")
 }
 
 
 @Preview
 @Composable
 private fun AirQualityComponentPreview() {
-    AirQualityComponent()
+    HourlyAirQualityComponent()
+}
+
+@Preview
+@Composable
+fun DailyAirQualityComponentPreview() {
+    DailyAirQualityComponent()
 }

@@ -29,7 +29,8 @@ import com.example.sepether.systemDesign.components.LoadingComponent
 import com.example.sepether.systemDesign.components.WeatherRetryView
 import com.example.sepether.systemDesign.theme.dimen.padding_16
 import com.example.sepether.systemDesign.theme.dimen.padding_8
-import com.example.sepether.ui.weather.components.airQuality.AirQualityComponent
+import com.example.sepether.ui.weather.components.airQuality.DailyAirQualityComponent
+import com.example.sepether.ui.weather.components.airQuality.HourlyAirQualityComponent
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast
 import com.example.sepether.ui.weather.components.forecast.hourly.HourlyForecast
 import com.example.sepether.ui.weather.components.graphs.LineGraph
@@ -104,18 +105,21 @@ fun WeatherSuccessView(
         LineGraph(forecastInfo = forecastState.value.data)
         Spacer(modifier = Modifier.height(padding_8))
 //        TempPieChart(forecastInfo = forecastState.value.data)
-        TodayDetails(currentWeatherState.value.data!!)
         when(airQualityState.value) {
             is DataState.FailedState -> {
 
             }
             is DataState.LoadedState -> {
-                AirQualityComponent(data = airQualityState.value.data)
+                DailyAirQualityComponent(data = airQualityState.value.data)
+                HourlyAirQualityComponent(data = airQualityState.value.data)
             }
             is DataState.LoadingState -> {
                 LoadingComponent()
             }
         }
+        Spacer(modifier = Modifier.height(padding_8))
+        TodayDetails(currentWeatherState.value.data!!)
+
     }
 
 }
