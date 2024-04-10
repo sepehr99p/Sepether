@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -44,6 +45,7 @@ import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
 import com.example.sepether.utils.extensions.airQualityBackground
+import com.example.sepether.utils.extensions.dailyDetailsBackground
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt
 
@@ -167,7 +169,7 @@ private fun EachDayDetails(weatherData: Map.Entry<Int, List<WeatherData>>) {
             .fillMaxWidth()
             .padding(padding_4)
             .clip(shape = Shapes.large)
-            .airQualityBackground(),
+            .dailyDetailsBackground(),
         horizontalAlignment = Alignment.Start,
     ) {
         Text(
@@ -201,7 +203,7 @@ private fun DetailComponent(info: String) {
             .fillMaxWidth()
             .padding(padding_4)
             .clip(shape = RoundedCornerShape(corner_16, corner_16, corner_16, corner_16))
-            .airQualityBackground()
+            .dailyDetailsBackground()
     ) {
         Text(
             text = info,
