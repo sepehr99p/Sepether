@@ -21,6 +21,11 @@
     <string name="codeIsUsed">code is used</string>
     <string name="notAllowed">not allowed</string>
 
+    <string name="hpa_unit">hpa</string>
+    <string name="humidity_unit">%</string>
+    <string name="wind_speed_unit">km/h</string>
+    <string name="temperature_unit">°C</string>
+
     <string name="failed_forecast">failed to fetch forecast</string>
     <string name="failed_to_fetch">Failed to fetch data</string>
     <string name="air_quality">Air Quality</string>

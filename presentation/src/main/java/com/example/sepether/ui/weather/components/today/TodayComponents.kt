@@ -85,21 +85,21 @@ fun ColumnScope.Today(currentWeatherData: WeatherData) {
     ) {
         WeatherInfoItem(
             value = currentWeatherData.pressure.roundToInt(),
-            unit = "hpa",
+            unit = stringResource(id = R.string.hpa_unit),
             icon = ImageVector.vectorResource(id = R.drawable.ic_pressure),
             iconTint = MaterialTheme.colorScheme.onPrimary,
             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
         )
         WeatherInfoItem(
             value = currentWeatherData.humidity.roundToInt(),
-            unit = "%",
+            unit = stringResource(id = R.string.humidity_unit),
             icon = ImageVector.vectorResource(id = R.drawable.ic_drop),
             iconTint = MaterialTheme.colorScheme.onPrimary,
             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
         )
         WeatherInfoItem(
             value = currentWeatherData.windSpeed.roundToInt(),
-            unit = "km/h",
+            unit = stringResource(id = R.string.wind_speed_unit),
             icon = ImageVector.vectorResource(id = R.drawable.ic_wind),
             iconTint = MaterialTheme.colorScheme.onPrimary,
             textStyle = TextStyle(color = MaterialTheme.colorScheme.onPrimary)
