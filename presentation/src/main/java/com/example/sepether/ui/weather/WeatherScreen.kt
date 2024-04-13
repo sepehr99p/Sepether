@@ -27,6 +27,7 @@ import com.example.sepether.R
 import com.example.sepether.ui.DataState
 import com.example.sepether.systemDesign.components.LoadingComponent
 import com.example.sepether.systemDesign.components.WeatherRetryView
+import com.example.sepether.systemDesign.theme.animation_duration
 import com.example.sepether.systemDesign.theme.dimen.padding_16
 import com.example.sepether.systemDesign.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.airQuality.DailyAirQualityComponent
@@ -54,8 +55,8 @@ fun WeatherScreen(viewModel: WeatherViewModel) {
             currentWeatherState.value,
             transitionSpec = {
                 fadeIn(
-                    animationSpec = tween(500)
-                ) togetherWith fadeOut(animationSpec = tween(500))
+                    animationSpec = tween(animation_duration)
+                ) togetherWith fadeOut(animationSpec = tween(animation_duration))
             },
             label = "Animated Content"
         ) { targetState ->
