@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.sepether.systemDesign.theme.dimen.padding_4
+import com.example.sepether.designSystem.theme.dimen.padding_4
 
 @Composable
 internal fun CustomText(value: String?, fontSize: Int, fontWeight: FontWeight, color: Color) {

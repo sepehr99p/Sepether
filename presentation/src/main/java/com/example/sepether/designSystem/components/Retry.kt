@@ -1,4 +1,4 @@
-package com.example.sepether.systemDesign.components
+package com.example.sepether.designSystem.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -13,8 +13,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.sepether.systemDesign.theme.Primary_Blue
-import com.example.sepether.systemDesign.theme.onPrimary
+import com.example.sepether.designSystem.theme.Primary_Blue
+import com.example.sepether.designSystem.theme.onPrimary
 
 @Composable
 fun WeatherRetryView(text: String, click: () -> Unit) {

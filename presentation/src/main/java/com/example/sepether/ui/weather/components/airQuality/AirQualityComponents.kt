@@ -19,12 +19,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.example.domain.entities.AirQualityEntity
 import com.example.sepether.R
-import com.example.sepether.systemDesign.theme.dimen.corner_8
-import com.example.sepether.systemDesign.theme.dimen.padding_16
-import com.example.sepether.systemDesign.theme.dimen.padding_2
-import com.example.sepether.systemDesign.theme.dimen.padding_20
-import com.example.sepether.systemDesign.theme.dimen.padding_4
-import com.example.sepether.systemDesign.theme.dimen.padding_8
+import com.example.sepether.designSystem.theme.dimen.corner_8
+import com.example.sepether.designSystem.theme.dimen.padding_16
+import com.example.sepether.designSystem.theme.dimen.padding_2
+import com.example.sepether.designSystem.theme.dimen.padding_20
+import com.example.sepether.designSystem.theme.dimen.padding_4
+import com.example.sepether.designSystem.theme.dimen.padding_8
 import com.example.sepether.utils.extensions.airQualityBackground
 import kotlin.math.roundToLong
 

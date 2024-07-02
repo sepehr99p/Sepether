@@ -12,8 +12,8 @@ import androidx.compose.ui.res.stringResource
 import com.example.domain.entities.ForecastInfo
 import com.example.sepether.R
 import com.example.sepether.ui.DataState
-import com.example.sepether.systemDesign.components.LoadingComponent
-import com.example.sepether.systemDesign.components.WeatherRetryView
+import com.example.sepether.designSystem.components.LoadingComponent
+import com.example.sepether.designSystem.components.WeatherRetryView
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.isNotToday
 

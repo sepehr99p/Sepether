@@ -1,4 +1,4 @@
-package com.example.sepether.systemDesign.theme
+package com.example.sepether.designSystem.theme
 
 import android.app.Activity
 import android.os.Build

@@ -1,4 +1,4 @@
-package com.example.sepether.systemDesign.components
+package com.example.sepether.designSystem.components
 
 import android.content.res.Resources.getSystem
 import androidx.compose.animation.core.LinearEasing
@@ -49,7 +49,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.sepether.R
-import com.example.sepether.systemDesign.theme.Shapes
+import com.example.sepether.designSystem.theme.Shapes
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.ui.weather.components.today.WeatherInfoItem
 

@@ -25,11 +25,11 @@ import com.example.domain.entities.ForecastInfo
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
 import com.example.sepether.ui.DataState
-import com.example.sepether.systemDesign.components.LoadingComponent
-import com.example.sepether.systemDesign.components.WeatherRetryView
-import com.example.sepether.systemDesign.theme.animation_duration
-import com.example.sepether.systemDesign.theme.dimen.padding_16
-import com.example.sepether.systemDesign.theme.dimen.padding_8
+import com.example.sepether.designSystem.components.LoadingComponent
+import com.example.sepether.designSystem.components.WeatherRetryView
+import com.example.sepether.designSystem.theme.animation_duration
+import com.example.sepether.designSystem.theme.dimen.padding_16
+import com.example.sepether.designSystem.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.airQuality.DailyAirQualityComponent
 import com.example.sepether.ui.weather.components.airQuality.HourlyAirQualityComponent
 import com.example.sepether.ui.weather.components.forecast.daily.DailyForecast

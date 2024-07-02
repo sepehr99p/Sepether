@@ -1,4 +1,4 @@
-package com.example.sepether.systemDesign.theme.dimen
+package com.example.sepether.designSystem.theme.dimen
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable

@@ -1,7 +1,6 @@
 package com.example.sepether.ui.weather.components.today
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -21,7 +20,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
@@ -34,17 +32,16 @@ import androidx.compose.ui.unit.sp
 import com.example.domain.entities.WeatherData
 import com.example.domain.entities.WeatherInfo
 import com.example.sepether.R
-import com.example.sepether.systemDesign.theme.Shapes
-import com.example.sepether.systemDesign.theme.dimen.corner_16
-import com.example.sepether.systemDesign.theme.dimen.image_24
-import com.example.sepether.systemDesign.theme.dimen.padding_16
-import com.example.sepether.systemDesign.theme.dimen.padding_32
-import com.example.sepether.systemDesign.theme.dimen.padding_4
-import com.example.sepether.systemDesign.theme.dimen.padding_8
+import com.example.sepether.designSystem.theme.Shapes
+import com.example.sepether.designSystem.theme.dimen.corner_16
+import com.example.sepether.designSystem.theme.dimen.image_24
+import com.example.sepether.designSystem.theme.dimen.padding_16
+import com.example.sepether.designSystem.theme.dimen.padding_32
+import com.example.sepether.designSystem.theme.dimen.padding_4
+import com.example.sepether.designSystem.theme.dimen.padding_8
 import com.example.sepether.ui.weather.components.SimpleText
 import com.example.sepether.utils.WeatherType
 import com.example.sepether.utils.dayOfWeek
-import com.example.sepether.utils.extensions.airQualityBackground
 import com.example.sepether.utils.extensions.dailyDetailsBackground
 import java.time.format.DateTimeFormatter
 import kotlin.math.roundToInt

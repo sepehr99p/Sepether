@@ -10,16 +10,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.core.app.ActivityCompat
-import com.example.sepether.systemDesign.theme.SepetherTheme
+import com.example.sepether.designSystem.theme.SepetherTheme
 import com.example.sepether.ui.weather.WeatherViewModel
 import com.example.sepether.utils.GPSHelper
 import com.google.firebase.FirebaseApp
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.ParametersBuilder
-import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.app
 import dagger.hilt.android.AndroidEntryPoint
 import java.util.Locale
 

@@ -1,4 +1,4 @@
-package com.example.sepether.systemDesign.theme
+package com.example.sepether.designSystem.theme
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Shapes
